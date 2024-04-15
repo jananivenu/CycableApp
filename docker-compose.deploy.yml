@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   backend:
-    image: modifythis
+    image: registry.gitlab.propulsion-home.ch/full-stack/batch-27-feb-2024/final-projects/cycleapp:master
     command: 'sh /scripts/prod.sh'
     env_file:
       - ./envs/prod.env

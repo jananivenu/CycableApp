@@ -1,7 +1,7 @@
 version: '3'
 services:
   backend:
-    image: modifythis
+    image: cycable_app
     ports:
       - 8000:8000
     volumes:

@@ -20,7 +20,6 @@ RUN chmod -x /scripts
 
 # Copying requirements before all other files
 COPY ./backend/requirements.yml /backend/requirements.yml
-
 # Creating conda env and installing requirements
 RUN /opt/conda/bin/conda env create -f /backend/requirements.yml
 

@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState } from 'react';
+import ReactMapGl from "react-map-gl";
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [viewport, setViewport] = useState({
+  latitude: 47.3769,
+  longitude: 8.5417,
+  width: "100vw",
+  height: "100vh",
+  zoom: 10
+
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+     <ReactMapGl 
+     {...viewport} mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+     onViewportChange={viewport => {
+      setViewport(viewport);
+     }}>markers</ReactMapGl>
+    </div>
+  );
 }
 
-export default App
+

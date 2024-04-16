@@ -1,15 +1,14 @@
 import React from "react";
 
 
-const Home = () => {
+const Report = () => {
     
   
     return (
     
-       <h1>Home</h1>
+       <h1>Report</h1>
       
     );
   };
   
-  export default Home;
-  
+  export default Report;

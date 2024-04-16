@@ -53,11 +53,9 @@ class ListIncidentReportsByUserView(ListAPIView):
         return IncidentReport.objects.filter(author_id=user_id).order_by('-custom_date')
 
 
-''' 
-/api/reports/<int:id>/ GET: Get the details of a report by providing the id 
-/api/reports/<int:id>/ PATCH: Update a report by id (allowed only for owner or admin)
-/api/reports/<int:id>/ DELETE: Delete a report by id (allowed only for owner or admin)
-'''
+# /api/reports/<int:id>/ GET: Get the details of a report by providing the id
+# /api/reports/<int:id>/ PATCH: Update a report by id (allowed only for owner or admin)
+# /api/reports/<int:id>/ DELETE: Delete a report by id (allowed only for owner or admin)
 
 
 class ReadUpdateDeleteIncidentReportView(RetrieveUpdateDestroyAPIView):

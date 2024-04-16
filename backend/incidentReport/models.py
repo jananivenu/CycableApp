@@ -21,8 +21,8 @@ INVOLVED_PARTIES_CHOICES = [
 
 class IncidentReport(models.Model):
     description = models.TextField(max_length=500)
-    #geolocation = models.PointField()
-    geolocation= models.CharField(max_length=100, blank=True)
+    # geolocation = models.PointField()
+    geolocation = models.CharField(max_length=100, blank=True)
     use_current_time = models.BooleanField(default=False)
     custom_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -6,6 +6,7 @@ from backend.user.serializers import UserSerializer
 
 User = get_user_model()
 
+
 # class ListUsersView(ListAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
@@ -36,7 +37,6 @@ class ReadUpdateDeleteMyUserView(RetrieveUpdateDestroyAPIView):
         self.perform_update(serializer)
 
         return Response(serializer.data)
-
 
 
 class RetrieveUserView(RetrieveAPIView):

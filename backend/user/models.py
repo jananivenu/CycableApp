@@ -76,5 +76,6 @@ class User(AbstractUser):
         choices=GENDER_CHOICES,
         blank=False)
     privacy_level = models.CharField(max_length=20, choices=PRIVACY_CHOICES, default='only_show_info')
+
     def __str__(self):
         return self.username

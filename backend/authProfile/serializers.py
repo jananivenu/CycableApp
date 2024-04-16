@@ -75,8 +75,7 @@ class ValidationSerializer(serializers.ModelSerializer):
         if user.is_active:
             raise serializers.ValidationError('This user already has an account.')
         else:
-            if RegistrationProfile.objects.filter(user=user).values_list('code', flat=True)[0] == self.validated_data[
-                'code']:
+            if RegistrationProfile.objects.filter(user=user).values_list('code', flat=True)[0] == self.validated_data['code']:
                 user.first_name = self.validated_data['first_name']
                 user.last_name = self.validated_data['last_name']
                 user.username = self.validated_data['username']
@@ -114,15 +113,15 @@ class PasswordResetSerializer(serializers.Serializer):
 
 class PasswordResetValidationSerializer(serializers.Serializer):
     code = serializers.CharField(label='Validation code', write_only=True, validators=[code_is_valid], required=True)
-    email= serializers.EmailField(required=True, validators=[email_does_exist], label='Email')
+    email = serializers.EmailField(required=True, validators=[email_does_exist], label='Email')
     password = serializers.CharField(label='Password', write_only=True)
     password_repeat = serializers.CharField(label='Repeat password', write_only=True)
 
     def validate(self, data):
-        code= data.get('code')
-        email= data.get('email')
-        user=User.objects.get(email=email)
-        reg_profile=RegistrationProfile.objects.get(code=code)
+        code = data.get('code')
+        email = data.get('email')
+        user = User.objects.get(email=email)
+        reg_profile = RegistrationProfile.objects.get(code=code)
         if reg_profile != user.registration_profile:
             raise ValidationError('The code is not sent for this email!')
         if data.get('password') != data.get('password_repeat'):
@@ -137,4 +136,3 @@ class PasswordResetValidationSerializer(serializers.Serializer):
         updated_user.registration_profile.save()
         updated_user.save()
         return updated_user
-

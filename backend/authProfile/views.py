@@ -9,7 +9,7 @@ from rest_framework.permissions import AllowAny
 
 from authProfile.models import RegistrationProfile
 
-from backend.project.settings import DEFAULT_FROM_EMAIL
+from project.settings import DEFAULT_FROM_EMAIL
 from rest_framework.response import Response
 
 User = get_user_model()

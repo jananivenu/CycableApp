@@ -15,10 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework.permissions import AllowAny
 
-from backend import user
+# swagger
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Django API",
+        default_version='v1',
+        description="",
+        terms_of_service="https://www.google.com/policies",
+        contact=openapi.Contact(email="<EMAIL>"),
+        license=openapi.License(name=""),
+
+    ),
+    public=True,
+    permission_classes=[AllowAny, ], )
 
 urlpatterns = [
-    path('backend/admin/', admin.site.urls),
-    path('backend/api/', include('user.urls')),
+    path("backend/api/admin/", admin.site.urls),
+    path('backend/api/auth/', include('authProfile.urls')),
+    path('backend/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

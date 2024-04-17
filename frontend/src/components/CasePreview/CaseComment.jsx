@@ -1,6 +1,6 @@
-import { ArticleComment } from '../../styles/elements';
-import { CaseBodyContainer } from './styles';
-import CaseRow from './Elements/CaseRow';
+import { ArticleComment } from '../../styles/elements'
+import { CaseBodyContainer } from './styles'
+import CaseRow from './Elements/CaseRow'
 
 function CaseComment({ userName, comment }) {
   return (
@@ -10,7 +10,7 @@ function CaseComment({ userName, comment }) {
         <CaseRow type="comment" content={comment} />
       </CaseBodyContainer>
     </ArticleComment>
-  );
+  )
 }
 
-export default CaseComment;
+export default CaseComment

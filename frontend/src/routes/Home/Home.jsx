@@ -4,7 +4,7 @@ import {
   ArticleReport,
   SimpleButton,
 } from '../../styles/elements'
-import CasePages from '../../components/CasePreview/CasePages'
+import CasePages from '../../components/CasePreview/CaseReport'
 import CaseComment from '../../components/CasePreview/CaseComment'
 import MasonryContainer from '../../components/wrappers/MasonryContainer'
 

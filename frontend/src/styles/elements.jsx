@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+// Buttons
+// Articles
+
+
 export const BaseButton = styled.button`
   min-width: max-content;
   padding: 0.6rem 1.8rem;
@@ -37,7 +41,7 @@ export const BaseArticle = styled.article`
   padding: 0.9rem;
   gap: 0.9rem;
 
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.5px 1.5px 2px;
 `
 
 export const ArticleComment = styled(BaseArticle)`

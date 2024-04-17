@@ -1,12 +1,5 @@
 import { MainContainer, SectionContainer } from '../../styles'
-import {
-  AccentButton,
-  ArticleReport,
-  SimpleButton,
-} from '../../styles/elements'
-import CasePages from '../../components/CasePreview/CaseReport'
-import CaseComment from '../../components/CasePreview/CaseComment'
-import MasonryContainer from '../../components/wrappers/MasonryContainer'
+import { AccentButton, SimpleButton } from '../../styles/elements'
 
 const Home = () => {
   return (
@@ -19,17 +12,6 @@ const Home = () => {
           <AccentButton>click me</AccentButton>
         </form>
         <SimpleButton>And Me!</SimpleButton>
-
-        <MasonryContainer>
-          <CaseComment />
-          <ArticleReport type="blue">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-            nostrum debitis ipsum, possimus fugiat optio illo sint inventore
-            similique dolorum.
-          </ArticleReport>
-          <ArticleReport type="red">Accident report</ArticleReport>
-          <CasePages />
-        </MasonryContainer>
       </SectionContainer>
     </MainContainer>
   )

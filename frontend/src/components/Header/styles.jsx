@@ -18,3 +18,21 @@ export const HeaderContainer = styled.header`
     padding: 1rem 1rem;
   }
 `
+
+export const NavLinksContainer = styled.nav`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 2rem;
+
+  @media (max-width: 788px) {
+    display: none;
+  }
+`
+
+export const NavButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 0.5rem;
+`

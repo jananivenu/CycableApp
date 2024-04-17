@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as styles from "./styles.css"
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -9,9 +10,9 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <h1>LOGIN</h1>
-            <form onSubmit={onSubmitHandler}>
+        <div className={styles.container}>
+            <h2 className={styles.title}>LOGIN</h2>
+            <form onSubmit={onSubmitHandler} className={styles.form}>
                 <input
                 type="text"
                 placeholder="email"

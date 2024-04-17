@@ -1,28 +1,18 @@
 from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, get_object_or_404, RetrieveAPIView
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from project.permissions import IsOwner
 from user.serializers import UserSerializer
 
+from project.permission import IsSelfOrReadOnly
+
 User = get_user_model()
-
-
-# class ListUsersView(ListAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-
-# class IsSelfOrReadOnly:
-#     pass
 
 
 class ReadUpdateDeleteMyUserView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    # permission_classes = [IsSelfOrReadOnly]
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsSelfOrReadOnly]
     lookup_field = "me"
 
     def get_object(self):
@@ -42,7 +32,13 @@ class ReadUpdateDeleteMyUserView(RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
 
-class RetrieveUserView(RetrieveAPIView):
+class RetrieveUserByPrivacyLevelView(RetrieveAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = []
     lookup_url_kwarg = 'user_id'
+
+    def get_object(self):
+        obj = get_object_or_404(User, id=self.kwargs['user_id'])
+        self.check_object_permissions(self.request, obj)
+        return obj

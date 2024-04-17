@@ -50,6 +50,7 @@ export const ArticleComment = styled(BaseArticle)`
 
 export const ArticleReport = styled(BaseArticle)`
   background-color: ${(props) => `var(--accent-${props.type}-10)`};
+  cursor: pointer;
 
   &:hover {
     box-shadow:

@@ -1,3 +1,5 @@
+from datetime import timezone
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -65,9 +67,9 @@ class User(AbstractUser):
         verbose_name='date_updated',
         auto_now=True
     )
-    birth_date = models.DateTimeField(
+    birth_date = models.DateField(
         verbose_name='user_birthday',
-        blank=False,
+        default="2000-01-01",
         null=False
     )
     avatar = models.ImageField(blank=True, null=True, upload_to=user_directory_path)

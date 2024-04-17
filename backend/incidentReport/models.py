@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
@@ -33,9 +32,9 @@ class IncidentReport(models.Model):
     use_current_time = models.BooleanField(default=False)
     custom_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+    #
+    # content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    # object_id = models.PositiveIntegerField()
     # incident_type = GenericForeignKey('content_type', 'object_id')
     incident_type = models.CharField(choices=TYPE_CHOICES)
 
@@ -45,6 +44,9 @@ class IncidentReport(models.Model):
         else:
             self.use_current_time = False  # Set use_current_time to False when it's True
         super(IncidentReport, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.incident_type + " " + str(self.id)
 
 
 # Define a base model for incidents
@@ -69,6 +71,8 @@ class BicycleAccident(models.Model):
     # def save(self, *args, **kwargs):
     #     super(BicycleAccident, self).save(*args, **kwargs)
     #     IncidentReport.objects.create(content_type=ContentType.objects.get_for_model(self), object_id=self.id)
+    def __str__(self):
+        return "BicycleAccident of Report " + str(self.incident_report.id)
 
 
 class BicycleTheft(models.Model):
@@ -80,6 +84,8 @@ class BicycleTheft(models.Model):
     #     super(BicycleTheft, self).save(*args, **kwargs)
     #     IncidentReport.objects.create(content_type=ContentType.objects.get_for_model(self), object_id=self.id)
 
+    def __str__(self):
+        return "Bicycle Theft of Report " + str(self.incident_report.id)
 
 class NearMiss(models.Model):
     # name = models.CharField(max_length=100, default='near_miss', blank=True, null=True)
@@ -90,6 +96,8 @@ class NearMiss(models.Model):
     #     super(NearMiss, self).save(*args, **kwargs)
     #     IncidentReport.objects.create(content_type=ContentType.objects.get_for_model(self), object_id=self.id)
 
+    def __str__(self):
+        return "NearMiss of Report " + str(self.incident_report.id)
 
 class Violations(models.Model):
     # name = models.CharField(max_length=100, default='violations', blank=True, null=True)
@@ -99,3 +107,5 @@ class Violations(models.Model):
     # def save(self, *args, **kwargs):
     #     super(Violations, self).save(*args, **kwargs)
     #     IncidentReport.objects.create(content_type=ContentType.objects.get_for_model(self), object_id=self.id)
+    def __str__(self):
+        return "violations of" + self.incident_report.id

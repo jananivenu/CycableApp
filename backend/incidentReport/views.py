@@ -3,8 +3,7 @@ from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 
-from incidentReport.serializers import IncidentReportSerializer, BicycleAccidentSerializer, BicycleTheftSerializer, \
-    NearMissSerializer, ViolationsSerializer
+from incidentReport.serializers import IncidentReportSerializer, BicycleAccidentSerializer, BicycleTheftSerializer,NearMissSerializer, ViolationsSerializer
 
 from incidentReport.models import IncidentReport, BicycleAccident, BicycleTheft, NearMiss, Violations
 from project.permissions import IsAuthor, IsAdmin
@@ -37,7 +36,7 @@ class ListAllViolationsReportsView(ListAPIView):
 
 # /api/reports/new/bicycle_accident POST: Create a new bicycle_accident report
 class CreateBicycleAccidentReportView(CreateAPIView):
-    serializer_class = BicycleAccidentSerializer
+    serializer_class = IncidentReportSerializer
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

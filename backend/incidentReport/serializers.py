@@ -20,7 +20,7 @@ class IncidentReportSerializer(serializers.ModelSerializer):
 
     def get_incident_details(self, obj):
         incident_type = obj.incident_type
-        if incident_type == "bicycle_accident":  # Or whatever the name of the choice is
+        if incident_type == "bicycle_accident":
             serializer = BicycleAccidentSerializer(obj.bicycle_accident)
             return serializer.data
         elif incident_type == "bicycle_theft":

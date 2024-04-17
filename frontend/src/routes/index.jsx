@@ -4,7 +4,7 @@ import Home from './Home/Home';
 import Registration from './Auth/Registration/registration';
 import Layout from './Layout';
 import Login from './Auth/Login/login';
-import Report from "./Report/report"
+import Report from "./Reports"
 import Profile from "./Profile/profile"
 import SendReport from "./SendReport/sendreport"
 

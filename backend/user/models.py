@@ -67,8 +67,8 @@ class User(AbstractUser):
     )
     birth_date = models.DateTimeField(
         verbose_name='user_birthday',
-        blank=False,
-        null=False
+        blank=True,
+        null=True
     )
     avatar = models.ImageField(blank=True, null=True, upload_to=user_directory_path)
     gender = models.CharField(

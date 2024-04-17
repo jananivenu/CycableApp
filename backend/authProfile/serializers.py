@@ -70,8 +70,8 @@ class ValidationSerializer(serializers.ModelSerializer):
         fields = ('email', 'username', 'code', 'first_name', 'last_name', 'password', 'password_repeat')
         extra_kwargs = {'password': {'write_only': True}}
 
-    def save(self, request):
-        user = User.objects.get(email=request.validated_data['email'])
+    def save(self):
+        user = User.objects.get(email=self.validated_data['email'])
         if user.is_active:
             raise serializers.ValidationError('This user already has an account.')
         else:

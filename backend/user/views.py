@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, get_object_or_404, RetrieveAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from backend.user.serializers import UserSerializer
+from project.permissions import IsOwner
+from user.serializers import UserSerializer
 
 User = get_user_model()
 
@@ -12,14 +14,15 @@ User = get_user_model()
 #     serializer_class = UserSerializer
 
 
-class IsSelfOrReadOnly:
-    pass
+# class IsSelfOrReadOnly:
+#     pass
 
 
 class ReadUpdateDeleteMyUserView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    permission_classes = [IsSelfOrReadOnly]
+    # permission_classes = [IsSelfOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwner]
     lookup_field = "me"
 
     def get_object(self):

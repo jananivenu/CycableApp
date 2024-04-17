@@ -41,5 +41,5 @@ urlpatterns = [
     path('backend/api/reports/', include('incidentReport.urls')),
     path('backend/api/comments/', include('comment.urls')),
 
-    path('backend/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('backend/api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

@@ -1,10 +1,11 @@
-import React from 'react';
+import { SectionContainer } from '../../styles';
 
 const Header = () => {
   return (
     <header>
-      <h1>Your App Name</h1>
-      
+      <SectionContainer>
+        <h1>Header</h1>
+      </SectionContainer>
     </header>
   );
 }

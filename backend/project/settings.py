@@ -13,6 +13,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from rest_framework.permissions import IsAuthenticated
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +48,11 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'corsheaders',
+    # own apps
+    'user',
+    'authProfile',
+    'incidentReport',
+    'comment',
 
 ]
 
@@ -178,3 +185,4 @@ AUTH_USER_MODEL = 'user.User'
 
 USE_X_FORWARDED_FOR = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+DEFAULT_PERMISSION_CLASSES = [IsAuthenticated]

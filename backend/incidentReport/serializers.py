@@ -36,9 +36,11 @@ class IncidentReportSerializer(serializers.ModelSerializer):
 
 # separate serializers:
 class BicycleAccidentSerializer(serializers.ModelSerializer):
+    incident_report = SimpleIncidentReportSerializer(read_only=True)
+
     class Meta:
         model = BicycleAccident
-        fields = ['involved_parties', 'was_police_called']
+        fields = ['involved_parties', 'was_police_called', 'incident_report']
 
 
 class BicycleTheftSerializer(serializers.ModelSerializer):

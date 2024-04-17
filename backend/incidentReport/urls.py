@@ -7,6 +7,7 @@ urlpatterns = [
     # path('near_miss/', ListAllNearMissReportsView.as_view()),
     # path('violations/', ListAllViolationsReportsView.as_view()),
     path('new/bicycle_accident/', CreateBicycleAccidentReportView.as_view()),
+    path('new/<str:incident_type>/', CreateReportView.as_view()),
     # path('new/bicycle_theft/', CreateBicycleTheftReportView.as_view()),
     # path('new/near_miss/', CreateNearMissReportView.as_view()),
     # path('new/violations/', CreateViolationsReportView.as_view()),

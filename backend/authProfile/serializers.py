@@ -76,8 +76,7 @@ class ValidationSerializer(serializers.ModelSerializer):
         if user.is_active:
             raise serializers.ValidationError('This user already has an account.')
         else:
-            if RegistrationProfile.objects.filter(user=user).values_list('code', flat=True)[0] == self.validated_data[
-                'code']:
+            if RegistrationProfile.objects.filter(user=user).values_list('code', flat=True)[0] == self.validated_data['code']:
                 user.first_name = self.validated_data['first_name']
                 user.last_name = self.validated_data['last_name']
                 user.username = self.validated_data['username']

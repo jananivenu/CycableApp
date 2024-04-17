@@ -1,12 +1,10 @@
-import { SectionContainer } from '../../styles';
+import { HeaderContainer } from './styles';
 
 const Header = () => {
   return (
-    <header>
-      <SectionContainer>
-        <h1>Header</h1>
-      </SectionContainer>
-    </header>
+    <HeaderContainer>
+        <h2>Header</h2>
+    </HeaderContainer>
   );
 }
 

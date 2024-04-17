@@ -15,6 +15,9 @@ export const GlobalStyle = createGlobalStyle`
   --gray-500: #CCC;
   --gray-300: #F0F0F0;
   --gray-100: #F6F6F6;
+
+  /* fonts */
+  --main-font: "Manrope", sans-serif;
 }
 
   * {
@@ -26,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
   html, body {
     width: 100%;
     min-height: 100vh;
-    font-family: "Manrope", sans-serif;
+    font-family: var(--main-font);
     line-height: 1.5;
   }
 
@@ -42,21 +45,39 @@ export const GlobalStyle = createGlobalStyle`
   body {
     display: flex;
     justify-content: center;
-    background-color: var(--gray);
   }
 
   a {
     text-decoration: none;
   }
 
-  textarea {
-    font-family: 'Roboto', 'Open Sans', sans-serif;
+  textarea,
+  input {
+    max-width: 80%;
+    border: 1px solid var(--gray-500);
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    padding: 0.5rem;
+
+    font-family: "Manrope", sans-serif;
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.2;
+
+    &:focus, &:active {
+    outline: 3px solid var(--accent-main);
+    border: 1px solid transparent;
+  }
+
     &::placeholder {
-      color: #ccc;
+      color: var(--gray-500);
     }
   }
+`
+
+export const MainContainer = styled.main`
+  width: 100%;
+  height: 100%;
+  margin: auto auto;
 `
 
 export const Cover = styled.div`
@@ -65,12 +86,6 @@ export const Cover = styled.div`
   z-index: 1;
   background-size: cover;
   background-position: center;
-`
-
-export const MainContainer = styled.main`
-  width: 100%;
-  height: 100%;
-  margin: auto auto;
 `
 
 export const SectionContainer = styled.section`

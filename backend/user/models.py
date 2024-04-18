@@ -7,10 +7,6 @@ def user_directory_path(instance, filename):
 
 
 class User(AbstractUser):
-    MALE = 'M'
-    FEMALE = 'F'
-    DIVERSE = 'D'
-    DONT_WANT_TO_SAY = 'O'
 
     PRIVACY_CHOICES = [
         ('show_all', 'Show All'),
@@ -19,10 +15,10 @@ class User(AbstractUser):
     ]
 
     GENDER_CHOICES = [
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
-        (DONT_WANT_TO_SAY, 'NA'),
-        (DIVERSE, 'Diverse')
+        ("M", 'Male'),
+        ("F", 'Female'),
+        ("N", 'NA'),
+        ("D", 'Diverse')
     ]
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -74,7 +70,7 @@ class User(AbstractUser):
     gender = models.CharField(
         max_length=1,
         choices=GENDER_CHOICES,
-        blank=False)
+        null=False)
     privacy_level = models.CharField(max_length=20, choices=PRIVACY_CHOICES, default='only_show_info')
 
     def __str__(self):

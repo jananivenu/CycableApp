@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from user.serializers import UserSerializer
 
-from project.permission import IsSelfOrReadOnly
+from project.permissions import IsSelfOrReadOnly
 
 User = get_user_model()
 

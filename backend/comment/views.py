@@ -1,10 +1,12 @@
-from django.shortcuts import get_object_or_404
-from rest_framework import status
-from rest_framework.generics import ListAPIView, CreateAPIView, GenericAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 
 from comment.models import Comment
 from comment.serializers import CommentSerializer
 from rest_framework.response import Response
+
+from incidentReport.models import ReportedIncidents
+from project.permissions import IsAuthor
 
 
 # /api/comments/user/<int:user_id>/ GET: Get all the comments from a single user
@@ -30,22 +32,19 @@ class ListCommentsByReportView(ListAPIView):
 # /api/comments/new/<int:report_id>/ POST: Comment on a report by providing the report id
 class CreateCommentView(CreateAPIView):
     serializer_class = CommentSerializer
+    queryset = ReportedIncidents.objects.all()
+    lookup_url_kwarg = 'report_id'
 
-    def perform_create(self, serializer):
-        report_id = self.kwargs['report_id']
-        serializer.save(author_id=self.request.user, report_id=report_id)
-
-    def post(self, request, *args, **kwargs):
-        if 'report_id' not in kwargs:
-            return Response({'error': 'Report ID not provided'}, status=status.HTTP_400_BAD_REQUEST)
-        return self.create(request, *args, **kwargs)
+    def create(self, request, *args, **kwargs):
+        report = self.get_object()
+        comment = Comment(author=request.user, text=self.request.data['text'], incident_report=report)
+        comment.save()
+        return Response(self.get_serializer(instance=comment).data)
 
 
 # /api/comments/<int:comment_id>/ DELETE: Delete the comment by providing the comment id
-class DeleteCommentView(GenericAPIView):
+class ReadUpdateDeleteCommentView(RetrieveUpdateDestroyAPIView):
+    serializer_class = CommentSerializer
     queryset = Comment.objects.all()
-
-    def delete(self, request, comment_id, *args, **kwargs):
-        comment = get_object_or_404(self.queryset, pk=comment_id)
-        comment.delete()
-        return Response({'comment deleted'}, status=status.HTTP_204_NO_CONTENT)
+    lookup_url_kwarg = 'comment_id'
+    permission_classes = [IsAuthenticated, IsAuthor]

@@ -3,14 +3,15 @@ import * as styles from './styles.css'
 import { useNavigate} from "react-router-dom" 
 import { useDispatch, useSelector} from "react-redux"
 import { login_user } from '../../../store/slices/userSlice'
+import UserAxios from '../../../axios'
 
 const Login = () => {
-  const emailReduxStore = useSelector((state) => state.user.email) 
-  const [email, setEmail] = useState(emailReduxStore || '') 
+  const [email, setEmail] = useState('') 
+  const [password, setPassword] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleSubmit = async (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
 
     

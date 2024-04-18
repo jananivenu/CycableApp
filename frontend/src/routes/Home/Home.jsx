@@ -6,11 +6,11 @@ const Home = () => {
     <MainContainer>
       <SectionContainer>
         <h1>Home</h1>
-        <fotm>
+        <form>
          <input placeholder='write something'></input>
          <textarea placeholder='want to say something?'></textarea>
          <AccentButton>click me</AccentButton>
-        </fotm>
+        </form>
         <SimpleButton>And Me!</SimpleButton>
       </SectionContainer>
     </MainContainer>

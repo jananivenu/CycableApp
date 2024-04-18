@@ -1,10 +1,9 @@
 from django.urls import path
 
-from incidentReport.views import ListAllBicycleAccidentReportsView, CreateBicycleAccidentReportView, \
-    CreateIncidentReport
+from incidentReport.views import CreateIncidentReport
 
 urlpatterns = [
-    path('bicycle_accidents/', ListAllBicycleAccidentReportsView.as_view()),
+    # path('bicycle_accidents/', ListAllBicycleAccidentReportsView.as_view()),
     # path('bicycle_thefts/', ListAllBicycleTheftsReportsView.as_view()),
     # path('near_miss/', ListAllNearMissReportsView.as_view()),
     # path('violations/', ListAllViolationsReportsView.as_view()),

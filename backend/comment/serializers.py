@@ -1,23 +1,20 @@
 from rest_framework import serializers
 
-from user.serializers import AuthorSerializer
+from user.serializers import AuthorCommentSerializer
 
 from comment.models import Comment
 
-from incidentReport.serializers import SimpleIncidentReportSerializer
-
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)
-    incident_report = SimpleIncidentReportSerializer(read_only=True)
+    author = AuthorCommentSerializer(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ['id', 'author', 'text', 'incident_report']
+        fields = ['id', 'author', 'text']
 
 
 class SimpleCommentSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)
+    author = AuthorCommentSerializer(read_only=True)
 
     class Meta:
         model = Comment

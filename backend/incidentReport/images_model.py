@@ -1,6 +1,6 @@
 from django.db import models
 
-from incidentReport.models import IncidentReport
+from incidentReport.models import ReportedIncidents
 
 
 def images_directory_path(instance, filename):
@@ -8,5 +8,5 @@ def images_directory_path(instance, filename):
 
 
 class Images(models.Model):
-    incident_report = models.ForeignKey(IncidentReport, on_delete=models.CASCADE)
+    incident_report = models.ForeignKey(ReportedIncidents, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images_directory_path', blank=True, null=True)

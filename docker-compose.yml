@@ -1,7 +1,7 @@
 version: '3'
 services:
   backend:
-    image: registry.gitlab.propulsion-home.ch/full-stack/batch-27-feb-2024/final-projects/cycleapp:latest
+    image: cycleapp2:latest
     ports:
       - '8000:8000'
     volumes:
@@ -16,7 +16,7 @@ services:
   database:
     image: postgres:16
     ports:
-      - '5555:5432'
+      - '5432:5432'
     env_file:
       - envs/dev.env
 

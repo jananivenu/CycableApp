@@ -11,6 +11,7 @@ import About from './About'
 import Statistics from './Statistics'
 import NotFound from './NotFound'
 import LegalReport from './Reports/CreateReport/Legal'
+import RegistrationToni from './Auth/Registration/registration2'
 
 const Router = () => {
   return (
@@ -19,7 +20,7 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
+          <Route path="/registration" element={<RegistrationToni />} />
           <Route path="/about" element={<About />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/profile" element={<Profile />} />

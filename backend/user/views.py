@@ -1,19 +1,13 @@
 from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, get_object_or_404, RetrieveAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from backend.user.serializers import UserSerializer
+from user.serializers import UserSerializer, UserPrivateSerializer, UserAnonymousSerializer
+
+from project.permission import IsSelfOrReadOnly
 
 User = get_user_model()
-
-
-# class ListUsersView(ListAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-
-class IsSelfOrReadOnly:
-    pass
 
 
 class ReadUpdateDeleteMyUserView(RetrieveUpdateDestroyAPIView):
@@ -39,7 +33,21 @@ class ReadUpdateDeleteMyUserView(RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
 
-class RetrieveUserView(RetrieveAPIView):
-    serializer_class = UserSerializer
+class RetrieveUserByPrivacyLevelView(RetrieveAPIView):
     queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
     lookup_url_kwarg = 'user_id'
+
+    def get_serializer_class(self):
+        user = self.get_object()
+        if user.privacy_level == "show_all":
+            return UserSerializer
+        elif user.privacy_level == "only_show_info":
+            return UserPrivateSerializer
+        else:
+            return UserAnonymousSerializer
+
+    def get_object(self):
+        obj = get_object_or_404(User, id=self.kwargs['user_id'])
+        self.check_object_permissions(self.request, obj)
+        return obj

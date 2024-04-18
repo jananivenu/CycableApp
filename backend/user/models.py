@@ -7,11 +7,6 @@ def user_directory_path(instance, filename):
 
 
 class User(AbstractUser):
-    MALE = 'M'
-    FEMALE = 'F'
-    DIVERSE = 'D'
-    DONT_WANT_TO_SAY = 'O'
-
     PRIVACY_CHOICES = [
         ('show_all', 'Show All'),
         ('only_show_info', 'Show Profile Info, Don\'t Show Reports'),
@@ -19,10 +14,10 @@ class User(AbstractUser):
     ]
 
     GENDER_CHOICES = [
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
-        (DONT_WANT_TO_SAY, 'NA'),
-        (DIVERSE, 'Diverse')
+        ("M", 'Male'),
+        ("F", 'Female'),
+        ("N", 'NA'),
+        ("D", 'Diverse')
     ]
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -65,17 +60,18 @@ class User(AbstractUser):
         verbose_name='date_updated',
         auto_now=True
     )
-    birth_date = models.DateTimeField(
+    birth_date = models.DateField(
         verbose_name='user_birthday',
-        blank=False,
+        default="2000-01-01",
         null=False
     )
     avatar = models.ImageField(blank=True, null=True, upload_to=user_directory_path)
     gender = models.CharField(
         max_length=1,
         choices=GENDER_CHOICES,
-        blank=False)
+        null=False)
     privacy_level = models.CharField(max_length=20, choices=PRIVACY_CHOICES, default='only_show_info')
+    cover_photo = models.ImageField(blank=True, null=True, upload_to=user_directory_path)
 
     def __str__(self):
         return self.username

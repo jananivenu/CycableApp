@@ -1,12 +1,30 @@
-import React from 'react';
+import Logo from './Elements/Logo'
+import NavButtons from './Elements/NavButtons'
+import NavLinks from './Elements/NavLinks'
+import { HeaderContainer } from './styles'
 
 const Header = () => {
   return (
-    <header>
-      <h1>Your App Name</h1>
-      
-    </header>
-  );
+    <HeaderContainer>
+      <Logo />
+      <NavLinks />
+      <NavButtons />
+    </HeaderContainer>
+  )
 }
 
-export default Header;
+export default Header
+
+
+      {/* {isLoggedIn ? (
+        <LogoutButton
+          role="button"
+          tabIndex="0"
+          onClick={handleLogout}
+          onKeyPress={(e) => e.key === 'Enter' && handleLogout()}
+        >
+          Logout
+        </LogoutButton>
+      ) : (
+        <NavButtons />
+      )} */}

@@ -1,17 +1,23 @@
-import React from "react";
-import Map from "../../components/MapBox/Map/Map.jsx";
-import Geolocation from "../../components/MapBox/Geolocation/Geolocation.jsx";
-
+import { MainContainer, SectionContainer } from '../../styles'
+import { AccentButton, SimpleButton } from '../../styles/elements/buttons'
+import { BasicForm, FormTwoColumn } from '../../styles/elements/forms'
+import { MapContainer, MapIframe } from './styles'
 
 const Home = () => {
-    return (
-        <div>
-         
-            <Map /> 
-            
+  return (
+    <MainContainer>
+      <SectionContainer>
+        <h1>Home</h1>
+      </SectionContainer>
+      <SectionContainer>
+        <FormTwoColumn>
+          <input placeholder="write something"></input>
+          <textarea placeholder="want to say something?"></textarea>
+          <AccentButton>click me</AccentButton>
+        </FormTwoColumn>
+      </SectionContainer>
+    </MainContainer>
+  )
+}
 
-        </div>
-    );
-};
-
-export default Home;
+export default Home

@@ -14,3 +14,17 @@ const Header = () => {
 }
 
 export default Header
+
+
+      {/* {isLoggedIn ? (
+        <LogoutButton
+          role="button"
+          tabIndex="0"
+          onClick={handleLogout}
+          onKeyPress={(e) => e.key === 'Enter' && handleLogout()}
+        >
+          Logout
+        </LogoutButton>
+      ) : (
+        <NavButtons />
+      )} */}

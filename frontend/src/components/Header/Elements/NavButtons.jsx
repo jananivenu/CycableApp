@@ -5,7 +5,7 @@ function NavButtons() {
   return (
     <NavButtonsContainer>
       <SimpleButton>Log In</SimpleButton>
-      <AccentButton>Report</AccentButton>
+      <AccentButton hide>Report</AccentButton>
     </NavButtonsContainer>
   )
 }

@@ -1,5 +1,8 @@
 import { MainContainer, SectionContainer } from '../../styles'
+import { ProfileCover } from './styles'
+
 import ReportList from './ReportList'
+import coverBg from '../../assets/photos/ballet.png'
 
 const Profile = () => {
   const reports = [
@@ -31,8 +34,9 @@ const Profile = () => {
 
   return (
     <MainContainer>
+      <ProfileCover bgImage={coverBg} />
       <SectionContainer>
-        <h2>Profile Page — Name</h2>
+        <h2>Profile Page — Name</h2>
       </SectionContainer>
       <SectionContainer>
         <h3>Reports</h3>

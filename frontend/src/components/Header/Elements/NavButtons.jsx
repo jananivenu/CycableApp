@@ -1,4 +1,4 @@
-import { AccentButton, SimpleButton } from '../../../styles/elements'
+import { AccentButton, SimpleButton } from '../../../styles/elements/buttons'
 import { NavButtonsContainer } from '../styles'
 
 function NavButtons() {

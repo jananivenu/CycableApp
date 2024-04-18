@@ -1,6 +1,6 @@
 import { MainContainer, SectionContainer } from '../../styles'
-import { AccentButton, SimpleButton } from '../../styles/elements'
-import { BasicForm, FormTwoColumn } from '../../styles/forms'
+import { AccentButton, SimpleButton } from '../../styles/elements/buttons'
+import { BasicForm, FormTwoColumn } from '../../styles/elements/forms'
 import { MapContainer, MapIframe } from './styles'
 
 const Home = () => {

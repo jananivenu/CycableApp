@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const BasicForm = styled.form`
   display: grid;
   grid-template-columns: 1fr;
-  max-width: 80%;
   gap: 1rem;
 
   margin: 0 auto;
@@ -14,6 +13,9 @@ export const BasicForm = styled.form`
 
   textarea,
   input {
+    width: 100%;
+    max-width: 100%;
+
     border: 1px solid var(--gray-700);
     border-radius: 10px;
     border-top-left-radius: 0;
@@ -38,10 +40,14 @@ export const BasicForm = styled.form`
 export const FormTwoColumn = styled(BasicForm)`
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
-    max-width: 100%;
   }
+  
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 1fr;
-    max-width: 80%;
+    gap: 2rem;
+  }
+
+  & > :last-child {
+    grid-column: 1 / -1;
   }
 `

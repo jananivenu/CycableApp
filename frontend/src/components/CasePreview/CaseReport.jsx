@@ -1,6 +1,8 @@
-import { ArticleReport } from '../../styles/elements'
 import { CaseBodyContainer } from './styles'
+import { ArticleReport } from '../../styles/elements/articles'
+
 import CaseRow from './Elements/CaseRow'
+
 import truncateText from '../../utils/useTruncate'
 
 function CaseReport({ address, date, comment, type }) {

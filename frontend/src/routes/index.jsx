@@ -10,6 +10,7 @@ import SendReport from './SendReport/sendreport'
 import About from './About'
 import Statistics from './Statistics'
 import NotFound from './NotFound'
+import LegalReport from './Reports/CreateReport/Legal'
 
 const Router = () => {
   return (
@@ -23,7 +24,10 @@ const Router = () => {
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/report" element={<Report />} />
+
+          <Route path="/create/legal-report" element={<LegalReport />} />
           <Route path="/send_report" element={<SendReport />} />
+          
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

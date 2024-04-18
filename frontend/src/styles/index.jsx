@@ -93,10 +93,4 @@ export const SectionContainer = styled.section`
     padding: 1rem 1rem;
   }
 
-  & > h3 {
-    font-size: 1.5rem;
-    font-weight: 200;
-    line-height: 2;
-    margin: 2rem 0 1rem 0;
-  }
 `

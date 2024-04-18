@@ -7,7 +7,6 @@ def user_directory_path(instance, filename):
 
 
 class User(AbstractUser):
-
     PRIVACY_CHOICES = [
         ('show_all', 'Show All'),
         ('only_show_info', 'Show Profile Info, Don\'t Show Reports'),
@@ -72,6 +71,7 @@ class User(AbstractUser):
         choices=GENDER_CHOICES,
         null=False)
     privacy_level = models.CharField(max_length=20, choices=PRIVACY_CHOICES, default='only_show_info')
+    cover_photo = models.ImageField(blank=True, null=True, upload_to=user_directory_path)
 
     def __str__(self):
         return self.username

@@ -19,6 +19,12 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['email', 'first_name', 'last_name', 'username']
 
 
+class AuthorCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name', 'username']
+
+
 class UserPrivateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

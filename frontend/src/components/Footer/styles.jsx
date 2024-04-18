@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 export const FooterContainer = styled.footer`
   width: 100%;
   margin-top: auto;
@@ -19,13 +18,13 @@ export const FooterMainContainer = styled.div`
   justify-content: space-between;
   gap: 1rem;
 
-  @media (max-width: 788px) {
+  @media (max-width: var(--medium-screen)) {
     padding: 1rem 2rem;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: var(--small-screen)) {
     padding: 1rem 1rem;
   }
 `
@@ -34,7 +33,8 @@ export const FooterLinks = styled.div`
   display: flex;
   justify-content: space-around;
   gap: 2rem;
-  @media (max-width: 788px) {
+  
+  @media (max-width: 768px) {
     flex-wrap: wrap;
     gap: 1rem;
   }
@@ -47,7 +47,7 @@ export const FooterSocial = styled.div`
   align-items: center;
   gap: 1rem;
 
-  @media (max-width: 788px) {
+  @media (max-width: 768px) {
     margin: 0 auto;
     flex-wrap: wrap;
   }
@@ -80,12 +80,12 @@ export const FooterCopyright = styled.div`
   display: flex;
   justify-content: flex-start;
 
-  @media (max-width: 788px) {
+  @media (max-width: 768px) {
     padding: 1rem 2rem;
     justify-content: space-around;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 480px) {
     padding: 1rem 1rem;
   }
 `

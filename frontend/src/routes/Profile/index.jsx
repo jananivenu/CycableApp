@@ -1,5 +1,19 @@
 import { MainContainer, SectionContainer } from '../../styles'
+import {
+  ProfileAbout,
+  ProfileCover,
+  ProfileGridContainer,
+  ProfilePicture,
+} from './styles'
+
 import ReportList from './ReportList'
+import coverBg from '../../assets/photos/ballet.png'
+import avatar from '../../assets/photos/pavlova.png'
+import {
+  LeadParagraph,
+  StyledH2,
+  StyledH3,
+} from '../../styles/elements/typography'
 
 const Profile = () => {
   const reports = [
@@ -31,11 +45,25 @@ const Profile = () => {
 
   return (
     <MainContainer>
+      <ProfileCover img={coverBg} />
+      <ProfileGridContainer>
+        <ProfilePicture src={avatar} />
+        <ProfileAbout>
+          <StyledH2>Anna Pavlova</StyledH2>
+          <LeadParagraph>
+            World-renowned ballet dancer by day, and an enthusiastic cyclist by
+            evening. I often ride my bike to ballet performances around Munich,
+            embracing the not-so-graceful helmet hair that comes with it. This
+            blend of dance and cycling fuels my creativity and connects me to
+            the city's lively streets and theaters.
+          </LeadParagraph>
+          <p>Lives in Munich.</p>
+          <p>Member since 16.01.2024</p>
+        </ProfileAbout>
+      </ProfileGridContainer>
+
       <SectionContainer>
-        <h2>Profile Page — Name</h2>
-      </SectionContainer>
-      <SectionContainer>
-        <h3>Reports</h3>
+        <StyledH3>Reports</StyledH3>
         <ReportList reports={reports} />
       </SectionContainer>
     </MainContainer>

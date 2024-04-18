@@ -1,6 +1,6 @@
-import { ArticleComment } from '../../styles/elements'
 import { CaseBodyContainer } from './styles'
 import CaseRow from './Elements/CaseRow'
+import { ArticleComment } from '../../styles/elements/articles'
 
 function CaseComment({ userName, comment }) {
   return (

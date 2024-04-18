@@ -2,7 +2,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 function MasonryContainer({ children }) {
   return (
-    <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 500: 2, 750: 3 }}>
+    <ResponsiveMasonry columnsCountBreakPoints={{ 479: 1, 767: 2, 1023: 3 }}>
       <Masonry gutter="1rem">{children}</Masonry>
     </ResponsiveMasonry>
   )

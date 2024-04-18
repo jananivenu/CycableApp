@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ReactMapGl, { GeolocateControl, Marker } from 'react-map-gl';
+import ReactMapGl, { GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { IconButton } from '@mui/material';
 import { MyLocation } from '@mui/icons-material';
 
-export default function Geolocation() {
+const Geolocation = ({ onLocationChange }) => {
   const [viewport, setViewport] = useState({
     latitude: 47.3769,
     longitude: 8.5417,
@@ -31,14 +31,17 @@ export default function Geolocation() {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           }));
-          console.log('User location:', position.coords.latitude, position.coords.longitude);
+          onLocationChange({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
         },
         (error) => {
           console.error('Error getting user location:', error);
         }
       );
     }
-  }, [geolocationEnabled]);
+  }, [geolocationEnabled, onLocationChange]);
 
   const toggleGeolocation = () => {
     setGeolocationEnabled(!geolocationEnabled);
@@ -50,14 +53,8 @@ export default function Geolocation() {
         {...viewport}
         onViewportChange={(viewport) => setViewport(viewport)}
         mapboxAccessToken={token}
-        mapStyle="mapbox://styles/mihaels/clv1rnydt009x01qzdbpu4glb"
+        mapStyle="mapbox://styles/mihaels/clv4y6ih700i101ph6yg49f96"
       >
-        {userLocation && (
-          <Marker latitude={userLocation.latitude} longitude={userLocation.longitude}>
-            <MyLocation />
-          </Marker>
-        )}
-
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={geolocationEnabled}
@@ -77,5 +74,6 @@ export default function Geolocation() {
       </IconButton>
     </div>
   );
-}
+};
 
+export default Geolocation;

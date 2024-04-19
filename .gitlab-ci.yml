@@ -58,5 +58,5 @@ deploy:
   script:
     - docker compose -f docker-compose.deploy.yml pull
     - docker compose -f docker-compose.deploy.yml down --remove-orphans
-    - docker volume rm team-3_frontend_build || true
+    - docker volume rm cycleapp_frontend_build || true
     - docker compose -f docker-compose.deploy.yml up -d

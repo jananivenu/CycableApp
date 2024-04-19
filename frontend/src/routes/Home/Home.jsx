@@ -9,8 +9,8 @@ const Home = () => {
     <MainContainer>
       <SectionContainer>
         <h1>Home</h1>
-        <Map/>
       </SectionContainer>
+      <Map />
     </MainContainer>
   )
 }

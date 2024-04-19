@@ -47,3 +47,4 @@ COPY ./backend /backend
 
 # Changing work direction to backend
 WORKDIR /backend
+

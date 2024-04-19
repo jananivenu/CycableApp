@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const BasicForm = styled.form`
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -41,7 +42,7 @@ export const FormTwoColumn = styled(BasicForm)`
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;

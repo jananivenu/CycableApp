@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import UserAxios, { UserRegistration } from '../../../axios'
-import { set_user_email } from '../../../store/slices/userSlice'
-import RegistrationMessage from './RegistrationMessage/message'
 import { useNavigate } from 'react-router-dom'
 import { BasicForm } from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'

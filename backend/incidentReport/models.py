@@ -26,8 +26,8 @@ TYPE_CHOICES = [
 
 class ReportedIncidents(models.Model):
     description = models.TextField(max_length=500)
-    # geolocation = models.PointField()
-    geolocation = models.CharField(max_length=100, blank=True)
+    latitude = models.FloatField(verbose_name="Latitude")
+    longitude = models.FloatField(verbose_name="Longitude")
     use_current_time = models.BooleanField(default=False)
     custom_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -61,6 +61,6 @@ class NearMiss(models.Model):
 
 
 class Violations(models.Model):
-    change_to_add = models.CharField(max_length=400)
+    change_to_add = models.CharField(max_length=400, blank=True)
     incident_report = models.OneToOneField(ReportedIncidents, on_delete=models.CASCADE, related_name='violations',
                                            null=True)

@@ -12,6 +12,7 @@ import Statistics from './Statistics'
 import NotFound from './NotFound'
 import LegalReport from './Reports/CreateReport/Legal'
 import TestForm from './Reports/CreateReport/Test'
+import BicyclaccidentReport from "./Reports/CreateReport/Bicycle_accident/index.jsx";
 
 const Router = () => {
   return (
@@ -27,6 +28,7 @@ const Router = () => {
           <Route path="/report" element={<Report />} />
 
           <Route path="/create/legal-report" element={<LegalReport />} />
+          <Route path="/create/bicycle-accident-report" element={<BicyclaccidentReport />} />
           <Route path="/create/test" element={<TestForm />} />
 
           <Route path="/send_report" element={<SendReport />} />

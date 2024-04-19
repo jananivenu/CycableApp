@@ -85,7 +85,7 @@ class ValidationSerializer(serializers.ModelSerializer):
                 user.last_name = self.validated_data['last_name']
                 user.username = self.validated_data['username']
                 user.birth_date = self.validated_data['birth_date']
-                user.birth_date = self.validated_data['gender']
+                user.gender = self.validated_data['gender']
                 password = self.validated_data['password']
                 password_repeat = self.validated_data['password_repeat']
                 if password != password_repeat:

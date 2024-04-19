@@ -1,45 +1,69 @@
 from django.http import Http404
+
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 
-from incidentReport.serializers import IncidentReportSerializer
+from incidentReport.serializers import IncidentReportSerializer, SimpleIncidentReportSerializer
 
-from incidentReport.models import IncidentReport, BicycleAccident, BicycleTheft, NearMiss, Violations
+from incidentReport.models import ReportedIncidents, BicycleAccident, BicycleTheft, NearMiss, Violations
 from project.permissions import IsAuthor, IsAdmin
 
 
 # GET /api/reports: Retrieve/ list ALL incident reports.
 class ListAllIncidentReportsView(ListAPIView):
-    queryset = IncidentReport.objects.all()
-    serializer_class = IncidentReportSerializer
+    queryset = ReportedIncidents.objects.all()
+    serializer_class = SimpleIncidentReportSerializer
 
 
-# /api/reports/new/ POST: Create a new report
-class CreateIncidentReportView(CreateAPIView):
+#
+class CreateIncidentReport(CreateAPIView):
     serializer_class = IncidentReportSerializer
+    queryset = ReportedIncidents.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        incident_type = self.request.data.get("incident_type")
+        if incident_type == 'bicycle_accident':
+            serializer.save(author=self.request.user)
+            involved_parties = self.request.data.get("involved_parties")
+            was_police_called = self.request.data.get("was_police_called")
+            bicycle_accident = BicycleAccident.objects.create(incident_report=serializer.instance,
+                                                              involved_parties=involved_parties,
+                                                              was_police_called=was_police_called)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+        elif incident_type == 'bicycle_theft':
+            serializer.save(author=self.request.user)
+            was_bicycle_locked = self.request.data.get("was_bicycle_locked")
+            bicycle_theft = BicycleTheft.objects.create(incident_report=serializer.instance,
+                                                        was_bicycle_locked=was_bicycle_locked)
+
+        elif incident_type == 'near_miss':
+            serializer.save(author=self.request.user)
+            involved_parties = self.request.data.get("involved_parties")
+            near_miss = NearMiss.objects.create(incident_report=serializer.instance,
+                                                involved_parties=involved_parties)
+        elif incident_type == 'violations':
+            serializer.save(author=self.request.user)
+            change_to_add = self.request.data.get("change_to_add")
+            violations = Violations.objects.create(incident_report=serializer.instance,
+                                                   change_to_add=change_to_add)
+        else:
+            raise Http404('Invalid incident type')
 
 
-# /api/reports/type/<str:incident_type>/ GET: Get all the reports by type of incident
 class ListIncidentReportsByTypeView(ListAPIView):
-    serializer_class = IncidentReportSerializer
+    serializer_class = SimpleIncidentReportSerializer
 
     def get_queryset(self):
         incident_type = self.kwargs['incident_type']
 
         # Filter based on the incident type
         if incident_type == 'bicycle_accident':
-            return BicycleAccident.objects.all()
+            return ReportedIncidents.objects.filter(incident_type='bicycle_accident')
         elif incident_type == 'bicycle_theft':
-            return BicycleTheft.objects.all()
+            return ReportedIncidents.objects.filter(incident_type='bicycle_theft')
         elif incident_type == 'near_miss':
-            return NearMiss.objects.all()
+            return ReportedIncidents.objects.filter(incident_type='near_miss')
         elif incident_type == 'violations':
-            return Violations.objects.all()
+            return ReportedIncidents.objects.filter(incident_type='violations')
         else:
             raise Http404('Invalid incident type')
 
@@ -50,7 +74,7 @@ class ListIncidentReportsByUserView(ListAPIView):
 
     def get_queryset(self):
         user_id = self.kwargs['user_id']
-        return IncidentReport.objects.filter(author_id=user_id).order_by('-custom_date')
+        return ReportedIncidents.objects.filter(author_id=user_id).order_by('-custom_date')
 
 
 # /api/reports/<int:id>/ GET: Get the details of a report by providing the id
@@ -59,7 +83,7 @@ class ListIncidentReportsByUserView(ListAPIView):
 
 
 class ReadUpdateDeleteIncidentReportView(RetrieveUpdateDestroyAPIView):
-    queryset = IncidentReport.objects.all()
+    queryset = ReportedIncidents.objects.all()
     serializer_class = IncidentReportSerializer
     # add permission for 'uni/city councils/managers'?
     permission_classes = [IsAuthor | IsAdmin]

@@ -15,7 +15,7 @@ class IncidentReportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReportedIncidents
-        fields = ['id', 'description', 'longitude', 'latitude', 'use_current_time', 'custom_date',
+        fields = ['id', 'description', 'longitude', 'latitude', 'address', 'use_current_time', 'custom_date',
                   'incident_type', 'incident_details', 'author',]
 
     def get_incident_details(self, obj):
@@ -39,7 +39,7 @@ class SimpleIncidentReportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReportedIncidents
-        fields = ['id', 'description', 'author', 'longitude', 'latitude', 'use_current_time', 'custom_date', 'incident_type']
+        fields = ['id', 'description', 'author', 'longitude', 'latitude', 'address', 'use_current_time', 'custom_date', 'incident_type']
 
 
 class BicycleAccidentSerializer(serializers.ModelSerializer):

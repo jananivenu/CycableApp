@@ -28,6 +28,7 @@ class ReportedIncidents(models.Model):
     description = models.TextField(max_length=500)
     latitude = models.FloatField(verbose_name="Latitude")
     longitude = models.FloatField(verbose_name="Longitude")
+    address = models.CharField()
     use_current_time = models.BooleanField(default=False)
     custom_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

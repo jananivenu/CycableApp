@@ -29,6 +29,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const initializeUser = createAsyncThunk('user/initialize', async (_, { dispatch }) => {
     const accessToken = localStorage.getItem('token');
+    console.log(accessToken)
     if (accessToken) {
         const user = JSON.parse(localStorage.getItem('user'));
         console.log(user)

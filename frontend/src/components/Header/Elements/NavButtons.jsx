@@ -1,11 +1,10 @@
-import { AccentButton, SimpleButton } from '../../../styles/elements/buttons'
-import { NavButtonsContainer } from '../styles'
+import { LinkLikeAccentButton, LinkLikeSimpleButton, NavButtonsContainer } from '../styles'
 
 function NavButtons() {
   return (
     <NavButtonsContainer>
-      <SimpleButton>Log In</SimpleButton>
-      <AccentButton hide>Report</AccentButton>
+      <LinkLikeSimpleButton to='/login'>Log In</LinkLikeSimpleButton>
+      <LinkLikeAccentButton hide to='/report'>Report</LinkLikeAccentButton>
     </NavButtonsContainer>
   )
 }

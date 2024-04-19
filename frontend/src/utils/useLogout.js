@@ -8,9 +8,9 @@ const useLogout = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
-    navigate.push('/');
+    navigate('/');
     dispatch(logoutUser());
-    
+
   };
 
   return logout;

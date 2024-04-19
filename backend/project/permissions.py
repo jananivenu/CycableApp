@@ -24,7 +24,7 @@ class IsSelfOrReadOnly(BasePermission):
         return obj == request.user
 
 
-class IsNotOwner(permissions.BasePermission):
+class IsNotOwner(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -40,3 +40,13 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
 
         return obj.user == request.user
+
+
+class IsSelf(BasePermission):
+    """
+        Custom permission to only allow users to view/edit their own profile.
+        """
+
+    def has_object_permission(self, request, view, obj):
+        if request.method:
+            return obj == request.user

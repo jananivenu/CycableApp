@@ -2,6 +2,10 @@ import { UserRegistration } from '../../../axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { MainContainer } from '../../../styles';
+import { StyledH2 } from '../../../styles/elements/typography';
+import { BasicForm } from '../../../styles/elements/forms';
+import { AccentButton } from '../../../styles/elements/buttons';
 
 const Verification = () => {
   const emailReduxStore = useSelector((state) => state.user.email); //call eMail from the store
@@ -35,16 +39,16 @@ const Verification = () => {
         password: password,
         password_repeat: passwordRepeat,
       });
-      navigate('/login');
+      navigate('/registration-message');
     } catch (error) {
       console.error('Validation error:', error.response.data);
     }
   };
 
   return (
-    <div>
-      <h2>Verification Page</h2>
-      <form onSubmit={handleSubmit}>
+    <MainContainer>
+      <StyledH2>Verification Page</StyledH2>
+      <BasicForm onSubmit={handleSubmit}>
         <label>Email:</label>
         <input
           type="email"
@@ -114,9 +118,9 @@ const Verification = () => {
           onChange={(e) => setPasswordRepeat(e.target.value)}
         />
         <br />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+        <AccentButton type="submit">Submit</AccentButton>
+      </BasicForm>
+    </MainContainer>
   );
 };
 

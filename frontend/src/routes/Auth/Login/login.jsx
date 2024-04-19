@@ -1,39 +1,41 @@
 import { useState } from 'react'
-import * as styles from './styles.css'
-import { useNavigate} from "react-router-dom" 
-import { useDispatch, useSelector} from "react-redux"
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { login_user } from '../../../store/slices/userSlice'
 import UserAxios from '../../../axios'
+import { StyledH2 } from '../../../styles/elements/typography'
+import { BasicForm } from '../../../styles/elements/forms'
+import { AccentButton } from '../../../styles/elements/buttons'
+import { MainContainer } from '../../../styles'
 
 const Login = () => {
-  const [email, setEmail] = useState('') 
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const onSubmitHandler = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    
     try {
-      const response = await UserAxios.post("/auth/token/", {
+      const response = await UserAxios.post('/auth/token/', {
         email: email,
         password: password,
-      });
+      })
       console.log(response)
-      
-      localStorage.setItem("token", response.data.access);
+
+      localStorage.setItem('token', response.data.access)
       dispatch(login_user(response.data.access))
-      navigate("/"); 
+      navigate('/')
     } catch (error) {
-      console.error("Validation error:", error.response.data);
+      console.error('Validation error:', error.response.data)
     }
-  };
+  }
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>LOGIN</h2>
-      <form onSubmit={onSubmitHandler} className={styles.form}>
+    <MainContainer>
+      <StyledH2>LOGIN</StyledH2>
+      <BasicForm onSubmit={onSubmitHandler}>
         <input
           type="text"
           placeholder="email"
@@ -48,9 +50,9 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button>Login</button>
-      </form>
-    </div>
+        <AccentButton>Login</AccentButton>
+      </BasicForm>
+    </MainContainer>
   )
 }
 

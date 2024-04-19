@@ -4,6 +4,9 @@ import UserAxios, { UserRegistration } from '../../../axios'
 import { set_user_email } from '../../../store/slices/userSlice'
 import RegistrationMessage from './RegistrationMessage/message'
 import { useNavigate } from 'react-router-dom'
+import { BasicForm } from '../../../styles/elements/forms'
+import { AccentButton } from '../../../styles/elements/buttons'
+
 
 const Registration = () => {
   const [email, setEmail] = useState('')
@@ -22,7 +25,7 @@ const Registration = () => {
       if (response) {
         console.log(response)
         //navigate to next step
-        navigate('/registration-message')
+        navigate('/verification')
         //add root for next step
       }
     } catch (error) {
@@ -32,7 +35,7 @@ const Registration = () => {
 
   return (
     
-      <form onSubmit={handleSubmit}>
+      <BasicForm onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
@@ -41,8 +44,8 @@ const Registration = () => {
           required
         />
 
-        <button type="submit">Register</button>
-      </form>
+        <AccentButton type="submit">Register</AccentButton>
+      </BasicForm>
     
   )
 }

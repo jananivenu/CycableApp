@@ -9,6 +9,10 @@ const UserAxios = axios.create({
   baseURL: BASE_URL,
 })
 
+export const UserRegistration = axios.create({
+    baseURL: BASE_URL,
+  })
+
 // Interceptor for installing an authorization token from localStorage
 UserAxios.interceptors.request.use(
   (config) => {

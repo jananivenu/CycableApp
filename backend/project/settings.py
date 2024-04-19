@@ -27,9 +27,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['cycable.propulsion-learn.ch']
+ALLOWED_HOSTS = ['cycable.propulsion-learn.ch', '*', ]
 if DEBUG is True:
     ALLOWED_HOSTS += ['*']
+
+    # delete this when deploying also th * in allowed host
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 if DEBUG is True:
     CORS_ALLOW_ALL_ORIGINS = True

@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Home/Home'
 import Layout from './Layout'
@@ -14,6 +13,7 @@ import Registration from './Auth/Registration/registration'
 import RegistrationMessage from './Auth/Registration/RegistrationMessage/message'
 import Verification from "./Auth/Verification/verification"
 import TestForm from './Reports/CreateReport/Test'
+import TheftReport from './Reports/CreateReport/Theft'
 
 const Router = () => {
   return (
@@ -34,6 +34,7 @@ const Router = () => {
           <Route path="/report" element={<Report />} />
 
           <Route path="/create/legal-report" element={<LegalReport />} />
+          <Route path="/create/bicycle-theft" element={<TheftReport />} />
           <Route path="/create/test" element={<TestForm />} />
 
           <Route path="/send_report" element={<SendReport />} />

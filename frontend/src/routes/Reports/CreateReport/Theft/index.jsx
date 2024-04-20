@@ -14,7 +14,6 @@ import { SendReport } from '../../../../axios/sendReport'
 import { useNavigate } from 'react-router-dom'
 
 const TheftReport = () => {
-  
   const navigate = useNavigate()
 
   const [reportData, setReportData] = useState([])
@@ -39,24 +38,21 @@ const TheftReport = () => {
   //   })
   // }
 
-  const inputHandler= e =>{
-    const {id, value}= e.target
-    setReportData((prevData)=>{
+  const inputHandler = (e) => {
+    const { id, value } = e.target
+    setReportData((prevData) => ({
       ...prevData,
-      [id]: value
-    
-    })
+      [id]: value,
+    }))
   }
 
-  const handleSubmit=async ()=>{
+  const handleSubmit = async () => {
     try {
       await SendReport(reportData)
       navigate('/')
-    }catch(error){
+    } catch (error) {
       console.log('error sending the report:', error)
     }
-    
-
   }
 
   return (

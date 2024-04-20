@@ -20,7 +20,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class IncidentReportSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
     incident_details = serializers.SerializerMethodField()
-    images = ImageSerializer(many=True, read_only=True)
+    images = ImageSerializer(many=True)
 
     class Meta:
         model = ReportedIncidents

@@ -2,8 +2,8 @@ import { FooterLink, FooterLinks, SmallerFooterLinks } from './styles'
 
 function FooterLegalLinks() {
   const links = [
-    { to: '/', text: 'Legal Information' },
     { to: '/', text: 'Terms and conditions' },
+    { to: '/', text: 'Legal Information' },
     { to: '/', text: 'Privacy Policy' },
   ]
 

@@ -7,26 +7,38 @@ import {
 } from '../../../../styles/elements/typography'
 import { FormTwoColumn } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
+import compose from '../../../../assets/icons/compose.png'
 
 const TheftReport = () => {
   const [selectedDate, setSelectedDate] = useState('')
-  const [isCurrentDate, setIsCurrentDate] = useState(false)
+  const [isUseCurrentTime, SetisUseCurrentTime] = useState(false)
   const [description, setDescription] = useState('')
+  const [wasBicycleLocked, setWasBicycleLocked] = useState(false)
+  const [address, setAdress] = useState('')
+  const [location, setLocation] = useState({ latitude: '', longitude: '' })
 
   const handleSelectDate = (e) => {
     setSelectedDate(e.target.value)
   }
 
+  const handleLocationChange = (e) => {
+    const coordinates = e.target.value.split(',')
+    setLocation({
+      latitude: coordinates[0].trim(),
+      longitude: coordinates[1].trim(),
+    })
+  }
+
   return (
     <SectionContainer>
-      <p>maybe add icon of the type theft</p>
+      {/* from icons.jsx in styles.jsx */}
+      <img src={compose} />
       <StyledH2>Bicycle Theft</StyledH2>
       <LeadParagraph>
         We understand the frustration and inconvenience that comes with having
-        your bike stolen. <br />
-        Here, you have the opportunity to share your experience and help us
-        address this issue within our community. <br /> <br />
-        <b>Was your bike stolen? Don't hesitate to report it!</b> <br />
+        your bike stolen. Here, you have the opportunity to share your
+        experience and help us address this issue within our community.
+        <b>Was your bike stolen? Don't hesitate to report it!</b>
         By providing details such as the <b>location</b> and{' '}
         <b>whether your bicycle was locked</b>, you're contributing to creating
         safer streets for cyclists.
@@ -34,7 +46,17 @@ const TheftReport = () => {
       <FormTwoColumn>
         <div>
           <StyledH3>Where?</StyledH3>
-          <input placeholder="Click here to select the location"></input>
+          <input
+            placeholder="Click here to select the location"
+            onChange={handleLocationChange}
+            value={`${location.latitude}, ${location.longitude}`}
+          />
+          <p>If possible, enter the street name</p>
+          <input
+            placeholder="Street name"
+            value={address}
+            onChange={(e) => setAdress(e.target.value)}
+          />
         </div>
 
         <div>
@@ -43,8 +65,8 @@ const TheftReport = () => {
             Right Now
             <input
               type="checkbox"
-              value={isCurrentDate}
-              onChange={(e) => setIsCurrentDate(e.target.value)}
+              value={isUseCurrentTime}
+              onChange={(e) => SetisUseCurrentTime(e.target.value)}
             />
           </label>
           OR
@@ -57,17 +79,31 @@ const TheftReport = () => {
             />
           </label>
         </div>
+
         <div>
           <StyledH3>Was The Bicycle Locked?</StyledH3>
           <label>
             YES
-            <input type="radio" />
+            <input
+              type="radio"
+              name="lockStatus"
+              value={true}
+              checked={wasBicycleLocked == true}
+              onChange={(e) => setWasBicycleLocked(e.target.value)}
+            />
           </label>
           <label>
             NO
-            <input type="radio" />
+            <input
+              type="radio"
+              name="lockStatus"
+              value={false}
+              checked={wasBicycleLocked == false}
+              onChange={(e) => setWasBicycleLocked(e.target.value)}
+            />
           </label>
         </div>
+
         <div>
           <p>
             If possible, please attach photo/s of your stolen bicycle, and, if

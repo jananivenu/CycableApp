@@ -11,8 +11,38 @@ from authProfile.models import RegistrationProfile
 
 from project.settings import DEFAULT_FROM_EMAIL
 from rest_framework.response import Response
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from user.serializers import UserSerializer
 
 User = get_user_model()
+
+
+class TokenUserObtainView(TokenObtainPairView):
+    """
+    post:
+    Create a new session for a user. Sends back tokens and user.
+    """
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+
+        user = User.objects.get(email=request.data['email'])
+        req = request
+        req.user = user
+        user_serializer = UserSerializer(instance=user, context={'request': req})
+        res = {
+            'user': user_serializer.data,
+            **serializer.validated_data
+        }
+
+        return Response(res, status=status.HTTP_200_OK)
 
 
 class RegistrationView(CreateAPIView):

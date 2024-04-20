@@ -9,8 +9,9 @@ import { FormTwoColumn } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
-import { SendReport } from '../../../../axios/sendReport'
+
 import { useNavigate } from 'react-router-dom'
+import SendReport from '../../../../axios/sendReport'
 
 const TheftReport = () => {
   const navigate = useNavigate()

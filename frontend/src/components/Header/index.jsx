@@ -1,30 +1,21 @@
-import Logo from './Elements/Logo'
-import NavButtons from './Elements/NavButtons'
-import NavLinks from './Elements/NavLinks'
+import { useSelector } from 'react-redux'
 import { HeaderContainer } from './styles'
 
+import Logo from './Elements/Logo'
+import NavButtons from './Elements/NavButtons'
+import NavLogout from './Elements/NavLogout'
+import NavLinks from './Elements/NavLinks'
+
 const Header = () => {
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+
   return (
     <HeaderContainer>
       <Logo />
       <NavLinks />
-      <NavButtons />
+      {isLoggedIn ? <NavLogout /> : <NavButtons />}
     </HeaderContainer>
   )
 }
 
 export default Header
-
-
-      {/* {isLoggedIn ? (
-        <LogoutButton
-          role="button"
-          tabIndex="0"
-          onClick={handleLogout}
-          onKeyPress={(e) => e.key === 'Enter' && handleLogout()}
-        >
-          Logout
-        </LogoutButton>
-      ) : (
-        <NavButtons />
-      )} */}

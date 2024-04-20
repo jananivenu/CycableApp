@@ -10,8 +10,12 @@ import { AccentButton } from '../../../../styles/elements/buttons'
 import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 import { FlexContainer } from './styles'
+import { SendReport } from '../../../../axios/sendReport'
+import { useNavigate } from 'react-router-dom'
 
 const TheftReport = () => {
+  
+  const navigate = useNavigate()
 
   const [reportData, setReportData] = useState([])
 
@@ -27,13 +31,13 @@ const TheftReport = () => {
     setSelectedDate(e.target.value)
   }
 
-  const handleLocationChange = (e) => {
-    const coordinates = e.target.value.split(',')
-    setLocation({
-      latitude: coordinates[0].trim(),
-      longitude: coordinates[1].trim(),
-    })
-  }
+  // const handleLocationChange = (e) => {
+  //   const coordinates = e.target.value.split(',')
+  //   setLocation({
+  //     latitude: coordinates[0].trim(),
+  //     longitude: coordinates[1].trim(),
+  //   })
+  // }
 
   const inputHandler= e =>{
     const {id, value}= e.target
@@ -44,9 +48,14 @@ const TheftReport = () => {
     })
   }
 
-  const handleSubmit=async (e)=>{
-    e.preventDefault()
-    const reportData=
+  const handleSubmit=async ()=>{
+    try {
+      await SendReport(reportData)
+      navigate('/')
+    }catch(error){
+      console.log('error sending the report:', error)
+    }
+    
 
   }
 
@@ -70,14 +79,15 @@ const TheftReport = () => {
           <StyledH3>Where?</StyledH3>
           <input
             placeholder="Click here to select the location"
-            onChange={handleLocationChange}
-            value={`${location.latitude}, ${location.longitude}`}
+            onChange={inputHandler}
+            value={`${reportData.location.latitude}, ${reportData.location.longitude}`}
+            required
           />
           <p>If possible, enter the street name</p>
           <input
             placeholder="Street name"
-            value={address}
-            onChange={(e) => setAdress(e.target.value)}
+            value={reportData.address}
+            onChange={inputHandler}
           />
         </div>
 
@@ -87,8 +97,8 @@ const TheftReport = () => {
             Right Now
             <input
               type="checkbox"
-              value={isUseCurrentTime}
-              onChange={(e) => SetisUseCurrentTime(e.target.value)}
+              value={reportData.use_current_time}
+              onChange={inputHandler}
             />
           </label>
           OR
@@ -96,8 +106,8 @@ const TheftReport = () => {
             Select a Date
             <input
               type="date"
-              value={selectedDate}
-              onChange={handleSelectDate}
+              value={reportData.custom_date}
+              onChange={inputHandler}
             />
           </label>
         </div>
@@ -109,9 +119,9 @@ const TheftReport = () => {
             <input
               type="radio"
               name="lockStatus"
-              value={true}
-              checked={wasBicycleLocked == true}
-              onChange={(e) => setWasBicycleLocked(e.target.value)}
+              value={reportData.was_bicycle_locked}
+              checked={reportData.was_bicycle_locked == true}
+              onChange={inputHandler}
             />
           </label>
           <label>
@@ -119,9 +129,9 @@ const TheftReport = () => {
             <input
               type="radio"
               name="lockStatus"
-              value={false}
-              checked={wasBicycleLocked == false}
-              onChange={(e) => setWasBicycleLocked(e.target.value)}
+              value={reportData.was_bicycle_locked}
+              checked={reportData.was_bicycle_locked == false}
+              onChange={inputHandler}
             />
           </label>
         </div>

@@ -14,7 +14,7 @@ export const FooterContainer = styled.footer`
 export const FooterMainContainer = styled.div`
   max-width: 1240px;
   width: 100%;
-  padding: 1rem 3rem;
+  padding: 3rem;
 
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -27,11 +27,11 @@ export const FooterMainContainer = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 3fr 2fr;
-    padding: 1rem 2rem;
+    padding: 2rem;
   }
 
   @media (max-width: 480px) {
-    padding: 1rem 1rem;
+    padding: 1rem;
     grid-template-columns: 1fr;
     grid-template-areas:
       'logo'
@@ -40,7 +40,7 @@ export const FooterMainContainer = styled.div`
       'legal';
     gap: 3rem;
 
-    justify-items: center; 
+    justify-items: center;
     align-items: center;
   }
 `
@@ -58,9 +58,8 @@ export const FooterLogoGroup = styled.div`
 `
 
 export const FooterCopyright = styled.div`
-  max-width: 1240px;
-
   width: 100%;
+  
   padding: 0.5rem 3rem 1rem 3rem;
   border-top: 1px solid white;
   display: flex;

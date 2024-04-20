@@ -15,7 +15,7 @@ export const FooterLinks = styled.nav`
     align-items: center;
     flex-wrap: wrap;
 
-    gap: 1rem;
+    /* gap: 1rem; */
   }
 `
 export const IconWrapper = styled.div`
@@ -41,6 +41,8 @@ export const FooterLink = styled(Link)`
 
   display: inline-flex;
   align-items: center;
+
+  margin: 0 0.5rem;
 
   &:hover {
     color: var(--accent-main);
@@ -69,6 +71,6 @@ export const SmallerFooterLinks = styled(FooterLinks)`
     align-self: center;
     flex-wrap: wrap;
 
-    gap: 1rem;
+    /* gap: 1rem; */
   }
 `

@@ -6,7 +6,7 @@ import UserAxios from '../../../axios'
 import { StyledH2 } from '../../../styles/elements/typography'
 import { BasicForm } from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
-import { MainContainer } from '../../../styles'
+import { MainContainer, NarrowSectionContainer } from '../../../styles'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -28,7 +28,7 @@ const Login = () => {
         localStorage.setItem('token', response.data.access)
         dispatch(
           loginUser({
-            user: response.data.user, 
+            user: response.data.user,
             accessToken: response.data.access,
           }),
         )
@@ -43,24 +43,26 @@ const Login = () => {
 
   return (
     <MainContainer>
-      <StyledH2>Login</StyledH2>
-      <BasicForm onSubmit={onSubmitHandler}>
-        <input
-          type="text"
-          placeholder="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <AccentButton>Login</AccentButton>
-      </BasicForm>
+      <NarrowSectionContainer>
+        <StyledH2>Login</StyledH2>
+        <BasicForm onSubmit={onSubmitHandler}>
+          <input
+            type="text"
+            placeholder="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <AccentButton>Login</AccentButton>
+        </BasicForm>
+      </NarrowSectionContainer>
     </MainContainer>
   )
 }

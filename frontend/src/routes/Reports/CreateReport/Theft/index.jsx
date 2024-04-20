@@ -8,14 +8,20 @@ import {
 import { FormTwoColumn } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import compose from '../../../../assets/icons/compose.png'
+import { ComposeIcone } from '../../../../styles/elements/icons'
+import { FlexContainer } from './styles'
 
 const TheftReport = () => {
+
+  const [reportData, setReportData] = useState([])
+
   const [selectedDate, setSelectedDate] = useState('')
   const [isUseCurrentTime, SetisUseCurrentTime] = useState(false)
   const [description, setDescription] = useState('')
   const [wasBicycleLocked, setWasBicycleLocked] = useState(false)
   const [address, setAdress] = useState('')
   const [location, setLocation] = useState({ latitude: '', longitude: '' })
+  const [images, setImages] = useState([])
 
   const handleSelectDate = (e) => {
     setSelectedDate(e.target.value)
@@ -29,17 +35,33 @@ const TheftReport = () => {
     })
   }
 
+  const inputHandler= e =>{
+    const {id, value}= e.target
+    setReportData((prevData)=>{
+      ...prevData,
+      [id]: value
+    
+    })
+  }
+
+  const handleSubmit=async (e)=>{
+    e.preventDefault()
+    const reportData=
+
+  }
+
   return (
     <SectionContainer>
-      {/* from icons.jsx in styles.jsx */}
-      <img src={compose} />
-      <StyledH2>Bicycle Theft</StyledH2>
+      <FlexContainer>
+        <ComposeIcone src={compose} />
+        <StyledH2>Bicycle Theft</StyledH2>
+      </FlexContainer>
       <LeadParagraph>
         We understand the frustration and inconvenience that comes with having
         your bike stolen. Here, you have the opportunity to share your
         experience and help us address this issue within our community.
         <b>Was your bike stolen? Don't hesitate to report it!</b>
-        By providing details such as the <b>location</b> and{' '}
+        By providing details such as the <b>location</b> and
         <b>whether your bicycle was locked</b>, you're contributing to creating
         safer streets for cyclists.
       </LeadParagraph>
@@ -110,7 +132,13 @@ const TheftReport = () => {
             available, include a photo of the location where the bike was
             stolen.
           </p>
-          <input type="file" multiple className="fileInput" />
+          <input
+            type="file"
+            multiple
+            className="fileInput"
+            value={images}
+            onChange={(e) => setImages(e.target.value)}
+          />
         </div>
 
         <div>
@@ -127,7 +155,7 @@ const TheftReport = () => {
           ></textarea>
         </div>
         <div>
-          <AccentButton>Send</AccentButton>
+          <AccentButton onClick={handleSubmit}>Send</AccentButton>
         </div>
       </FormTwoColumn>
     </SectionContainer>

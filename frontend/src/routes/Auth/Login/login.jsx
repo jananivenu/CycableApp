@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { login_user } from '../../../store/slices/userSlice'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../../../store/slices/userSlice'
 import UserAxios from '../../../axios'
 import { StyledH2 } from '../../../styles/elements/typography'
 import { BasicForm } from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
-import { MainContainer } from '../../../styles'
+import { MainContainer, NarrowSectionContainer } from '../../../styles'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -22,36 +22,47 @@ const Login = () => {
         email: email,
         password: password,
       })
-      console.log(response)
-
-      localStorage.setItem('token', response.data.access)
-      dispatch(login_user(response.data.access))
-      navigate('/')
+      console.log('API login response:', response)
+      if (response.data.access) {
+        console.log('Token saved to localStorage:', response.data.access)
+        localStorage.setItem('token', response.data.access)
+        dispatch(
+          loginUser({
+            user: response.data.user,
+            accessToken: response.data.access,
+          }),
+        )
+        navigate('/')
+      } else {
+        console.error('No accessToken in response:', response.data)
+      }
     } catch (error) {
-      console.error('Validation error:', error.response.data)
+      console.error('Login API error:', error.response.data)
     }
   }
 
   return (
     <MainContainer>
-      <StyledH2>LOGIN</StyledH2>
-      <BasicForm onSubmit={onSubmitHandler}>
-        <input
-          type="text"
-          placeholder="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <AccentButton>Login</AccentButton>
-      </BasicForm>
+      <NarrowSectionContainer>
+        <StyledH2>Login</StyledH2>
+        <BasicForm onSubmit={onSubmitHandler}>
+          <input
+            type="text"
+            placeholder="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <AccentButton>Login</AccentButton>
+        </BasicForm>
+      </NarrowSectionContainer>
     </MainContainer>
   )
 }

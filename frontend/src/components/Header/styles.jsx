@@ -50,3 +50,33 @@ export const StyledNavLink = styled(NavLink)`
     outline: 2px solid var(--accent-blue);
   }
 `
+
+export const BaseLinkLikeButton = styled(NavLink)`
+  min-width: max-content;
+  padding: 0.6rem 1.8rem;
+  border-radius: 3rem;
+  cursor: pointer;
+
+  font-size: 1rem;
+  font-family: var(--main-font);
+
+  &:focus-visible {
+    outline: 2px solid var(--accent-blue);
+  }
+`
+
+export const LinkLikeAccentButton = styled(BaseLinkLikeButton)`
+  color: white;
+  background-color: var(--accent-main);
+  border: 0;
+
+  @media (max-width: 480px) {
+    display: ${(props) => (props.hide ? 'none' : 'inline-block')};
+  }
+`
+
+export const LinkLikeSimpleButton = styled(BaseLinkLikeButton)`
+  background-color: transparent;
+  border: 1px solid var(--accent-main);
+  color: var(--accent-main);
+`

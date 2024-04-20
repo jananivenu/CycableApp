@@ -115,8 +115,3 @@ export const NarrowSectionContainer = styled.section`
     padding: 1rem 1rem;
   }
 `
-export const FlexContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-`

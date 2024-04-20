@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FlexContainer, SectionContainer } from '../../../../styles'
+import { SectionContainer } from '../../../../styles'
 import {
   LeadParagraph,
   StyledH2,
@@ -12,6 +12,7 @@ import { ComposeIcone } from '../../../../styles/elements/icons'
 
 import { useNavigate } from 'react-router-dom'
 import SendReport from '../../../../axios/sendReport'
+import { FlexContainer } from './styles'
 
 const TheftReport = () => {
   const navigate = useNavigate()

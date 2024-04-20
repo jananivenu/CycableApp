@@ -17,18 +17,7 @@ const TheftReport = () => {
   const navigate = useNavigate()
 
   const [reportData, setReportData] = useState([])
-
-  const [selectedDate, setSelectedDate] = useState('')
-  const [isUseCurrentTime, SetisUseCurrentTime] = useState(false)
-  const [description, setDescription] = useState('')
-  const [wasBicycleLocked, setWasBicycleLocked] = useState(false)
-  const [address, setAdress] = useState('')
-  const [location, setLocation] = useState({ latitude: '', longitude: '' })
   const [images, setImages] = useState([])
-
-  const handleSelectDate = (e) => {
-    setSelectedDate(e.target.value)
-  }
 
   // const handleLocationChange = (e) => {
   //   const coordinates = e.target.value.split(',')

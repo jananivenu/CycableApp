@@ -47,7 +47,6 @@ class SimpleIncidentReportSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
     images = ImageSerializer(many=True, read_only=True)
 
-
     class Meta:
         model = ReportedIncidents
         fields = ['id', 'description', 'author', 'longitude', 'latitude', 'address', 'use_current_time', 'custom_date',

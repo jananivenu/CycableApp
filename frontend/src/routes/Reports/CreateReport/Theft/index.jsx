@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SectionContainer } from '../../../../styles'
+import { FlexContainer, SectionContainer } from '../../../../styles'
 import {
   LeadParagraph,
   StyledH2,
@@ -11,7 +11,6 @@ import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 import { SendReport } from '../../../../axios/sendReport'
 import { useNavigate } from 'react-router-dom'
-import { FlexContainer } from './styles'
 
 const TheftReport = () => {
   const navigate = useNavigate()
@@ -65,7 +64,7 @@ const TheftReport = () => {
           <input
             placeholder="Click here to select the location"
             onChange={inputHandler}
-            value={`${reportData.location.latitude}, ${reportData.location.longitude}`}
+            value={`${reportData.latitude}, ${reportData.longitude}`}
             required
           />
           <p>If possible, enter the street name</p>
@@ -145,8 +144,8 @@ const TheftReport = () => {
           </p>
           <textarea
             placeholder="More details..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={reportData.description}
+            onChange={inputHandler}
           ></textarea>
         </div>
         <div>

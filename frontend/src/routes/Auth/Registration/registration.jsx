@@ -4,7 +4,7 @@ import UserAxios, { UserRegistration } from '../../../axios'
 import { useNavigate } from 'react-router-dom'
 import { BasicForm } from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
-
+import { MainContainer, NarrowSectionContainer } from '../../../styles'
 
 const Registration = () => {
   const [email, setEmail] = useState('')
@@ -18,10 +18,7 @@ const Registration = () => {
         email: email,
       })
 
-      console.log('🚀 ~ handleSubmit ~ response:', response)
-
       if (response) {
-        console.log(response)
         //navigate to next step
         navigate('/verification')
         //add root for next step
@@ -32,19 +29,21 @@ const Registration = () => {
   }
 
   return (
-    
-      <BasicForm onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+    <MainContainer>
+      <NarrowSectionContainer>
+        <BasicForm onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <AccentButton type="submit">Register</AccentButton>
-      </BasicForm>
-    
+          <AccentButton type="submit">Register</AccentButton>
+        </BasicForm>
+      </NarrowSectionContainer>
+    </MainContainer>
   )
 }
 

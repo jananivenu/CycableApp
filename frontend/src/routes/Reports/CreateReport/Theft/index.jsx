@@ -8,38 +8,55 @@ import {
 import { FormTwoColumn } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import compose from '../../../../assets/icons/compose.png'
+import { ComposeIcone } from '../../../../styles/elements/icons'
+
+import { useNavigate } from 'react-router-dom'
+import SendReport from '../../../../axios/sendReport'
+import { FlexContainer } from './styles'
 
 const TheftReport = () => {
-  const [selectedDate, setSelectedDate] = useState('')
-  const [isUseCurrentTime, SetisUseCurrentTime] = useState(false)
-  const [description, setDescription] = useState('')
-  const [wasBicycleLocked, setWasBicycleLocked] = useState(false)
-  const [address, setAdress] = useState('')
-  const [location, setLocation] = useState({ latitude: '', longitude: '' })
+  const navigate = useNavigate()
 
-  const handleSelectDate = (e) => {
-    setSelectedDate(e.target.value)
+  const [reportData, setReportData] = useState([])
+  const [images, setImages] = useState([])
+
+  // const handleLocationChange = (e) => {
+  //   const coordinates = e.target.value.split(',')
+  //   setLocation({
+  //     latitude: coordinates[0].trim(),
+  //     longitude: coordinates[1].trim(),
+  //   })
+  // }
+
+  const inputHandler = (e) => {
+    const { id, value } = e.target
+    setReportData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }))
   }
 
-  const handleLocationChange = (e) => {
-    const coordinates = e.target.value.split(',')
-    setLocation({
-      latitude: coordinates[0].trim(),
-      longitude: coordinates[1].trim(),
-    })
+  const handleSubmit = async () => {
+    try {
+      await SendReport(reportData)
+      navigate('/')
+    } catch (error) {
+      console.log('error sending the report:', error)
+    }
   }
 
   return (
     <SectionContainer>
-      {/* from icons.jsx in styles.jsx */}
-      <img src={compose} />
-      <StyledH2>Bicycle Theft</StyledH2>
+      <FlexContainer>
+        <ComposeIcone src={compose} />
+        <StyledH2>Bicycle Theft</StyledH2>
+      </FlexContainer>
       <LeadParagraph>
         We understand the frustration and inconvenience that comes with having
         your bike stolen. Here, you have the opportunity to share your
         experience and help us address this issue within our community.
         <b>Was your bike stolen? Don't hesitate to report it!</b>
-        By providing details such as the <b>location</b> and{' '}
+        By providing details such as the <b>location</b> and
         <b>whether your bicycle was locked</b>, you're contributing to creating
         safer streets for cyclists.
       </LeadParagraph>
@@ -48,14 +65,15 @@ const TheftReport = () => {
           <StyledH3>Where?</StyledH3>
           <input
             placeholder="Click here to select the location"
-            onChange={handleLocationChange}
-            value={`${location.latitude}, ${location.longitude}`}
+            onChange={inputHandler}
+            value={`${reportData.latitude}, ${reportData.longitude}`}
+            required
           />
           <p>If possible, enter the street name</p>
           <input
             placeholder="Street name"
-            value={address}
-            onChange={(e) => setAdress(e.target.value)}
+            value={reportData.address}
+            onChange={inputHandler}
           />
         </div>
 
@@ -65,8 +83,8 @@ const TheftReport = () => {
             Right Now
             <input
               type="checkbox"
-              value={isUseCurrentTime}
-              onChange={(e) => SetisUseCurrentTime(e.target.value)}
+              value={reportData.use_current_time}
+              onChange={inputHandler}
             />
           </label>
           OR
@@ -74,8 +92,8 @@ const TheftReport = () => {
             Select a Date
             <input
               type="date"
-              value={selectedDate}
-              onChange={handleSelectDate}
+              value={reportData.custom_date}
+              onChange={inputHandler}
             />
           </label>
         </div>
@@ -87,9 +105,9 @@ const TheftReport = () => {
             <input
               type="radio"
               name="lockStatus"
-              value={true}
-              checked={wasBicycleLocked == true}
-              onChange={(e) => setWasBicycleLocked(e.target.value)}
+              value={reportData.was_bicycle_locked}
+              checked={reportData.was_bicycle_locked == true}
+              onChange={inputHandler}
             />
           </label>
           <label>
@@ -97,9 +115,9 @@ const TheftReport = () => {
             <input
               type="radio"
               name="lockStatus"
-              value={false}
-              checked={wasBicycleLocked == false}
-              onChange={(e) => setWasBicycleLocked(e.target.value)}
+              value={reportData.was_bicycle_locked}
+              checked={reportData.was_bicycle_locked == false}
+              onChange={inputHandler}
             />
           </label>
         </div>
@@ -110,7 +128,13 @@ const TheftReport = () => {
             available, include a photo of the location where the bike was
             stolen.
           </p>
-          <input type="file" multiple className="fileInput" />
+          <input
+            type="file"
+            multiple
+            className="fileInput"
+            value={images}
+            onChange={(e) => setImages(e.target.value)}
+          />
         </div>
 
         <div>
@@ -122,12 +146,12 @@ const TheftReport = () => {
           </p>
           <textarea
             placeholder="More details..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={reportData.description}
+            onChange={inputHandler}
           ></textarea>
         </div>
         <div>
-          <AccentButton>Send</AccentButton>
+          <AccentButton onClick={handleSubmit}>Send</AccentButton>
         </div>
       </FormTwoColumn>
     </SectionContainer>

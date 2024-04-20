@@ -8,5 +8,5 @@ def images_directory_path(instance, filename):
 
 
 class Images(models.Model):
-    incident_report = models.ForeignKey(ReportedIncidents, on_delete=models.CASCADE)
+    incident_report = models.ForeignKey(ReportedIncidents, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='images_directory_path', blank=True, null=True)

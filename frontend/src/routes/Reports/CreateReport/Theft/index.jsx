@@ -11,34 +11,50 @@ import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 
 import { useNavigate } from 'react-router-dom'
-import SendReport from '../../../../axios/sendReport'
+import sendReport from '../../../../axios/sendReport'
 import { FlexContainer } from './styles'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setCommonFields,
+  setTheftReport,
+} from '../../../../store/slices/reportSlice'
 
 const TheftReport = () => {
   const navigate = useNavigate()
-
-  const [reportData, setReportData] = useState([])
-  const [images, setImages] = useState([])
-
-  // const handleLocationChange = (e) => {
-  //   const coordinates = e.target.value.split(',')
-  //   setLocation({
-  //     latitude: coordinates[0].trim(),
-  //     longitude: coordinates[1].trim(),
-  //   })
-  // }
+  const dispatch = useDispatch()
+  const [reportData, setReportData] = useState({})
 
   const inputHandler = (e) => {
-    const { id, value } = e.target
+    const { id, value, checked } = e.target
+
+    if (id === 'use_current_time') {
+      setReportData((prevData) => ({
+        ...prevData,
+        [id]: checked,
+      }))
+    }
+
     setReportData((prevData) => ({
       ...prevData,
       [id]: value,
     }))
+    console.log(reportData)
+
+    dispatch(
+      setCommonFields({
+        [id]: value,
+      }),
+    )
+
+    if (id === 'was_bicycle_locked') {
+      dispatch(setTheftReport({ was_bicycle_locked: e.target.checked }))
+    }
   }
 
   const handleSubmit = async () => {
     try {
-      await SendReport(reportData)
+      await sendReport(reportData)
+      dispatch(setTheftReport(reportData))
       navigate('/')
     } catch (error) {
       console.log('error sending the report:', error)
@@ -64,15 +80,17 @@ const TheftReport = () => {
         <div>
           <StyledH3>Where?</StyledH3>
           <input
+            id="location"
             placeholder="Click here to select the location"
             onChange={inputHandler}
-            value={`${reportData.latitude}, ${reportData.longitude}`}
+            // value={`${reportData.latitude}, ${reportData.longitude}`}
             required
           />
           <p>If possible, enter the street name</p>
           <input
+            id="address"
             placeholder="Street name"
-            value={reportData.address}
+            value={reportData.address || ''}
             onChange={inputHandler}
           />
         </div>
@@ -82,8 +100,11 @@ const TheftReport = () => {
           <label>
             Right Now
             <input
+              name="dateStatus"
+              id="use_current_time"
               type="checkbox"
-              value={reportData.use_current_time}
+              value="true"
+              checked={reportData.use_current_time == true}
               onChange={inputHandler}
             />
           </label>
@@ -91,8 +112,10 @@ const TheftReport = () => {
           <label>
             Select a Date
             <input
+              name="dateStatus"
+              id="custom_date"
               type="date"
-              value={reportData.custom_date}
+              value={reportData.custom_date || ''}
               onChange={inputHandler}
             />
           </label>
@@ -103,9 +126,10 @@ const TheftReport = () => {
           <label>
             YES
             <input
+              id="was_bicycle_locked"
               type="radio"
               name="lockStatus"
-              value={reportData.was_bicycle_locked}
+              value="true"
               checked={reportData.was_bicycle_locked == true}
               onChange={inputHandler}
             />
@@ -113,9 +137,10 @@ const TheftReport = () => {
           <label>
             NO
             <input
+              id="was_bicycle_locked"
               type="radio"
               name="lockStatus"
-              value={reportData.was_bicycle_locked}
+              value="false"
               checked={reportData.was_bicycle_locked == false}
               onChange={inputHandler}
             />
@@ -129,11 +154,12 @@ const TheftReport = () => {
             stolen.
           </p>
           <input
+            id="images"
             type="file"
             multiple
             className="fileInput"
-            value={images}
-            onChange={(e) => setImages(e.target.value)}
+            value={reportData.images || ''}
+            onChange={inputHandler}
           />
         </div>
 
@@ -145,9 +171,11 @@ const TheftReport = () => {
             community.:
           </p>
           <textarea
+            id="description"
             placeholder="More details..."
             value={reportData.description}
             onChange={inputHandler}
+            required
           ></textarea>
         </div>
         <div>

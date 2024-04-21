@@ -20,6 +20,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class IncidentReportSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
     incident_details = serializers.SerializerMethodField()
+
     # images = ImageSerializer(many=True)
 
     class Meta:
@@ -45,6 +46,7 @@ class IncidentReportSerializer(serializers.ModelSerializer):
 
 class SimpleIncidentReportSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
+
     # images = ImageSerializer(many=True, read_only=True)
 
     class Meta:
@@ -75,3 +77,4 @@ class ViolationsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Violations
         fields = ['change_to_add']
+# testing comment

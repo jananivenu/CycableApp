@@ -27,7 +27,7 @@ const TheftReport = () => {
   const inputHandler = (e) => {
     const { id, value, checked } = e.target
 
-    if (id === 'use_current_time') {
+    if (id === 'use_current_time' || id === 'was_bicycle_locked') {
       setReportData((prevData) => ({
         ...prevData,
         [id]: checked,
@@ -40,11 +40,7 @@ const TheftReport = () => {
     }))
     console.log(reportData)
 
-    dispatch(
-      setCommonFields({
-        [id]: value,
-      }),
-    )
+    dispatch(setCommonFields({ [id]: value }))
 
     if (id === 'was_bicycle_locked') {
       dispatch(setTheftReport({ was_bicycle_locked: e.target.checked }))
@@ -55,7 +51,6 @@ const TheftReport = () => {
     try {
       await sendReport(reportData)
       dispatch(setTheftReport(reportData))
-      navigate('/')
     } catch (error) {
       console.log('error sending the report:', error)
     }

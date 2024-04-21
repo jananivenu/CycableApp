@@ -25,7 +25,7 @@ class IncidentReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReportedIncidents
         fields = ['id', 'description', 'longitude', 'latitude', 'address', 'use_current_time', 'custom_date',
-                  'incident_type', 'incident_details', 'images', 'author', ]
+                  'incident_type', 'incident_details', 'images', 'author', 'created_at']
 
     def get_incident_details(self, obj):
         incident_type = obj.incident_type

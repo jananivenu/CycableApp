@@ -99,7 +99,7 @@ export const NarrowSectionContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  /* gap: 1rem; */
 
   max-width: 612px;
   min-height: 90%;

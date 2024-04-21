@@ -2,9 +2,14 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import UserAxios, { UserRegistration } from '../../../axios'
 import { useNavigate } from 'react-router-dom'
-import { BasicForm } from '../../../styles/elements/forms'
+import {
+  AuthForm,
+  InputGroup,
+  QuestionGroup,
+} from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
 import { MainContainer, NarrowSectionContainer } from '../../../styles'
+import { StyledH2 } from '../../../styles/elements/typography'
 
 const Registration = () => {
   const [email, setEmail] = useState('')
@@ -19,9 +24,7 @@ const Registration = () => {
       })
 
       if (response) {
-        //navigate to next step
         navigate('/verification')
-        //add root for next step
       }
     } catch (error) {
       console.error(error)
@@ -31,17 +34,25 @@ const Registration = () => {
   return (
     <MainContainer>
       <NarrowSectionContainer>
-        <BasicForm onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+      <StyledH2>Registration</StyledH2>
+
+        <AuthForm onSubmit={handleSubmit}>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="email@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </InputGroup>
+          </QuestionGroup>
 
           <AccentButton type="submit">Register</AccentButton>
-        </BasicForm>
+        </AuthForm>
       </NarrowSectionContainer>
     </MainContainer>
   )

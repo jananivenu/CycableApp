@@ -61,7 +61,7 @@ export const FormTwoColumn = styled(BasicForm)`
 
 export const AuthForm = styled(BasicForm)`
   gap: 0;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
 
   & > :last-child {
     margin: 16px;

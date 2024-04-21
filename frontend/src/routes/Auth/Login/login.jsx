@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../../store/slices/userSlice'
 import UserAxios from '../../../axios'
@@ -52,7 +52,7 @@ const Login = () => {
         <AuthForm onSubmit={onSubmitHandler}>
           <QuestionGroup>
             <InputGroup>
-            <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 id="email"
                 type="text"
@@ -78,6 +78,9 @@ const Login = () => {
           </QuestionGroup>
           <AccentButton>Login</AccentButton>
         </AuthForm>
+        <p>
+          Not a user yet? Please <Link to="/registration">register here</Link>.
+        </p>
       </NarrowSectionContainer>
     </MainContainer>
   )

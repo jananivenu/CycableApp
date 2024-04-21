@@ -4,8 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { MainContainer, NarrowSectionContainer } from '../../../styles'
 import { StyledH2 } from '../../../styles/elements/typography'
-import { BasicForm } from '../../../styles/elements/forms'
+import {
+  AuthForm,
+  InputGroup,
+  QuestionGroup,
+} from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
+import ValidationCodeInput from './InputCode'
 
 const Verification = () => {
   const emailReduxStore = useSelector((state) => state.user.email) //call eMail from the store
@@ -19,6 +24,10 @@ const Verification = () => {
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
   const navigate = useNavigate()
+
+  const handleValidationCodeChange = (code) => {
+    setValidationCode(code);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -48,70 +57,120 @@ const Verification = () => {
   return (
     <MainContainer>
       <NarrowSectionContainer>
-        <StyledH2>Verification Page</StyledH2>
-        <BasicForm onSubmit={handleSubmit}>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label>Username:</label>
-          <input
-            type="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-          <label>Validation Code:</label>
-          <input
-            type="text"
-            value={validationCode}
-            onChange={(e) => setValidationCode(e.target.value)}
-          />
-          <label>First Name:</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <label>Last Name:</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-          <label>Birth Date:</label>
-          <input
-            type="date"
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-            max={new Date().toISOString().split('T')[0]} // restricts selection of future dates
-          />
-          <label>Gender:</label>
-          <select
-            value={genderUser}
-            onChange={(e) => setGenderUser(e.target.value)}
-          >
-            <option value="">Select Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="N">NA</option>
-            <option value="D">Diverse</option>
-          </select>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <label>Repeat Password:</label>
-          <input
-            type="password"
-            value={passwordRepeat}
-            onChange={(e) => setPasswordRepeat(e.target.value)}
-          />
+        <StyledH2>Verification</StyledH2>
+        <AuthForm onSubmit={handleSubmit}>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="email">Email:</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="username">Username:</label>
+              <input
+                id="username"
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+
+          <ValidationCodeInput onCodeChange={handleValidationCodeChange} />
+
+          {/* <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="vcode">Validation Code:</label>
+              <input
+                id="vcode"
+                type="text"
+                value={validationCode}
+                onChange={(e) => setValidationCode(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup> */}
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="firstname">First Name:</label>
+              <input
+                id="firstname"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="lastname">Last Name:</label>
+              <input
+                id="lastname"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="birthday">Birth Date:</label>
+              <input
+                id="birthday"
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+                max={new Date().toISOString().split('T')[0]} // restricts selection of future dates
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="gender">Gender:</label>
+              <select
+                id="gender"
+                value={genderUser}
+                onChange={(e) => setGenderUser(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="D">Diverse</option>
+                <option value="N">Prefer not to say</option>
+              </select>
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="password">Password:</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="repeatpassword">Repeat Password:</label>
+              <input
+                id="repeatpassword"
+                type="password"
+                value={passwordRepeat}
+                onChange={(e) => setPasswordRepeat(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
           <AccentButton type="submit">Submit</AccentButton>
-        </BasicForm>
+        </AuthForm>
       </NarrowSectionContainer>
     </MainContainer>
   )

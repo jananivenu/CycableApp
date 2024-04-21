@@ -4,7 +4,11 @@ import { useDispatch } from 'react-redux'
 import { loginUser } from '../../../store/slices/userSlice'
 import UserAxios from '../../../axios'
 import { StyledH2 } from '../../../styles/elements/typography'
-import { BasicForm } from '../../../styles/elements/forms'
+import {
+  AuthForm,
+  InputGroup,
+  QuestionGroup,
+} from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
 import { MainContainer, NarrowSectionContainer } from '../../../styles'
 
@@ -45,23 +49,35 @@ const Login = () => {
     <MainContainer>
       <NarrowSectionContainer>
         <StyledH2>Login</StyledH2>
-        <BasicForm onSubmit={onSubmitHandler}>
-          <input
-            type="text"
-            placeholder="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <AuthForm onSubmit={onSubmitHandler}>
+          <QuestionGroup>
+            <InputGroup>
+            <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="text"
+                placeholder="email@email.com"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="*******"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
           <AccentButton>Login</AccentButton>
-        </BasicForm>
+        </AuthForm>
       </NarrowSectionContainer>
     </MainContainer>
   )

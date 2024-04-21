@@ -87,3 +87,4 @@ class ReadUpdateDeleteIncidentReportView(RetrieveUpdateDestroyAPIView):
     serializer_class = IncidentReportSerializer
     # add permission for 'uni/city councils/managers'?
     permission_classes = [IsAuthor | IsAdmin]
+# just to have smth to push

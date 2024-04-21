@@ -2,6 +2,7 @@ import { SectionContainer } from '../../../../styles'
 import { FormTwoColumn } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import { LeadParagraph, StyledH2 } from '../../../../styles/elements/typography'
+import LocationPicker from '../Elements/Location'
 
 function LegalReport() {
   return (
@@ -15,6 +16,7 @@ function LegalReport() {
         from being considered violations. Do you know such places? Tell us!
       </LeadParagraph>
       <FormTwoColumn>
+        <LocationPicker />
         <div>
           <input placeholder="Location"></input>
         </div>

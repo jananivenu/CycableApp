@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { StyledH3 } from './typography'
 
 export const BasicForm = styled.form`
   width: 100%;
@@ -50,5 +51,35 @@ export const FormTwoColumn = styled(BasicForm)`
 
   & > :last-child {
     grid-column: 1 / -1;
+  }
+`
+
+export const QuestionGroup = styled.div`
+  padding: 1rem;
+  border-radius: 16px;
+  transition: background-color 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &:focus-within {
+    background-color: var(--gray-100);
+  }
+
+  ${StyledH3} {
+    margin: 0;
+    line-height: 1;
+  }
+`
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 700;
   }
 `

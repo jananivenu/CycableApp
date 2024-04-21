@@ -14,6 +14,8 @@ import RegistrationMessage from './Auth/Registration/RegistrationMessage/message
 import Verification from './Auth/Verification/verification'
 import TestForm from './Reports/CreateReport/Test'
 import TheftReport from './Reports/CreateReport/Theft'
+import ReportPage from './Reports/ReportPage'
+import Reports from './Reports'
 
 const Router = () => {
   return (
@@ -30,12 +32,15 @@ const Router = () => {
           <Route path="/verification" element={<Verification />} />
           <Route path="/about" element={<About />} />
           <Route path="/statistics" element={<Statistics />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/reports/:reportId" element={<ReportPage />} />
           <Route path="/profile/me" element={<Profile />} />
           <Route path="/profile/:user_id" element={<Profile />} />
           <Route path="/report" element={<Report />} />
 
           <Route path="/create/legal-report" element={<LegalReport />} />
-          <Route path="/create/bicycle-theft" element={<TheftReport />} />
+          <Route path="/create/theft-report" element={<TheftReport />} />
           <Route path="/create/test" element={<TestForm />} />
 
           <Route path="/send_report" element={<SendReport />} />

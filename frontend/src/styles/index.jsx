@@ -92,5 +92,26 @@ export const SectionContainer = styled.section`
   @media (max-width: 480px) {
     padding: 1rem 1rem;
   }
+`
 
+export const NarrowSectionContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  max-width: 612px;
+  min-height: 90%;
+  margin: 0 auto;
+
+  padding: 1rem 3rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 1rem;
+  }
 `

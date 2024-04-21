@@ -3,7 +3,7 @@ import Home from './Home/Home'
 import Layout from './Layout'
 import Login from './Auth/Login/login'
 import Report from './Reports'
-import Profile from './Profile'
+import Profile from '../components/ProfileComponent'
 import SendReport from './SendReport/sendreport'
 import About from './About'
 import Statistics from './Statistics'
@@ -11,7 +11,7 @@ import NotFound from './NotFound'
 import LegalReport from './Reports/CreateReport/Legal'
 import Registration from './Auth/Registration/registration'
 import RegistrationMessage from './Auth/Registration/RegistrationMessage/message'
-import Verification from "./Auth/Verification/verification"
+import Verification from './Auth/Verification/verification'
 import TestForm from './Reports/CreateReport/Test'
 import TheftReport from './Reports/CreateReport/Theft'
 
@@ -30,7 +30,8 @@ const Router = () => {
           <Route path="/verification" element={<Verification />} />
           <Route path="/about" element={<About />} />
           <Route path="/statistics" element={<Statistics />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/me" element={<Profile />} />
+          <Route path="/profile/:user_id" element={<Profile />} />
           <Route path="/report" element={<Report />} />
 
           <Route path="/create/legal-report" element={<LegalReport />} />

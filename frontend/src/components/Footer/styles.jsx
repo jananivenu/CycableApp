@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const AirContainer = styled.div`
+  height: 5rem;
+`
 export const FooterContainer = styled.footer`
   width: 100%;
   margin-top: auto;

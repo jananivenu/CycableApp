@@ -11,6 +11,16 @@ export const getMyUserDatas = async () => {
   }
 }
 
+export const updateUserData = async (updatedData) => {
+  try {
+    const response = await UserAxios.patch("/me/", updatedData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user data: ", error);
+    throw error;
+  }
+};
+
 export const getSpecificUserData = async (id) => {
   try {
     const response = await UserAxios.get(`/users/${id}/`)

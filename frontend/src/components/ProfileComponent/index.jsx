@@ -14,10 +14,12 @@ import {
   StyledH2,
   StyledH3,
 } from '../../styles/elements/typography'
+import { AccentButton } from '../../styles/elements/buttons'
 import { useState, useEffect } from 'react'
 import { getMyUserDatas } from '../../axios/UserData'
 import { useSelector } from 'react-redux'
 import { formatDate } from '../../utils/formatDate'
+import { Link } from 'react-router-dom'
 
 
 const UserProfile = () => {
@@ -72,6 +74,7 @@ const UserProfile = () => {
       <ProfileCover img={userData.cover_photo || coverBg} />
       <ProfileGridContainer>
         <ProfilePicture src={userData.avatar || avatar} />
+        <AccentButton as={Link} to="/edit-profile">Edit Profile</AccentButton>
         <ProfileAbout>
           <StyledH2>
             {userData.first_name} {userData.last_name}

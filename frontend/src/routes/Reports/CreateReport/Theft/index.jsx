@@ -18,6 +18,7 @@ import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportSlice'
+import Description from '../Elements/Description'
 
 const TheftReport = () => {
   const navigate = useNavigate()
@@ -158,21 +159,7 @@ const TheftReport = () => {
           />
         </div>
 
-        <div>
-          <p>
-            Feel free to provide more details about the incident below. <br />
-            Your contribution assists fellow cyclists by providing valuable
-            insights and supporting our efforts to combat bicycle theft in our
-            community.:
-          </p>
-          <textarea
-            id="description"
-            placeholder="More details..."
-            value={reportData.description}
-            onChange={inputHandler}
-            required
-          ></textarea>
-        </div>
+        <Description />
         <div>
           <AccentButton onClick={handleSubmit}>Send</AccentButton>
         </div>

@@ -19,6 +19,7 @@ import {
   setTheftReport,
 } from '../../../../store/slices/reportSlice'
 import Description from '../Elements/Description'
+import Images from '../Elements/Images'
 
 const TheftReport = () => {
   const navigate = useNavigate()
@@ -69,7 +70,7 @@ const TheftReport = () => {
         experience and help us address this issue within our community.
         <b>Was your bike stolen? Don't hesitate to report it!</b>
         By providing details such as the <b>location</b> and
-        <b>whether your bicycle was locked</b>, you're contributing to creating
+        <b> whether your bicycle was locked</b>, you're contributing to creating
         safer streets for cyclists.
       </LeadParagraph>
       <FormTwoColumn>
@@ -144,19 +145,7 @@ const TheftReport = () => {
         </div>
 
         <div>
-          <p>
-            If possible, please attach photo/s of your stolen bicycle, and, if
-            available, include a photo of the location where the bike was
-            stolen.
-          </p>
-          <input
-            id="images"
-            type="file"
-            multiple
-            className="fileInput"
-            value={reportData.images || ''}
-            onChange={inputHandler}
-          />
+          <Images />
         </div>
 
         <Description />

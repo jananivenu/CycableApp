@@ -23,8 +23,8 @@ function FooterNavLinks() {
   return (
     <FooterLinks>
       {links.map((link, index) => (
-        <div>
-          <FooterLink key={index} to={link.to}>
+        <div key={index}>
+          <FooterLink to={link.to}>
             {/* {link.text} */}
             {link.content}
           </FooterLink>

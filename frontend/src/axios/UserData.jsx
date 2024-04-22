@@ -2,12 +2,8 @@ import UserAxios from '.'
 
 export const getMyUserDatas = async () => {
   try {
-    const token = localStorage.getItem('token')
-    const response = await UserAxios.get('/me/', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    } )
+    
+    const response = await UserAxios.get('/me/')
     return response.data
   } catch (error) {
     console.error('Error fetching user profile: ', error)

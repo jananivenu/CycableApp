@@ -16,9 +16,10 @@ import {
 } from '../../styles/elements/typography'
 import { useState, useEffect } from 'react'
 import { getMyUserDatas } from '../../axios/UserData'
+import { useSelector } from 'react-redux'
+
 
 const UserProfile = () => {
-
   const reports = [
     {
       id: 1,
@@ -62,21 +63,24 @@ const UserProfile = () => {
   }, [])
 
   if (!userData) {
-    return <div>Loading...</div> // or your custom loading component
+    return <div>Loading...</div>
   }
 
   return (
     <MainContainer>
-      <ProfileCover img={ userData.cover_photo || coverBg} />
+      <ProfileCover img={userData.cover_photo || coverBg} />
       <ProfileGridContainer>
-        <ProfilePicture src={ userData.avatar || avatar} />
+        <ProfilePicture src={userData.avatar || avatar} />
         <ProfileAbout>
-          <StyledH2>{userData.first_name} {userData.last_name}</StyledH2>
-          <LeadParagraph>
-          {userData.profile_description}
-          </LeadParagraph>
+          <StyledH2>
+            {userData.first_name} {userData.last_name}
+          </StyledH2>
+          <LeadParagraph>{userData.profile_description}</LeadParagraph>
           <p>Lives in {userData.location}.</p>
-          <p>Member since {new Date(userData.joined_date).toLocaleDateString()} </p>
+          <p>
+            Member since {new Date(userData.joined_date).toLocaleDateString()}{' '}
+          </p>
+          <p>Member since {formatDate(userData.joined_date)} </p>
         </ProfileAbout>
       </ProfileGridContainer>
 

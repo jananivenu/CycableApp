@@ -22,9 +22,9 @@ import ReportCoverMap from './Elements/ReportCoverMap'
 import ReportAuthor from './Elements/ReportAuthor'
 
 const ReportPage = ({ report }) => {
-  const { address, author, description, created_at, latitude, longitude } =
+  const { address, author, description, created_at, custom_date, latitude, longitude } =
     report
-  const date = formatDate(created_at)
+  const date = formatDate(custom_date)
 
   return (
     <MainContainer>

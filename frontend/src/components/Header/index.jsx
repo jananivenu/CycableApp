@@ -9,6 +9,8 @@ import NavSelectReportType from './CreateReport'
 
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+  const avatar = useSelector((state) => state.user.user)
+  console.log(avatar)
 
   return (
     <HeaderContainer>

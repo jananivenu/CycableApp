@@ -6,6 +6,7 @@ export const ReportCover = styled(Cover)`
   height: 28vh;
   background-image: url(${(props) => props.img});
   opacity: 0.8;
+  z-index: 0;
 
   @media (max-width: 768px) {
     position: static;

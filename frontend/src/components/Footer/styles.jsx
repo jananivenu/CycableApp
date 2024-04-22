@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const AirContainer = styled.div`
+  height: 5rem;
+`
 export const FooterContainer = styled.footer`
   width: 100%;
   margin-top: auto;
@@ -59,7 +61,7 @@ export const FooterLogoGroup = styled.div`
 
 export const FooterCopyright = styled.div`
   width: 100%;
-  
+
   padding: 0.5rem 3rem 1rem 3rem;
   border-top: 1px solid white;
   display: flex;
@@ -76,6 +78,14 @@ export const FooterCopyright = styled.div`
 `
 
 export const Copyright = styled.p`
+  display: flex;
+  align-items: center;
   font-size: 0.9rem;
   color: #333;
+`
+export const HeartWrapper = styled.span`
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 0.3rem;
 `

@@ -10,7 +10,7 @@ const NavSelectReportType = () => {
       onClick={handleCreateReport}
       onKeyDown={(e) => e.key === 'Enter' && handleCreateReport}
     >
-      Report
+      Add Report
     </AccentButton>
   )
 }

@@ -5,13 +5,15 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDe
 from incidentReport.serializers import IncidentReportSerializer, SimpleIncidentReportSerializer
 
 from incidentReport.models import ReportedIncidents, BicycleAccident, BicycleTheft, NearMiss, Violations
-from project.permissions import IsAuthor, IsAdmin
+from project.permissions import IsSelfOrReadOnly, IsAdmin
+from rest_framework.permissions import AllowAny
 
 
 # GET /api/reports: Retrieve/ list ALL incident reports.
 class ListAllIncidentReportsView(ListAPIView):
     queryset = ReportedIncidents.objects.all()
     serializer_class = SimpleIncidentReportSerializer
+    permission_classes = [AllowAny]
 
 
 #
@@ -51,6 +53,7 @@ class CreateIncidentReport(CreateAPIView):
 
 class ListIncidentReportsByTypeView(ListAPIView):
     serializer_class = SimpleIncidentReportSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         incident_type = self.kwargs['incident_type']
@@ -71,6 +74,7 @@ class ListIncidentReportsByTypeView(ListAPIView):
 # /api/reports/user/<int:user_id>/ GET: Get all the reports created by a specific user in chronological order
 class ListIncidentReportsByUserView(ListAPIView):
     serializer_class = IncidentReportSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         user_id = self.kwargs['user_id']
@@ -86,5 +90,4 @@ class ReadUpdateDeleteIncidentReportView(RetrieveUpdateDestroyAPIView):
     queryset = ReportedIncidents.objects.all()
     serializer_class = IncidentReportSerializer
     # add permission for 'uni/city councils/managers'?
-    permission_classes = [IsAuthor | IsAdmin]
-# just to have smth to push
+    permission_classes = [IsAdmin | IsSelfOrReadOnly]

@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
 export const HeaderContainer = styled.header`
+  position: relative;
+  z-index: 1;
   width: 100%;
   padding: 1rem 3rem;
   display: flex;
@@ -10,6 +12,7 @@ export const HeaderContainer = styled.header`
   background-color: white;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   gap: 3rem;
+  height: 4.7rem;
 
   @media (max-width: 768px) {
     padding: 1rem 2rem;
@@ -37,7 +40,8 @@ export const NavButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  gap: 0.5rem;
+  gap: 0.7rem;
+  height: 100%;
 `
 
 export const StyledNavLink = styled(NavLink)`
@@ -59,6 +63,10 @@ export const BaseLinkLikeButton = styled(NavLink)`
 
   font-size: 1rem;
   font-family: var(--main-font);
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
 
   &:focus-visible {
     outline: 2px solid var(--accent-blue);

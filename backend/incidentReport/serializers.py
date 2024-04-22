@@ -8,15 +8,25 @@ from incidentReport.models import BicycleAccident
 
 from incidentReport.models import NearMiss, BicycleTheft, Violations
 
+from incidentReport.images_model import Images
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Images
+        fields = ['image']
+
 
 class IncidentReportSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
     incident_details = serializers.SerializerMethodField()
 
+    # images = ImageSerializer(many=True)
+
     class Meta:
         model = ReportedIncidents
-        fields = ['id', 'description', 'author', 'geolocation', 'use_current_time', 'custom_date',
-                  'incident_type', 'incident_details']
+        fields = ['id', 'description', 'longitude', 'latitude', 'address', 'use_current_time', 'custom_date',
+                  'incident_type', 'incident_details', 'author', 'created_at']
 
     def get_incident_details(self, obj):
         incident_type = obj.incident_type
@@ -37,9 +47,12 @@ class IncidentReportSerializer(serializers.ModelSerializer):
 class SimpleIncidentReportSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
 
+    # images = ImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = ReportedIncidents
-        fields = ['id', 'description', 'author', 'geolocation', 'use_current_time', 'custom_date', 'incident_type']
+        fields = ['id', 'description', 'author', 'longitude', 'latitude', 'address', 'use_current_time', 'custom_date',
+                  'incident_type']
 
 
 class BicycleAccidentSerializer(serializers.ModelSerializer):
@@ -64,3 +77,4 @@ class ViolationsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Violations
         fields = ['change_to_add']
+# testing comment

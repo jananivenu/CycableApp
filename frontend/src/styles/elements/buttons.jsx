@@ -7,6 +7,7 @@ export const BaseButton = styled.button`
   cursor: pointer;
 
   font-size: 1rem;
+  font-weight: 500;
   font-family: var(--main-font);
 
   &:focus,
@@ -27,6 +28,10 @@ export const AccentButton = styled(BaseButton)`
 
 export const SimpleButton = styled(BaseButton)`
   background-color: transparent;
-  border: 1px solid var(--accent-main);
+  border: 2px solid var(--accent-main);
   color: var(--accent-main);
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
 `

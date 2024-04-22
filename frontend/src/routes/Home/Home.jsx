@@ -10,13 +10,7 @@ const Home = () => {
         <h1>Home</h1>
         <Map/>
       </SectionContainer>
-      <SectionContainer>
-        <FormTwoColumn>
-          <input placeholder="write something"></input>
-          <textarea placeholder="want to say something?"></textarea>
-          <AccentButton>click me</AccentButton>
-        </FormTwoColumn>
-      </SectionContainer>
+      <Map />
     </MainContainer>
     
   )

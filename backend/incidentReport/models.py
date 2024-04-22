@@ -26,12 +26,14 @@ TYPE_CHOICES = [
 
 class ReportedIncidents(models.Model):
     description = models.TextField(max_length=500)
-    # geolocation = models.PointField()
-    geolocation = models.CharField(max_length=100, blank=True)
+    latitude = models.FloatField(verbose_name="Latitude")
+    longitude = models.FloatField(verbose_name="Longitude")
+    address = models.CharField(blank=True, null=True)
     use_current_time = models.BooleanField(default=False)
-    custom_date = models.DateTimeField(default=timezone.now)
+    custom_date = models.DateTimeField(default=timezone.now, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     incident_type = models.CharField(choices=TYPE_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if self.use_current_time:
@@ -61,6 +63,6 @@ class NearMiss(models.Model):
 
 
 class Violations(models.Model):
-    change_to_add = models.CharField(max_length=400)
+    change_to_add = models.CharField(max_length=400, blank=True)
     incident_report = models.OneToOneField(ReportedIncidents, on_delete=models.CASCADE, related_name='violations',
                                            null=True)

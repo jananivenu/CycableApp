@@ -4,19 +4,19 @@ import {AccentButton} from '../../../../styles/elements/buttons'
 import {LeadParagraph, StyledH2, StyledH3} from '../../../../styles/elements/typography'
 //import compose from '../../../../assets/icons/compose.png'
 import {useState} from "react";
+import DatePicker from "../Elements/Date/index.jsx";
+
 //comment
 function AccidentReport() {
     const [selectedParty, setSelectedParty] = useState('')
-    const [isUseCurrentTime, SetisUseCurrentTime] = useState(false)
+
     const [selectedValue, setSelectedValue] = useState(null)
     const [selectedFile, setSelectedFile] = useState(null)
-    //const [selectedDate, setSelectedDate] = useState('')
+
     const handleInvolvedPartyChange = (e) => {
         setSelectedParty(e.target.value)
     }
-    // const handleSelectDate = (e) => {
-    //     setSelectedDate(e.target.value)
-    // }
+
     const handleOptionChange = (event) => {
         setSelectedValue(event.target.value === 'true');
     };
@@ -50,17 +50,7 @@ function AccidentReport() {
                     <StyledH3>Where?</StyledH3>
                     <input placeholder="You can share your geolocation"></input>
                 </div>
-                <div>
-                    <StyledH3>Date and Time</StyledH3>
-                    <label>
-                        Right Now
-                        <input
-                            type="checkbox"
-                            value={isUseCurrentTime}
-                            onChange={(e) => SetisUseCurrentTime(e.target.value)}
-                        />
-                    </label>
-                </div>
+                <DatePicker/>
                 <div>
                     <StyledH3>Was the police called to document the accident?</StyledH3>
                     <label>
@@ -83,7 +73,7 @@ function AccidentReport() {
                 </div>
                 <div>
                     <StyledH3>Who was involved in the accident?</StyledH3>
-                    <select placeholder="Please choose"
+                    <select
                             value={selectedParty}
                             onChange={handleInvolvedPartyChange}
                     />

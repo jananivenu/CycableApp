@@ -1,18 +1,20 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 
 from comment.models import Comment
 from comment.serializers import CommentSerializer
 from rest_framework.response import Response
 
 from incidentReport.models import ReportedIncidents
-from project.permissions import IsAuthor
+
+from project.permissions import IsAdmin, IsSelfOrReadOnly
 
 
 # /api/comments/user/<int:user_id>/ GET: Get all the comments from a single user
 
 class ListCommentsByUserView(ListAPIView):
     serializer_class = CommentSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         user_id = self.kwargs['user_id']
@@ -23,6 +25,7 @@ class ListCommentsByUserView(ListAPIView):
 
 class ListCommentsByReportView(ListAPIView):
     serializer_class = CommentSerializer
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         report_id = self.kwargs['report_id']
@@ -47,4 +50,4 @@ class ReadUpdateDeleteCommentView(RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
     lookup_url_kwarg = 'comment_id'
-    permission_classes = [IsAuthenticated, IsAuthor]
+    permission_classes = [IsAdmin | IsSelfOrReadOnly]

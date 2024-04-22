@@ -17,8 +17,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   setCommonFields,
   setTheftReport,
-} from '../../../../store/slices/reportSlice'
-
+} from '../../../../store/slices/reportCreateSlice'
+import Description from '../Elements/Description'
+import Images from '../Elements/Images'
+import LocationPicker from '../Elements/Location'
 const TheftReport = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -68,27 +70,11 @@ const TheftReport = () => {
         experience and help us address this issue within our community.
         <b>Was your bike stolen? Don't hesitate to report it!</b>
         By providing details such as the <b>location</b> and
-        <b>whether your bicycle was locked</b>, you're contributing to creating
+        <b> whether your bicycle was locked</b>, you're contributing to creating
         safer streets for cyclists.
       </LeadParagraph>
       <FormTwoColumn>
-        <div>
-          <StyledH3>Where?</StyledH3>
-          <input
-            id="location"
-            placeholder="Click here to select the location"
-            onChange={inputHandler}
-            // value={`${reportData.latitude}, ${reportData.longitude}`}
-            required
-          />
-          <p>If possible, enter the street name</p>
-          <input
-            id="address"
-            placeholder="Street name"
-            value={reportData.address || ''}
-            onChange={inputHandler}
-          />
-        </div>
+        <LocationPicker />
 
         <div>
           <StyledH3>Date and Time</StyledH3>
@@ -143,36 +129,10 @@ const TheftReport = () => {
         </div>
 
         <div>
-          <p>
-            If possible, please attach photo/s of your stolen bicycle, and, if
-            available, include a photo of the location where the bike was
-            stolen.
-          </p>
-          <input
-            id="images"
-            type="file"
-            multiple
-            className="fileInput"
-            value={reportData.images || ''}
-            onChange={inputHandler}
-          />
+          <Images />
         </div>
 
-        <div>
-          <p>
-            Feel free to provide more details about the incident below. <br />
-            Your contribution assists fellow cyclists by providing valuable
-            insights and supporting our efforts to combat bicycle theft in our
-            community.:
-          </p>
-          <textarea
-            id="description"
-            placeholder="More details..."
-            value={reportData.description}
-            onChange={inputHandler}
-            required
-          ></textarea>
-        </div>
+        <Description />
         <div>
           <AccentButton onClick={handleSubmit}>Send</AccentButton>
         </div>

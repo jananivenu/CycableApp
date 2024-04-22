@@ -1,5 +1,5 @@
 import { AuthorLink, AuthorNameWrapper } from './styles'
-import avatar from '../../../../assets/icons/user-c.png'
+import avatar from '../../../../assets/icons/user-l-m.png'
 
 function ReportAuthor({ author }) {
   const authorName =
@@ -7,14 +7,14 @@ function ReportAuthor({ author }) {
       ? `${author.first_name} ${author.last_name}`
       : author.username
 
-  const authorPhoto = author.photo ? author.photo : avatar
+  const authorAvatar = author.avatar ? author.avatar : avatar
   const userId = 1
 
   return (
     <AuthorNameWrapper>
       — <AuthorLink to={`/user/${userId}`}>{authorName}</AuthorLink>
             <img
-        src={authorPhoto}
+        src={authorAvatar}
         alt={author.username}
         style={{ width: '1.5rem', height: '1.5rem', borderRadius: '50%' }}
       />

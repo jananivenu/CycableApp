@@ -5,6 +5,10 @@ const Description = () => {
   const [description, setDescription] = useState('')
   // fetch the incident_type the user selected, based on that one of these
   //descriptions will be displayed
+  const bicycle_theft = true
+  const bicycle_accident = false
+  const near_miss = false
+  const violations = false
   return (
     <InputGroup>
       {bicycle_theft && (

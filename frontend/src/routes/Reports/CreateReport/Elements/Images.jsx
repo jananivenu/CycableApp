@@ -1,4 +1,11 @@
+import { useState } from 'react'
+
 const Images = () => {
+  const [images, setImages] = useState([])
+  const bicycle_theft = true
+  const bicycle_accident = false
+  const near_miss = false
+  const violations = false
   return (
     <>
       {bicycle_theft && (
@@ -33,8 +40,8 @@ const Images = () => {
         type="file"
         multiple
         className="fileInput"
-        value={reportData.images || ''}
-        onChange={inputHandler}
+        value={images || ''}
+        onChange={(e) => setImages(e.target.value)}
       />
     </>
   )

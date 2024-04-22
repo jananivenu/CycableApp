@@ -4,7 +4,7 @@ import {
   StyledH2,
   StyledH3,
 } from '../../styles/elements/typography'
-import CommentList from './CommentList'
+// import CommentList from './CommentList'
 import {
   ReportContent,
   ReportCover,

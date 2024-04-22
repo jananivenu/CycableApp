@@ -17,12 +17,16 @@ export const AvatarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  /* overflow: hidden; */
+  cursor: pointer;
 `
 
 export const AvatarImage = styled.img`
   max-height: 100%;
   aspect-ratio: 1/1;
+  border: 2px solid var(--accent-main);
+  border-radius: 50%;
+  margin: 0 !important;
 `
 
 export const DropdownButton = styled(FaCircleChevronDown)`
@@ -31,5 +35,7 @@ export const DropdownButton = styled(FaCircleChevronDown)`
   right: 0;
   font-size: 1rem;
   color: var(--accent-main);
-  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
 `
+

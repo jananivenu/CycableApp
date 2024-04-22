@@ -10,6 +10,7 @@ export const HeaderContainer = styled.header`
   background-color: white;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   gap: 3rem;
+  height: 4.7rem;
 
   @media (max-width: 768px) {
     padding: 1rem 2rem;
@@ -38,6 +39,7 @@ export const NavButtonsContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   gap: 0.5rem;
+  height: 100%;
 `
 
 export const StyledNavLink = styled(NavLink)`

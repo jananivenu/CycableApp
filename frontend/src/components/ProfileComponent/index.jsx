@@ -17,6 +17,7 @@ import {
 import { useState, useEffect } from 'react'
 import { getMyUserDatas } from '../../axios/UserData'
 import { useSelector } from 'react-redux'
+import { formatDate } from '../../utils/formatDate'
 
 
 const UserProfile = () => {
@@ -78,7 +79,7 @@ const UserProfile = () => {
           <LeadParagraph>{userData.profile_description}</LeadParagraph>
           <p>Lives in {userData.location}.</p>
           <p>
-            Member since {new Date(userData.joined_date).toLocaleDateString()}{' '}
+            {/* Member since {new Date(userData.joined_date).toLocaleDateString()}{' '} */}
           </p>
           <p>Member since {formatDate(userData.joined_date)} </p>
         </ProfileAbout>

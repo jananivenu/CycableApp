@@ -16,6 +16,7 @@ import TestForm from './Reports/CreateReport/Test'
 import TheftReport from './Reports/CreateReport/Theft'
 import Reports from './Reports'
 import ShowReport from './Reports/ShowReport'
+import ReportPage from '../components/Reports/ReportPage'
 
 const Router = () => {
   return (

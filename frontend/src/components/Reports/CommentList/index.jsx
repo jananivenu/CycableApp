@@ -1,5 +1,6 @@
-import CaseComment from '../../../components/CasePreview/CaseComment'
-import MasonryContainer from '../../../components/wrappers/MasonryContainer'
+import CaseComment from "../../CasePreview/CaseComment"
+import MasonryContainer from "../../wrappers/MasonryContainer"
+
 
 function CommentList() {
 

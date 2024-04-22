@@ -13,8 +13,8 @@ import RegistrationMessage from './Auth/Registration/RegistrationMessage/message
 import Verification from './Auth/Verification/verification'
 import TestForm from './Reports/CreateReport/Test'
 import TheftReport from './Reports/CreateReport/Theft'
-import ReportPage from './Reports/ReportPage'
 import Reports from './Reports'
+import ShowReport from './Reports/ShowReport'
 
 const Router = () => {
   return (
@@ -33,7 +33,7 @@ const Router = () => {
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/reports" element={<Reports />} />
-          <Route path="/reports/:reportId" element={<ReportPage />} />
+          <Route path="/reports/:reportId" element={<ShowReport />} />
 
           <Route path="/create/legal-report" element={<LegalReport />} />
           <Route path="/create/theft-report" element={<TheftReport />} />

@@ -20,7 +20,6 @@ import {
 } from '../../../../store/slices/reportSlice'
 import Description from '../Elements/Description'
 import Images from '../Elements/Images'
-
 const TheftReport = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()

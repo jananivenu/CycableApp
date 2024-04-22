@@ -2,9 +2,8 @@ import {SectionContainer} from '../../../../styles'
 import {FormTwoColumn} from '../../../../styles/elements/forms'
 import {AccentButton} from '../../../../styles/elements/buttons'
 import {LeadParagraph, StyledH2, StyledH3} from '../../../../styles/elements/typography'
-import compose from '../../../../assets/icons/compose.png'
+//import compose from '../../../../assets/icons/compose.png'
 import {useState} from "react";
-import DatePicker from 'react-datepicker';
 
 
 function AccidentReport() {
@@ -12,13 +11,13 @@ function AccidentReport() {
     const [isUseCurrentTime, SetisUseCurrentTime] = useState(false)
     const [selectedValue, setSelectedValue] = useState(null)
     const [selectedFile, setSelectedFile] = useState(null)
-    const [selectedDate, setSelectedDate] = useState('')
+    //const [selectedDate, setSelectedDate] = useState('')
     const handleInvolvedPartyChange = (e) => {
         setSelectedParty(e.target.value)
     }
-    const handleSelectDate = (e) => {
-        setSelectedDate(e.target.value)
-    }
+    // const handleSelectDate = (e) => {
+    //     setSelectedDate(e.target.value)
+    // }
     const handleOptionChange = (event) => {
         setSelectedValue(event.target.value === 'true');
     };
@@ -62,18 +61,6 @@ function AccidentReport() {
                             onChange={(e) => SetisUseCurrentTime(e.target.value)}
                         />
                     </label>
-                    OR
-                    <label>
-                        <DatePicker
-                            selected={selectedDate}
-                            onChange={handleDateChange}
-                            showTimeSelect
-                            timeFormat="HH:mm"
-                            timeIntervals={15}
-                            timeCaption="Time"
-                            dateFormat="MMMM d, yyyy h:mm aa"
-                        />
-                        </label>
                 </div>
                 <div>
                     <StyledH3>Was the police called to document the accident?</StyledH3>

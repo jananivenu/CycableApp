@@ -5,6 +5,7 @@ import Logo from './Elements/Logo'
 import NavButtons from './Elements/NavButtons'
 import NavLogout from './Elements/NavLogout'
 import NavLinks from './Elements/NavLinks'
+import NavSelectReportType from './CreateReport'
 
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
@@ -14,6 +15,7 @@ const Header = () => {
       <Logo />
       <NavLinks />
       {isLoggedIn ? <NavLogout /> : <NavButtons />}
+      <NavSelectReportType />
     </HeaderContainer>
   )
 }

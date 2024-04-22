@@ -17,9 +17,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   setCommonFields,
   setTheftReport,
-} from '../../../../store/slices/reportSlice'
+} from '../../../../store/slices/reportCreateSlice'
 import Description from '../Elements/Description'
 import Images from '../Elements/Images'
+import LocationPicker from '../Elements/Location'
 const TheftReport = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -73,23 +74,7 @@ const TheftReport = () => {
         safer streets for cyclists.
       </LeadParagraph>
       <FormTwoColumn>
-        <div>
-          <StyledH3>Where?</StyledH3>
-          <input
-            id="location"
-            placeholder="Click here to select the location"
-            onChange={inputHandler}
-            // value={`${reportData.latitude}, ${reportData.longitude}`}
-            required
-          />
-          <p>If possible, enter the street name</p>
-          <input
-            id="address"
-            placeholder="Street name"
-            value={reportData.address || ''}
-            onChange={inputHandler}
-          />
-        </div>
+        <LocationPicker />
 
         <div>
           <StyledH3>Date and Time</StyledH3>

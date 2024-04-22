@@ -5,10 +5,12 @@ import {
   FooterCopyright,
   FooterLogoGroup,
   FooterMainContainer,
+  HeartWrapper,
 } from './styles'
 import SocialIconsList from './Elements/Icons/SocialIconsList'
 import FooterNavLinks from './Elements/Links/FooterNavLinks'
 import FooterLegalLinks from './Elements/Links/FooterLegalLinks'
+import { FaRegHeart } from 'react-icons/fa6'
 
 const Footer = () => {
   return (
@@ -28,7 +30,14 @@ const Footer = () => {
         </FooterMainContainer>
 
         <FooterCopyright>
-          <Copyright>Made with ❤️ in Constructor Academy. © 2024</Copyright>
+          <Copyright>
+            Made with
+            <HeartWrapper>
+              <FaRegHeart />
+            </HeartWrapper>
+            in Constructor Academy. © 2024
+          </Copyright>
+          {/* ❤️ */}
         </FooterCopyright>
       </FooterContainer>
     </>

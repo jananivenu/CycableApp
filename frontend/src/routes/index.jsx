@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Home/Home'
 import Layout from './Layout'
 import Login from './Auth/Login/login'
-import Profile from './Profile'
+import Report from './Reports'
+import Profile from '../components/ProfileComponent'
 import SendReport from './SendReport/sendreport'
 import About from './About'
 import Statistics from './Statistics'
@@ -15,7 +16,9 @@ import TestForm from './Reports/CreateReport/Test'
 import TheftReport from './Reports/CreateReport/Theft'
 import Reports from './Reports'
 import ShowReport from './Reports/ShowReport'
+import ReportPage from '../components/Reports/ReportPage'
 import AccidentReport from "./Reports/CreateReport/Bicycle_accident/index.jsx";
+import EditProfile from '../components/ProfileComponent/EditProfile/index.jsx'
 
 const Router = () => {
   return (
@@ -34,6 +37,11 @@ const Router = () => {
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/reports/:reportId" element={<ReportPage />} />
+          <Route path="/profile/me" element={<Profile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/profile/:user_id" element={<Profile />} />
+          <Route path="/report" element={<Report />} />
           <Route path="/reports/:reportId" element={<ShowReport />} />
 
           <Route path="/create/legal-report" element={<LegalReport />} />

@@ -4,8 +4,7 @@ import {AccentButton} from '../../../../styles/elements/buttons'
 import {LeadParagraph, StyledH2, StyledH3} from '../../../../styles/elements/typography'
 //import compose from '../../../../assets/icons/compose.png'
 import {useState} from "react";
-
-
+//comment
 function AccidentReport() {
     const [selectedParty, setSelectedParty] = useState('')
     const [isUseCurrentTime, SetisUseCurrentTime] = useState(false)

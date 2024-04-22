@@ -3,7 +3,7 @@ import { Cover, SectionContainer } from '../../../styles'
 
 export const ReportCover = styled(Cover)`
   position: relative;
-  height: 24vh;
+  height: 28vh;
   background-image: url(${(props) => props.img});
   opacity: 0.8;
 

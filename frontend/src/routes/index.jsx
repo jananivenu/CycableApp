@@ -14,6 +14,7 @@ import RegistrationMessage from './Auth/Registration/RegistrationMessage/message
 import Verification from './Auth/Verification/verification'
 import TestForm from './Reports/CreateReport/Test'
 import TheftReport from './Reports/CreateReport/Theft'
+import AccidentReport from "./Reports/CreateReport/Bicycle_accident/index.jsx";
 
 const Router = () => {
   return (
@@ -35,6 +36,7 @@ const Router = () => {
 
           <Route path="/create/legal-report" element={<LegalReport />} />
           <Route path="/create/theft-report" element={<TheftReport />} />
+          <Route path="/create/accident-report" element={<AccidentReport />} />
           <Route path="/create/test" element={<TestForm />} />
 
           <Route path="/send_report" element={<SendReport />} />

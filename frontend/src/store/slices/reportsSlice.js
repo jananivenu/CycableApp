@@ -27,10 +27,23 @@ export const fetchReportsAsync = createAsyncThunk(
   }
 );
 
+export const fetchReportsByUserIdAsync = createAsyncThunk(
+  'reports/fetchReportsByUserId',
+  async (userId, { rejectWithValue }) => {
+    try {
+      const data = await fetchReports(null, userId);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+  }
+);
+
 const initialState = {
   reports: [],
   currentReport: null,
-  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+  userReports: [],
+  status: 'idle',
   error: null
 };
 
@@ -61,6 +74,18 @@ const reportsSlice = createSlice({
         state.currentReport = action.payload;
       })
       .addCase(fetchReportsAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload ? action.payload.error : null;
+      })
+      //by user
+      .addCase(fetchReportsByUserIdAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchReportsByUserIdAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.userReports = action.payload;
+      })
+      .addCase(fetchReportsByUserIdAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload ? action.payload.error : null;
       });

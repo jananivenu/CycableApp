@@ -4,9 +4,8 @@ import Geolocation from '../Geolocation/Geolocation';
 import PopupContent from '../Popup/Popup';
 import MarkerComponent from '../MarkerComponent/MarkerComponent';
 import StreetNameFetcher from '../StreetNameFetcher/StreetNameFetcher';
-
-
-
+import { clusterLayer, clusterCountLayer, unclusteredPointLayer } from '../ClusterMarker/layers';
+import { Source, Layer } from 'react-map-gl';
 
 const Map = () => {
   const [viewport, setViewport] = useState({
@@ -21,6 +20,7 @@ const Map = () => {
   const [userLocation, setUserLocation] = useState(null);
 
   const token = import.meta.env.VITE_MAPBOX_TOKEN;
+
 
   const dummyLocations = [
     { latitude: 47.9, longitude: 8.0, eventType: 'Bicycle accident' },
@@ -58,7 +58,7 @@ const Map = () => {
       ...viewport,
       latitude: location.latitude,
       longitude: location.longitude,
-      zoom: 5, 
+      zoom: 5,
     });
     setPopupInfo(location);
   };
@@ -67,21 +67,57 @@ const Map = () => {
     setUserLocation(location);
   };
 
+  // Determine whether to show cluster or individual markers based on zoom level
+  const renderMarkers = () => {
+    if (viewport.zoom < 10) {
+      return (
+        <Source
+          id="dummy-locations"
+          type="geojson"
+          data={{
+            type: 'FeatureCollection',
+            features: dummyLocations.map((location, index) => ({
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [location.longitude, location.latitude]
+              },
+              properties: {
+                eventType: location.eventType
+              }
+            }))
+          }}
+          cluster={true}
+          clusterMaxZoom={14}
+          clusterRadius={50}
+        >
+          <Layer {...clusterLayer} />
+          <Layer {...clusterCountLayer} />
+          <Layer {...unclusteredPointLayer} />
+        </Source>
+      );
+    } else {
+      return dummyLocations.map((location, index) => (
+        <MarkerComponent key={index} location={location} handleMarkerClick={handleMarkerClick} />
+      ));
+    }
+  };
+
   return (
     <div>
       <ReactMapGl
-       {...viewport}
-       mapboxAccessToken={token}
-       onMove={(evt) => setViewport(evt.viewState)}
-       style={{ width: '100vw', height: '100vh' }}
-       mapStyle="mapbox://styles/mihaels/clv4y6ih700i101ph6yg49f96"
->
-        {dummyLocations.map((location, index) => (
-          <MarkerComponent key={index} location={location} handleMarkerClick={handleMarkerClick} />
-        ))}
+        {...viewport}
+        mapboxAccessToken={token}
+        onMove={(evt) => setViewport(evt.viewState)}
+        style={{ width: '100vw', height: '100vh' }}
+        mapStyle="mapbox://styles/mihaels/clv4y6ih700i101ph6yg49f96"
+      >
+        {renderMarkers()}
+        
         {userLocation && (
           <MarkerComponent latitude={userLocation.latitude} longitude={userLocation.longitude} />
         )}
+
         {popupInfo && (
           <Popup
             latitude={popupInfo.latitude}
@@ -89,7 +125,7 @@ const Map = () => {
             closeButton={true}
             closeOnClick={false}
             onClose={() => setPopupInfo(null)}
-            anchor="left"
+            anchor="bottom"
           >
             <PopupContent eventType={popupInfo.eventType} />
             <StreetNameFetcher
@@ -100,6 +136,7 @@ const Map = () => {
           </Popup>
         )}
       </ReactMapGl>
+      
       <Geolocation onLocationChange={handleGeolocationChange} />
     </div>
   );

@@ -21,6 +21,17 @@ export const updateUserData = async (updatedData) => {
   }
 };
 
+export const deleteUser = async () => {
+  try {
+    const response = await UserAxios.delete('/me/')
+    return response.data
+  } catch (error) {
+    console.error('Error deleting user: ', error)
+    throw error
+  }
+}
+
+
 export const getSpecificUserData = async (id) => {
   try {
     const response = await UserAxios.get(`/users/${id}/`)

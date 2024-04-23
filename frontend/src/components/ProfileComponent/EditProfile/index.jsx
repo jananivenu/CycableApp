@@ -29,8 +29,9 @@ import { updateUserData } from '../../../axios/UserData'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserObject } from '../../../store/slices/userSlice'
-import AvatarUpload from './editAvatar'
+import AvatarUpload from './EditAvatar/editAvatar'
 import DeleteAccount from './DeleteProfile'
+import CoverUpload from './EditCover'
 
 const EditProfile = () => {
   const storedUser = useSelector((state) => state.user.user)
@@ -182,6 +183,7 @@ const EditProfile = () => {
         <BasicForm>
           <AvatarUpload setUserAvatar={setUserAvatar} />
           <DeleteAccount />
+          <CoverUpload setCoverPhoto={setCoverPhote} />
         </BasicForm>
       </ProfileGridContainer>
     </MainContainer>

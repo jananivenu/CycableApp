@@ -23,7 +23,7 @@ function NavButtons() {
         <LinkLikeSimpleButton to="/login">Sign In</LinkLikeSimpleButton>
       )}
 
-      <LinkLikeAccentButton to="/report">
+      <LinkLikeAccentButton to="/new-report">
         Add Report
       </LinkLikeAccentButton>
     </NavButtonsContainer>

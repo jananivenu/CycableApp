@@ -3,10 +3,12 @@ import userReducer from './slices/userSlice'
 import reportsReducer from './slices/reportsSlice'
 
 const store = configureStore({
-  reducer: {
-    user: userReducer,
-    reports: reportsReducer
-  },
+    reducer: {
+        user: userReducer,
+        reports: reportsReducer,
+        report: createReportsReducer
+    }
 })
+
 
 export default store

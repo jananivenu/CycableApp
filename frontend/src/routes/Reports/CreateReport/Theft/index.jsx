@@ -5,15 +5,14 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
-import { FormTwoColumn } from '../../../../styles/elements/forms'
+import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 
-import { useNavigate } from 'react-router-dom'
 import sendReport from '../../../../axios/sendReport'
 import { FlexContainer } from './styles'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   setCommonFields,
   setTheftReport,
@@ -21,8 +20,10 @@ import {
 import Description from '../Elements/Description'
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
+import { SquareRadioInput } from '../../../../styles/elements/checkbox'
+import DatePicker from '../Elements/Date'
+
 const TheftReport = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [reportData, setReportData] = useState({})
 
@@ -76,57 +77,33 @@ const TheftReport = () => {
       <FormTwoColumn>
         <LocationPicker />
 
-        <div>
-          <StyledH3>Date and Time</StyledH3>
-          <label>
-            Right Now
-            <input
-              name="dateStatus"
-              id="use_current_time"
-              type="checkbox"
-              value="true"
-              checked={reportData.use_current_time == true}
-              onChange={inputHandler}
-            />
-          </label>
-          OR
-          <label>
-            Select a Date
-            <input
-              name="dateStatus"
-              id="custom_date"
-              type="date"
-              value={reportData.custom_date || ''}
-              onChange={inputHandler}
-            />
-          </label>
-        </div>
+        <DatePicker />
 
-        <div>
+        <QuestionGroup>
           <StyledH3>Was The Bicycle Locked?</StyledH3>
+
           <label>
             YES
-            <input
+            <SquareRadioInput
               id="was_bicycle_locked"
               type="radio"
               name="lockStatus"
               value="true"
-              checked={reportData.was_bicycle_locked == true}
               onChange={inputHandler}
             />
           </label>
+
           <label>
             NO
-            <input
+            <SquareRadioInput
               id="was_bicycle_locked"
               type="radio"
               name="lockStatus"
               value="false"
-              checked={reportData.was_bicycle_locked == false}
               onChange={inputHandler}
             />
           </label>
-        </div>
+        </QuestionGroup>
 
         <div>
           <Images />

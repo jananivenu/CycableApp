@@ -7,15 +7,14 @@ import SendReport from './SendReport/sendreport'
 import About from './About'
 import Statistics from './Statistics'
 import NotFound from './NotFound'
-import LegalReport from './Reports/CreateReport/Legal'
+
 import Registration from './Auth/Registration/registration'
 import RegistrationMessage from './Auth/Registration/RegistrationMessage/message'
 import Verification from './Auth/Verification/verification'
 import TestForm from './Reports/CreateReport/Test'
-import TheftReport from './Reports/CreateReport/Theft'
+
 import Reports from './Reports'
 import ShowReport from './Reports/ShowReport'
-import AccidentReport from './Reports/CreateReport/Bicycle_accident/index.jsx'
 import EditProfile from '../components/ProfileComponent/EditProfile/index.jsx'
 import CreateReport from './Reports/CreateReport/index.jsx'
 
@@ -45,9 +44,7 @@ const Router = () => {
           <Route path="/reports/:reportId" element={<ShowReport />} />
 
           <Route path="new-report" element={<CreateReport />} />
-          <Route path="/create/legal-report" element={<LegalReport />} />
-          <Route path="/create/theft-report" element={<TheftReport />} />
-          <Route path="/create/accident-report" element={<AccidentReport />} />
+
           <Route path="/create/test" element={<TestForm />} />
 
           <Route path="/send_report" element={<SendReport />} />

@@ -74,9 +74,13 @@ function AccidentReport() {
                 <div>
                     <StyledH3>Who was involved in the accident?</StyledH3>
                     <select
-                            value={selectedParty}
-                            onChange={handleInvolvedPartyChange}
-                    />
+
+                        value={selectedParty}
+                        onChange={handleInvolvedPartyChange}>
+                        <option value="" disabled>
+                            Please Choose
+                        </option>
+                    </select>
                 </div>
                 <div>
                     <StyledH3>Comment</StyledH3>

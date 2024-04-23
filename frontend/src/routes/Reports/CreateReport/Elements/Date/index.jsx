@@ -36,7 +36,7 @@ function DatePicker() {
                         onChange={handleCustomTimeChange}
                     />
                 )}
-                {/*<p>{useCurrentTime ? formatDateTime(new Date()) : formatDateTime(customTime)}</p>*/}
+                <p>{useCurrentTime ? formatDateTime(new Date()) : formatDateTime(customTime)}</p>
             </FlexContainer>
         </InputGroup>
 

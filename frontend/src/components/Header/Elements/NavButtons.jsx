@@ -5,8 +5,8 @@ import {
   LinkLikeSimpleButton,
   NavButtonsContainer,
 } from '../styles'
-import { AvatarContainer, AvatarImage, DropdownButton } from './styles'
-import NavLogout from './NavLogout'
+import NavLogout from './DropDownMenu/NavLogout'
+import Avatar from './Avatar'
 
 function NavButtons() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
@@ -16,17 +16,14 @@ function NavButtons() {
     <NavButtonsContainer>
       {isLoggedIn ? (
         <>
-          <AvatarContainer>
-            <AvatarImage src={avatar} alt="Avatar" />
-            <DropdownButton />
-          </AvatarContainer>
-          <NavLogout />
+          <Avatar avatar={avatar} />
+          {/* <NavLogout /> */}
         </>
       ) : (
         <LinkLikeSimpleButton to="/login">Sign In</LinkLikeSimpleButton>
       )}
 
-      <LinkLikeAccentButton hide to="/report">
+      <LinkLikeAccentButton to="/report">
         Add Report
       </LinkLikeAccentButton>
     </NavButtonsContainer>

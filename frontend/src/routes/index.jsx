@@ -18,6 +18,7 @@ import ShowReport from './Reports/ShowReport'
 import AccidentReport from './Reports/CreateReport/Bicycle_accident/index.jsx'
 import EditProfile from '../components/ProfileComponent/EditProfile/index.jsx'
 import CreateReport from './Reports/CreateReport/index.jsx'
+import SpecificUserProfile from '../components/ProfileComponent/SpecificUserProfile/index.jsx'
 
 const Router = () => {
   return (
@@ -39,7 +40,7 @@ const Router = () => {
 
           <Route path="/profile/me" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/profile/:user_id" element={<Profile />} />
+          <Route path="/profile/:user_id" element={<SpecificUserProfile />} />
 
           <Route path="/reports" element={<Reports />} />
           <Route path="/reports/:reportId" element={<ShowReport />} />

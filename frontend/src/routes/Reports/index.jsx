@@ -7,7 +7,6 @@ import { fetchAllReportsAsync } from '../../store/slices/reportsSlice'
 const Reports = () => {
   const dispatch = useDispatch()
   const reports = useSelector((state) => state.reports.reports)
-  console.log(reports)
   const status = useSelector((state) => state.reports.status)
   const error = useSelector((state) => state.reports.error)
 

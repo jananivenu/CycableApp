@@ -1,9 +1,4 @@
-import { MainContainer, SectionContainer } from '../../../styles'
-import {
-  LeadParagraph,
-  StyledH2,
-  StyledH3,
-} from '../../../styles/elements/typography'
+import { LeadParagraph, StyledH2 } from '../../../styles/elements/typography'
 
 import coverBg from '../../../assets/photos/map.png'
 import photo from '../../../assets/photos/sample.png'
@@ -17,7 +12,6 @@ import {
 import { CaseBodyContainer } from '../../../components/CasePreview/styles'
 import CaseRow from '../../../components/CasePreview/Elements/CaseRow'
 import { formatDate } from '../../../utils/formatDate'
-import CommentList from '../CommentList'
 import ReportCoverMap from './Elements/ReportCoverMap'
 import ReportAuthor from './Elements/ReportAuthor'
 
@@ -27,7 +21,7 @@ const ReportPage = ({ report }) => {
   const date = formatDate(custom_date)
 
   return (
-    <MainContainer>
+    <>
       <ReportCover img={coverBg}>
         <ReportCoverMap latitude={latitude} longitude={longitude} />
       </ReportCover>
@@ -46,11 +40,7 @@ const ReportPage = ({ report }) => {
           </LeadParagraph>
         </ReportContent>
       </ReportGridContainer>
-      <SectionContainer>
-        <StyledH3>Comments</StyledH3>
-        <CommentList />
-      </SectionContainer>
-    </MainContainer>
+    </>
   )
 }
 

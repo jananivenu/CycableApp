@@ -32,6 +32,7 @@ function LocationPicker() {
   return (
     <QuestionGroup>
       <StyledH3>Where?</StyledH3>
+      <p>Please select the location on the map</p>
 
       {isLocationLoaded && (
         <MapContainer

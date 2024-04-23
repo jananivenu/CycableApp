@@ -5,7 +5,11 @@ import {
   QuestionGroup,
 } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
-import { LeadParagraph, StyledH2, StyledH3 } from '../../../../styles/elements/typography'
+import {
+  LeadParagraph,
+  StyledH2,
+  StyledH3,
+} from '../../../../styles/elements/typography'
 import LocationPicker from '../Elements/Location'
 
 function LegalReport() {
@@ -25,12 +29,14 @@ function LegalReport() {
 
         <QuestionGroup>
           <InputGroup>
-            If available, attach a photo of the location where improvements are
-            needed.
+            If possible, please attach any relevant photos related to locations
+            needing improvements for cyclists. This could include images
+            highlighting areas lacking pedestrian crossings, bike paths, or
+            other safety measures.
           </InputGroup>
         </QuestionGroup>
         <QuestionGroup>
-        <StyledH3>Comment</StyledH3>
+          <StyledH3>Comment</StyledH3>
 
           <InputGroup>
             <label htmlFor="descriprtion">

@@ -20,7 +20,7 @@ import {
 import Description from '../Elements/Description'
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
-import { SquareRadioInput } from '../../../../styles/elements/checkbox'
+import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
 import DatePicker from '../Elements/Date'
 
 const TheftReport = () => {
@@ -106,8 +106,17 @@ const TheftReport = () => {
         </QuestionGroup>
 
         <div>
+          <p>
+            If possible, please attach photo/s of your stolen bicycle, and, if
+            available, include a photo of the location where the bike was
+            stolen.
+          </p>
           <Images />
         </div>
+        <p>
+          Feel free to provide additional details about the incident to aid
+          fellow cyclists and support our community in preventing bicycle theft:
+        </p>
 
         <Description />
         <div>

@@ -1,20 +1,30 @@
 import {InputGroup, QuestionGroup} from "../../../../../styles/elements/forms.jsx";
 import {StyledH3} from "../../../../../styles/elements/typography.jsx";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
 import {DateText, FlexContainer} from "./styles.js";
 import {formatDateTime} from "../../../../../utils/formatDateandTime.js";
+import {setCommonFields} from "../../../../../store/slices/reportCreateSlice.js";
 
 
 function DatePicker() {
     const [useCurrentTime, setUseCurrentTime] = useState(false);
     const [customTime, setCustomTime] = useState('');
+    const dispatch = useDispatch();
     const handleCheckboxChange = (event) => {
         setUseCurrentTime(event.target.checked);
-    };
+        if (event.target.checked) {
+            setCustomTime(new Date().toISOString().slice(0, 16));
+
+            dispatch(setCommonFields({custom_date: customTime}));
+        }
+    }
 
     // Function to handle custom time change
     const handleCustomTimeChange = (event) => {
         formatDateTime(setCustomTime(event.target.value));
+        dispatch(setCommonFields({custom_date: event.target.value}));
+
     };
     return (<QuestionGroup>
         <StyledH3>Date and Time</StyledH3>
@@ -29,14 +39,14 @@ function DatePicker() {
                     />
                     <DateText>Right Now</DateText>
                 </label>
-                {!useCurrentTime && (
-                    <input
-                        type="datetime-local"
-                        value={customTime}
-                        onChange={handleCustomTimeChange}
-                    />
-                )}
-                <p>{useCurrentTime ? formatDateTime(new Date()) : formatDateTime(customTime)}</p>
+                {/*{!useCurrentTime && (*/}
+                <input
+                    type="datetime-local"
+                    value={customTime}
+                    onChange={handleCustomTimeChange}
+                />
+                {/*)}*/}
+                {/*<p>{useCurrentTime ? formatDateTime(new Date()) : formatDateTime(customTime)}</p>*/}
             </FlexContainer>
         </InputGroup>
 

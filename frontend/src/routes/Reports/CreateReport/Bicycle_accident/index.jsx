@@ -5,36 +5,59 @@ import {LeadParagraph, StyledH2, StyledH3} from '../../../../styles/elements/typ
 //import compose from '../../../../assets/icons/compose.png'
 import {useState} from "react";
 import DatePicker from "../Elements/Date/index.jsx";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setAccidentReport, setCommonFields, setTheftReport} from "../../../../store/slices/reportCreateSlice.js";
+import sendReport from "../../../../axios/sendReport.js";
+import Images from "../Elements/Images/index.jsx";
+import Description from "../Elements/Description.jsx";
+import LocationPicker from "../Elements/Location/index.jsx";
 
 //comment
 function AccidentReport() {
-    const [selectedParty, setSelectedParty] = useState('')
+    const dispatch = useDispatch()
+    //const [reportData, setReportData] = useState({})
+    const reportData = useSelector((store) => store.report)
+    const [involvedParty, setInvolvedParty] = useState("")
+    const INVOLVED_PARTIES_CHOICES = [
+        "Car",
+        "Bus, trolleybus, tram",
+        "Commercial vehicle",
+        "Motorcycle",
+        "Another bicycle",
+        "Pedestrian",
+        "E-Scooter",
+        "Road markings or infrastructure",
+        "Other",
+    ];
 
-    const [selectedValue, setSelectedValue] = useState(null)
-    const [selectedFile, setSelectedFile] = useState(null)
 
-    const handleInvolvedPartyChange = (e) => {
-        setSelectedParty(e.target.value)
+    const handlePartySelect = (e) =>
+    {
+        setInvolvedParty(e.target.value)
+    }
+    const inputHandler = (e) => {
+        const {id, value, checked} = e.target
+
+        dispatch(setCommonFields({[id]: value}))
+
+        if (id === 'was_police_locked')
+            dispatch(setTheftReport({was_bicycle_locked: checked}))
+        if (id === 'involved_parties')
+            dispatch(setAccidentReport({involved_parties: value}))
     }
 
-    const handleOptionChange = (event) => {
-        setSelectedValue(event.target.value === 'true');
-    };
-    const handleFileChange = (event) => {
-        setSelectedFile(event.target.files[0]);
-        // Automatically trigger file upload when a file is selected
-        uploadFile(event.target.files[0]);
-    };
-    const uploadFile = (file) => {
-        if (file) {
-            // To Perform upload logic here, such as sending the file to a server
-            console.log('Uploading file:', file);
-            // Clear the selected file after upload
-            setSelectedFile(null);
-        } else {
-            alert('Please select a file to upload.');
+    const handleSubmit = async () => {
+        const reportData = new FormData
+        reportData
+        try {
+            await sendReport(reportData)
+            dispatch(setAccidentReport(reportData))
+        } catch (error) {
+            console.log('error sending the report:', error)
         }
-    };
+    }
+
     return (
         <SectionContainer>
             <StyledH2>Bicycle Accident</StyledH2>
@@ -46,18 +69,15 @@ function AccidentReport() {
                 BikeAware.
             </LeadParagraph>
             <FormTwoColumn>
-                <div>
-                    <StyledH3>Where?</StyledH3>
-                    <input placeholder="You can share your geolocation"></input>
-                </div>
+                <LocationPicker/>
                 <DatePicker/>
                 <div>
                     <StyledH3>Was the police called to document the accident?</StyledH3>
                     <label>
                         <input type="radio"
                                value="true"
-                               checked={selectedValue === true}
-                               onChange={handleOptionChange}
+                               checked={reportData.was_police_called === true}
+                               onChange={inputHandler}
                         />
                         Yes
                     </label>
@@ -65,8 +85,8 @@ function AccidentReport() {
                         <input
                             type="radio"
                             value="false"
-                            checked={selectedValue === false}
-                            onChange={handleOptionChange}
+                            checked={reportData.was_police_called === false}
+                            onChange={inputHandler}
                         />
                         No
                     </label>
@@ -74,30 +94,28 @@ function AccidentReport() {
                 <div>
                     <StyledH3>Who was involved in the accident?</StyledH3>
                     <select
-
-                        value={selectedParty}
-                        onChange={handleInvolvedPartyChange}>
-                        <option value="" disabled>
-                            Please Choose
-                        </option>
-                    </select>
+                        id="involved_parties"
+                        value={reportData.involved_parties}
+                        onChange={handlePartySelect}>
+                        <option value="" disabled>Please Choose</option>
+                        {
+                            INVOLVED_PARTIES_CHOICES.map((party, index) => (
+                                <option key={index} value={party}>
+                                    {party}
+                                </option>
+                            ))
+                        }</select>
+                </div>
+                <Description/>
+                <div>
+                    <Images/>
                 </div>
                 <div>
-                    <StyledH3>Comment</StyledH3>
-                    <textarea placeholder="Please describe the details of the incident"></textarea>
-                </div>
-                <div>
-                    <StyledH3>Photo</StyledH3>
-                    <input type="file" onChange={handleFileChange}/>
-                    <br/>
-                    {selectedFile && <p>Selected File: {selectedFile.name}</p>}
-                </div>
-                <div>
-                    <AccentButton>Send</AccentButton>
+                    <AccentButton onClick={handleSubmit}>Send</AccentButton>
                 </div>
             </FormTwoColumn>
         </SectionContainer>
-    )
+)
 }
 
 export default AccidentReport

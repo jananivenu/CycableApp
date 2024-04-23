@@ -1,6 +1,6 @@
 const styles = {
   popupCard: {
-    width: '250px',
+    width: '220px',
     height: '300px',
     backgroundColor: '#ffffff',
     borderRadius: '5px',

@@ -17,6 +17,7 @@ import Reports from './Reports'
 import ShowReport from './Reports/ShowReport'
 import AccidentReport from './Reports/CreateReport/Bicycle_accident/index.jsx'
 import EditProfile from '../components/ProfileComponent/EditProfile/index.jsx'
+import CreateReport from './Reports/CreateReport/index.jsx'
 import SpecificUserProfile from '../components/ProfileComponent/SpecificUserProfile/index.jsx'
 
 const Router = () => {
@@ -44,6 +45,7 @@ const Router = () => {
           <Route path="/reports" element={<Reports />} />
           <Route path="/reports/:reportId" element={<ShowReport />} />
 
+          <Route path="new-report" element={<CreateReport />} />
           <Route path="/create/legal-report" element={<LegalReport />} />
           <Route path="/create/theft-report" element={<TheftReport />} />
           <Route path="/create/accident-report" element={<AccidentReport />} />

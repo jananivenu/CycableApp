@@ -11,6 +11,11 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../styles/elements/typography'
+import {
+  AuthForm,
+  InputGroup,
+  QuestionGroup,
+} from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
 import { useState, useEffect } from 'react'
 import coverBg from '../../../assets/photos/ballet.png'
@@ -25,6 +30,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserObject } from '../../../store/slices/userSlice'
 import AvatarUpload from './editAvatar'
+import DeleteAccount from './DeleteProfile'
 
 const EditProfile = () => {
   const storedUser = useSelector((state) => state.user.user)
@@ -35,12 +41,11 @@ const EditProfile = () => {
   const [last_name, setLastName] = useState(storedUser.last_name)
   const [location, setLocation] = useState(storedUser.location)
   const [profile_description, setProfileDescription] = useState(
-    storedUser.profile_description)
-    const [gender, setGender] = useState(storedUser.gender)
-    const [username, setUsername] = useState(storedUser.username)
-    const [birth_date, setBirthdate] = useState(storedUser.birth_date)
-
-
+    storedUser.profile_description,
+  )
+  const [gender, setGender] = useState(storedUser.gender)
+  const [username, setUsername] = useState(storedUser.username)
+  const [birth_date, setBirthdate] = useState(storedUser.birth_date)
 
   const [cover_photo, setCoverPhote] = useState(storedUser.cover_photo)
   const [userAvatar, setUserAvatar] = useState(storedUser.avatar)
@@ -49,10 +54,12 @@ const EditProfile = () => {
 
   const dispatch = useDispatch()
 
+  const [genderUser, setGenderUser] = useState(storedUser.gender)
+
   useEffect(() => {
     // Update the avatar in the stored user object whenever userAvatar changes
-    dispatch(setUserObject({ ...storedUser, avatar: userAvatar }));
-  }, [userAvatar]);
+    dispatch(setUserObject({ ...storedUser, avatar: userAvatar }))
+  }, [userAvatar])
 
   //   useEffect(() => {
   //     const fetchData = async () => {
@@ -96,15 +103,13 @@ const EditProfile = () => {
     }
   }
 
-
-  
   return (
     <MainContainer>
       <ProfileCover img={cover_photo || coverBg} />
       <ProfileGridContainer>
         <ProfilePicture src={userAvatar || avatar} />
         <BasicForm onSubmit={onSubmitChanges}>
-        <label>
+          <label>
             Username:
             <input
               name="username"
@@ -136,14 +141,24 @@ const EditProfile = () => {
               onChange={(e) => setLocation(e.target.value)}
             />
           </label>
-          <label>
-            Gender:
-            <input
-              name="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            />
-          </label>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="gender">Gender:</label>
+              <select
+                id="gender"
+                value={genderUser}
+                onChange={(e) => setGenderUser(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="D">Diverse</option>
+                <option value="N">Prefer not to say</option>
+              </select>
+            </InputGroup>
+          </QuestionGroup>
 
           <label>
             Description:
@@ -165,8 +180,8 @@ const EditProfile = () => {
           <AccentButton type="submit">Save Changes</AccentButton>
         </BasicForm>
         <BasicForm>
-        <AvatarUpload setUserAvatar={setUserAvatar}/>
-
+          <AvatarUpload setUserAvatar={setUserAvatar} />
+          <DeleteAccount />
         </BasicForm>
       </ProfileGridContainer>
     </MainContainer>
@@ -174,4 +189,3 @@ const EditProfile = () => {
 }
 
 export default EditProfile
-

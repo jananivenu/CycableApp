@@ -1,10 +1,31 @@
-import { LinkLikeAccentButton, LinkLikeSimpleButton, NavButtonsContainer } from '../styles'
+import { useSelector } from 'react-redux'
+
+import {
+  LinkLikeAccentButton,
+  LinkLikeSimpleButton,
+  NavButtonsContainer,
+} from '../styles'
+import NavLogout from './DropDownMenu/NavLogout'
+import Avatar from './Avatar'
 
 function NavButtons() {
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+  const avatar = useSelector((state) => state.user.user.avatar)
+
   return (
     <NavButtonsContainer>
-      <LinkLikeSimpleButton to='/login'>Log In</LinkLikeSimpleButton>
-      <LinkLikeAccentButton hide to='/report'>Report</LinkLikeAccentButton>
+      {isLoggedIn ? (
+        <>
+          <Avatar avatar={avatar} />
+          {/* <NavLogout /> */}
+        </>
+      ) : (
+        <LinkLikeSimpleButton to="/login">Sign In</LinkLikeSimpleButton>
+      )}
+
+      <LinkLikeAccentButton to="/report">
+        Add Report
+      </LinkLikeAccentButton>
     </NavButtonsContainer>
   )
 }

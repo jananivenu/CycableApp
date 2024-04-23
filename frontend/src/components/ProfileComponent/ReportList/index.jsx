@@ -1,5 +1,5 @@
-import CaseReport from '../../../components/CasePreview/CaseReport'
-import MasonryContainer from '../../../components/wrappers/MasonryContainer'
+import CaseReport from '../../CasePreview/CaseReport'
+import MasonryContainer from '../../wrappers/MasonryContainer'
 
 function ReportList({ reports }) {
   return (

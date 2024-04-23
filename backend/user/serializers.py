@@ -16,13 +16,29 @@ class UserSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'username']
+        fields = ['id', 'first_name', 'last_name', 'username', 'avatar', 'privacy_level']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.privacy_level == 'hide_profile':
+            data = {'username': instance.username}
+        else:
+            data = super().to_representation(instance)
+        return data
 
 
 class AuthorCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'username']
+        fields = ['email', 'first_name', 'last_name', 'username', 'privacy_level']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.privacy_level == 'hide_profile':
+            data = {'username': instance.username}
+        else:
+            data = super().to_representation(instance)
+        return data
 
 
 class UserPrivateSerializer(serializers.ModelSerializer):

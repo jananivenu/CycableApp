@@ -1,7 +1,4 @@
 import { MainContainer, SectionContainer } from '../../styles'
-import { AccentButton, SimpleButton } from '../../styles/elements/buttons'
-import { BasicForm, FormTwoColumn } from '../../styles/elements/forms'
-import { MapContainer, MapIframe } from './styles'
 import Map from '../../components/MapBox/Map/Map'
 const Home = () => {
   return (
@@ -11,7 +8,6 @@ const Home = () => {
       </SectionContainer>
       <Map />
     </MainContainer>
-    
   )
 }
 

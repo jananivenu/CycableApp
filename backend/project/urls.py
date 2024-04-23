@@ -22,7 +22,7 @@ from rest_framework.permissions import AllowAny
 # swagger
 schema_view = get_schema_view(
     openapi.Info(
-        title="CycleApp API",
+        title="CycAble API",
         default_version='v1',
         description="",
         terms_of_service="https://www.google.com/policies",

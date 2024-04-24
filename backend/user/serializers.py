@@ -30,7 +30,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class AuthorCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'username', 'privacy_level']
+        fields = ['id', 'email', 'first_name', 'last_name', 'username', 'privacy_level']
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -44,7 +44,7 @@ class AuthorCommentSerializer(serializers.ModelSerializer):
 class UserPrivateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'avatar', 'cover_photo']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'avatar', 'cover_photo']
 
         read_only_fields = ['email']
 

@@ -47,7 +47,7 @@ class IncidentReportSerializer(serializers.ModelSerializer):
         incident_report = ReportedIncidents.objects.create(**validated_data)
 
         for image in images_data:
-            Images.objects.create(incident_report=incident_report,images=image)
+            Images.objects.create(incident_report=incident_report, images=image)
         return incident_report
 
 

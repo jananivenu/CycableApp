@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SectionContainer } from '../../../../styles'
+import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import {
   LeadParagraph,
   StyledH2,
@@ -11,7 +11,6 @@ import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 
 import sendReport from '../../../../axios/sendReport'
-import { FlexContainer } from './styles'
 import { useDispatch } from 'react-redux'
 import {
   setCommonFields,
@@ -22,10 +21,13 @@ import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
 import DatePicker from '../Elements/Date'
+import CameraComponent from '../../../Camera/camera.jsx'
+import { SuccessMsg } from '../styles.jsx'
 
 const TheftReport = () => {
   const dispatch = useDispatch()
   const [reportData, setReportData] = useState({})
+  const [successMsg, setSuccessMsg] = useState(false)
 
   const inputHandler = (e) => {
     const { id, value, checked } = e.target
@@ -51,6 +53,7 @@ const TheftReport = () => {
   }
 
   const handleSubmit = async () => {
+    setSuccessMsg(true)
     try {
       await sendReport(reportData)
       dispatch(setTheftReport(reportData))
@@ -60,70 +63,93 @@ const TheftReport = () => {
   }
 
   return (
-    <SectionContainer>
-      <FlexContainer>
-        <ComposeIcone src={compose} />
-        <StyledH2>Bicycle Theft</StyledH2>
-      </FlexContainer>
-      <LeadParagraph>
-        We understand the frustration and inconvenience that comes with having
-        your bike stolen. Here, you have the opportunity to share your
-        experience and help us address this issue within our community.
-        <b>Was your bike stolen? Don't hesitate to report it!</b>
-        By providing details such as the <b>location</b> and
-        <b> whether your bicycle was locked</b>, you're contributing to creating
-        safer streets for cyclists.
-      </LeadParagraph>
-      <FormTwoColumn>
-        <LocationPicker />
+    <>
+      {!successMsg && (
+        <SectionContainer>
+          <ComposeIconTitleWrapper>
+            <ComposeIcone src={compose} />
+            <StyledH2>Bicycle Theft</StyledH2>
+          </ComposeIconTitleWrapper>
+          <LeadParagraph>
+            We understand the frustration and inconvenience that comes with
+            having your bike stolen. Here, you have the opportunity to share
+            your experience and help us address this issue within our community.
+            <b>Was your bike stolen? Don't hesitate to report it!</b>
+            By providing details such as the <b>location</b> and
+            <b> whether your bicycle was locked</b>, you're contributing to
+            creating safer streets for cyclists.
+          </LeadParagraph>
+          <FormTwoColumn>
+            <LocationPicker />
 
-        <DatePicker />
+            <DatePicker />
 
-        <QuestionGroup>
-          <StyledH3>Was The Bicycle Locked?</StyledH3>
+            <QuestionGroup>
+              <StyledH3>Was The Bicycle Locked?</StyledH3>
 
-          <label>
-            YES
-            <SquareRadioInput
-              id="was_bicycle_locked"
-              type="radio"
-              name="lockStatus"
-              value="true"
-              onChange={inputHandler}
-            />
-          </label>
+              <label>
+                YES
+                <SquareRadioInput
+                  id="was_bicycle_locked"
+                  type="radio"
+                  name="lockStatus"
+                  value="true"
+                  onChange={inputHandler}
+                />
+              </label>
 
-          <label>
-            NO
-            <SquareRadioInput
-              id="was_bicycle_locked"
-              type="radio"
-              name="lockStatus"
-              value="false"
-              onChange={inputHandler}
-            />
-          </label>
-        </QuestionGroup>
+              <label>
+                NO
+                <SquareRadioInput
+                  id="was_bicycle_locked"
+                  type="radio"
+                  name="lockStatus"
+                  value="false"
+                  onChange={inputHandler}
+                />
+              </label>
+            </QuestionGroup>
+            <QuestionGroup>
+              <p>
+                If possible, please attach photo/s of your stolen bicycle, and,
+                if available, include a photo of the location where the bike was
+                stolen.
+              </p>
+              <Images />
+              <CameraComponent />
+            </QuestionGroup>
+            <QuestionGroup></QuestionGroup>
 
-        <div>
-          <p>
-            If possible, please attach photo/s of your stolen bicycle, and, if
-            available, include a photo of the location where the bike was
-            stolen.
-          </p>
-          <Images />
-        </div>
-        <p>
-          Feel free to provide additional details about the incident to aid
-          fellow cyclists and support our community in preventing bicycle theft:
-        </p>
+            <StyledH3>Comment</StyledH3>
+            <p>
+              Feel free to provide additional details about the incident to aid
+              fellow cyclists and support our community in preventing bicycle
+              theft:
+            </p>
 
-        <Description />
-        <div>
-          <AccentButton onClick={handleSubmit}>Send</AccentButton>
-        </div>
-      </FormTwoColumn>
-    </SectionContainer>
+            <Description />
+            <div>
+              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+            </div>
+          </FormTwoColumn>
+        </SectionContainer>
+      )}
+      {successMsg && (
+        <SectionContainer>
+          <SuccessMsg>
+            <StyledH3>
+              Thank you for taking time and reporting the incident via our App.{' '}
+              <br />
+              Your contribution helps in making our streets safer for cyclists.
+              We appreciate your cooperation and concern for the biking
+              community. <br />
+              <br /> --- Join the Movement for Safer Cycling --- <br />
+              --- From Your Stories to Safer Streets ---
+            </StyledH3>
+          </SuccessMsg>
+        </SectionContainer>
+      )}
+    </>
   )
 }
 

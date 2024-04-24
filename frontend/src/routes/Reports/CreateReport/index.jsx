@@ -16,6 +16,7 @@ import AccidentReport from './Bicycle_accident'
 import TheftReport from './Theft'
 import LegalReport from './Legal'
 import { BasicForm } from '../../../styles/elements/forms'
+import NearMiss from './NearMiss'
 // main component to render different create_report_types
 const CreateReport = () => {
   const [type, setType] = useState('')
@@ -89,7 +90,7 @@ const CreateReport = () => {
           <AccidentReport type={'bicycle_accident'} />
         )}
         {type === 'bicycle_theft' && <TheftReport type={'bicycle_theft'} />}
-        {/* {type === 'near_miss' && <NearMissReport />} */}
+        {type === 'near_miss' && <NearMiss />}
         {type === 'violations' && <LegalReport type={'violations'} />}
       </FormsWrapper>
     </BasicForm>

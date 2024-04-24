@@ -14,6 +14,11 @@ export const BaseButton = styled.button`
   &:focus-visible {
     outline: 2px solid var(--accent-blue);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--gray-500);
+  }
 `
 
 export const AccentButton = styled(BaseButton)`
@@ -24,6 +29,7 @@ export const AccentButton = styled(BaseButton)`
   @media (max-width: 480px) {
     display: ${props => props.hide ? 'none' : 'inline-block'};
   }
+
 `
 
 export const SimpleButton = styled(BaseButton)`

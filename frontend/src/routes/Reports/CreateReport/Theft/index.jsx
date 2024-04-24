@@ -16,7 +16,7 @@ import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportCreateSlice'
-import Description from '../Elements/Description'
+
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'

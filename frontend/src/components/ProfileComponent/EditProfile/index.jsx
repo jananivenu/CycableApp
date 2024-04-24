@@ -1,18 +1,14 @@
-import React from 'react'
 import { MainContainer } from '../../../styles'
 import {
-  ProfileAbout,
+  EditProfileForm,
   ProfileCover,
   ProfileGridContainer,
   ProfilePicture,
 } from '../styles'
 import {
-  LeadParagraph,
   StyledH2,
-  StyledH3,
 } from '../../../styles/elements/typography'
 import {
-  AuthForm,
   InputGroup,
   QuestionGroup,
 } from '../../../styles/elements/forms'
@@ -20,10 +16,7 @@ import { AccentButton } from '../../../styles/elements/buttons'
 import { useState, useEffect } from 'react'
 import coverBg from '../../../assets/photos/ballet.png'
 import avatar from '../../../assets/photos/pavlova.png'
-import { Link } from 'react-router-dom'
-import { formatDate } from '../../../utils/formatDate'
 
-import { getMyUserDatas } from '../../../axios/UserData'
 import { BasicForm } from '../../../styles/elements/forms'
 import { updateUserData } from '../../../axios/UserData'
 import { useNavigate } from 'react-router-dom'
@@ -108,40 +101,62 @@ const EditProfile = () => {
     <MainContainer>
       <ProfileCover img={cover_photo || coverBg} />
       <ProfileGridContainer>
-        <ProfilePicture src={userAvatar || avatar} />
-        <BasicForm onSubmit={onSubmitChanges}>
-          <label>
-            Username:
-            <input
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
-          <label>
-            First Name:
-            <input
-              name="first_name"
-              value={first_name}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </label>
-          <label>
-            Last Name:
-            <input
-              name="last_name"
-              value={last_name}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </label>
-          <label>
-            Location:
-            <input
-              name="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-          </label>
+        <div>
+          <ProfilePicture src={userAvatar || avatar} />
+          <BasicForm>
+            <AvatarUpload setUserAvatar={setUserAvatar} />
+            <div>
+              <DeleteAccount />
+            </div>
+            <CoverUpload setCoverPhoto={setCoverPhote} />
+          </BasicForm>
+        </div>
+        <EditProfileForm onSubmit={onSubmitChanges}>
+          <StyledH2>Edit Profile</StyledH2>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="username">Username: </label>
+              <input
+                id="username"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="lastname">First Name: </label>
+              <input
+                id="firstname"
+                name="first_name"
+                value={first_name}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="lastname">Last Name: </label>
+              <input
+                id="lastname"
+                name="last_name"
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="location">Location:</label>
+              <input
+                id="location"
+                name="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
           <QuestionGroup>
             <InputGroup>
               <label htmlFor="gender">Gender:</label>
@@ -160,31 +175,31 @@ const EditProfile = () => {
               </select>
             </InputGroup>
           </QuestionGroup>
-
-          <label>
-            Description:
-            <textarea
-              name="profile_description"
-              value={profile_description}
-              onChange={(e) => setProfileDescription(e.target.value)}
-            />
-          </label>
-          <label>
-            Birthdate:
-            <input
-              type="date"
-              name="birthdate"
-              value={birth_date}
-              onChange={(e) => setBirthdate(e.target.value)}
-            />
-          </label>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="description">Description:</label>
+              <textarea
+                id="description"
+                name="profile_description"
+                value={profile_description}
+                onChange={(e) => setProfileDescription(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
+          <QuestionGroup>
+            <InputGroup>
+              <label htmlFor="birthdate">Birthdate:</label>
+              <input
+                id="birthdate"
+                type="date"
+                name="birthdate"
+                value={birth_date}
+                onChange={(e) => setBirthdate(e.target.value)}
+              />
+            </InputGroup>
+          </QuestionGroup>
           <AccentButton type="submit">Save Changes</AccentButton>
-        </BasicForm>
-        <BasicForm>
-          <AvatarUpload setUserAvatar={setUserAvatar} />
-          <DeleteAccount />
-          <CoverUpload setCoverPhoto={setCoverPhote} />
-        </BasicForm>
+        </EditProfileForm>
       </ProfileGridContainer>
     </MainContainer>
   )

@@ -14,14 +14,16 @@ export const AuthorLink = styled(Link)`
   text-decoration: none;
   color: black;
   font-weight: 700;
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-color: var(--accent-main);
-  text-decoration-thickness: 0.5px;
 
   transition: color 0.2s ease;
 
   &:hover {
     color: var(--accent-main);
   }
+`
+
+export const AuthorAvatar = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
 `

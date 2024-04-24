@@ -51,12 +51,15 @@ const UserProfile = () => {
   ]
 
   const [userData, setUserData] = useState(null)
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getMyUserDatas()
         setUserData(data)
+        localStorage.setItem('user', JSON.stringify(data))
+
       } catch (error) {
         console.error('Error fetching user data: ', error)
       }
@@ -74,7 +77,7 @@ const UserProfile = () => {
       <ProfileCover img={userData.cover_photo || coverBg} />
       <ProfileGridContainer>
         <ProfilePicture src={userData.avatar || avatar} />
-        <AccentButton as={Link} to="/edit-profile">Edit Profile</AccentButton>
+        <AccentButton as={Link} to="/profile/edit">Edit Profile</AccentButton>
         <ProfileAbout>
           <StyledH2>
             {userData.first_name} {userData.last_name}

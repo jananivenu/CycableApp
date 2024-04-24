@@ -5,13 +5,8 @@ import {
   ProfileGridContainer,
   ProfilePicture,
 } from '../styles'
-import {
-  StyledH2,
-} from '../../../styles/elements/typography'
-import {
-  InputGroup,
-  QuestionGroup,
-} from '../../../styles/elements/forms'
+import { StyledH2 } from '../../../styles/elements/typography'
+import { InputGroup, QuestionGroup } from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
 import { useState, useEffect } from 'react'
 import coverBg from '../../../assets/photos/ballet.png'
@@ -27,7 +22,9 @@ import DeleteAccount from './DeleteProfile'
 import CoverUpload from './EditCover'
 
 const EditProfile = () => {
-  const storedUser = useSelector((state) => state.user.user)
+  
+  const storedUser = JSON.parse(localStorage.getItem('user'))
+  console.log('from store')
   console.log(storedUser)
   const [userData, setUserData] = useState(null)
 
@@ -41,7 +38,7 @@ const EditProfile = () => {
   const [username, setUsername] = useState(storedUser.username)
   const [birth_date, setBirthdate] = useState(storedUser.birth_date)
 
-  const [cover_photo, setCoverPhote] = useState(storedUser.cover_photo)
+  const [cover_photo, setCoverPhoto] = useState(storedUser.cover_photo)
   const [userAvatar, setUserAvatar] = useState(storedUser.avatar)
 
   const navigate = useNavigate()
@@ -52,8 +49,8 @@ const EditProfile = () => {
 
   useEffect(() => {
     // Update the avatar in the stored user object whenever userAvatar changes
-    dispatch(setUserObject({ ...storedUser, avatar: userAvatar }))
-  }, [userAvatar])
+    dispatch(setUserObject(JSON.parse(localStorage.getItem('user'))))
+  }, [])
 
   //   useEffect(() => {
   //     const fetchData = async () => {
@@ -90,7 +87,6 @@ const EditProfile = () => {
       localStorage.setItem('user', JSON.stringify(updatedData))
       dispatch(setUserObject(updatedData))
 
-      // Assuming '/profile/me/' is the correct path to the user's profile
       navigate('/profile/me/')
     } catch (error) {
       console.error('Error updating user data: ', error)
@@ -108,7 +104,7 @@ const EditProfile = () => {
             <div>
               <DeleteAccount />
             </div>
-            <CoverUpload setCoverPhoto={setCoverPhote} />
+            <CoverUpload setCoverPhoto={setCoverPhoto} />
           </BasicForm>
         </div>
         <EditProfileForm onSubmit={onSubmitChanges}>
@@ -126,7 +122,7 @@ const EditProfile = () => {
           </QuestionGroup>
           <QuestionGroup>
             <InputGroup>
-              <label htmlFor="lastname">First Name: </label>
+              <label htmlFor="firstname">First Name: </label>
               <input
                 id="firstname"
                 name="first_name"

@@ -21,6 +21,7 @@ import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
 import DatePicker from '../Elements/Date'
+import CameraComponent from '../../../Camera/camera.jsx'
 
 const TheftReport = () => {
   const dispatch = useDispatch()
@@ -110,6 +111,7 @@ const TheftReport = () => {
             stolen.
           </p>
           <Images />
+          <CameraComponent />
         </QuestionGroup>
         <QuestionGroup></QuestionGroup>
 

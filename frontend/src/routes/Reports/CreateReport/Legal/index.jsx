@@ -42,6 +42,7 @@ function LegalReport() {
             If possible, please attach any relevant photos related to locations
             needing improvements for cyclists.
             <Images />
+            {/* <CameraComponent /> */}
           </InputGroup>
         </QuestionGroup>
         <QuestionGroup>

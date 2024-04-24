@@ -1,5 +1,5 @@
-import { SectionContainer } from '../../../../styles'
-import { FormTwoColumn } from '../../../../styles/elements/forms'
+import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
+import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import {
   LeadParagraph,
@@ -20,6 +20,8 @@ import sendReport from '../../../../axios/sendReport.js'
 import Images from '../Elements/Images/index.jsx'
 import Description from '../Elements/Description.jsx'
 import LocationPicker from '../Elements/Location/index.jsx'
+import { ComposeIcone } from '../../../../styles/elements/icons.jsx'
+import compose from '../../../../assets/icons/compose.png'
 
 //comment
 function AccidentReport() {
@@ -66,7 +68,10 @@ function AccidentReport() {
 
   return (
     <SectionContainer>
-      <StyledH2>Bicycle Accident</StyledH2>
+      <ComposeIconTitleWrapper>
+        <ComposeIcone src={compose} />
+        <StyledH2>Bicycle Accident</StyledH2>
+      </ComposeIconTitleWrapper>
       <LeadParagraph>
         We hear a lot of Bicycle Accidents!Mostly because the people are not
         following rules, or run into potholes or unkempt roads.Sometimes it is
@@ -77,7 +82,7 @@ function AccidentReport() {
       <FormTwoColumn>
         <LocationPicker />
         <DatePicker />
-        <div>
+        <QuestionGroup>
           <StyledH3>Was the police called to document the accident?</StyledH3>
           <label>
             <input
@@ -99,8 +104,8 @@ function AccidentReport() {
             />
             No
           </label>
-        </div>
-        <div>
+        </QuestionGroup>
+        <QuestionGroup>
           <StyledH3>Who was involved in the accident?</StyledH3>
           <select
             id="involved_parties"
@@ -116,11 +121,17 @@ function AccidentReport() {
               </option>
             ))}
           </select>
-        </div>
+        </QuestionGroup>
+        <StyledH3>Comment</StyledH3>
+        <p>
+          Feel free to provide additional details about the accident to assist
+          fellow cyclists and support our community in promoting safety on the
+          roads.{' '}
+        </p>
         <Description />
-        <div>
+        <QuestionGroup>
           <Images />
-        </div>
+        </QuestionGroup>
         <div>
           <AccentButton onClick={handleSubmit}>Send</AccentButton>
         </div>

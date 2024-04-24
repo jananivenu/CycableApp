@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { Marker, useMapEvents, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import {useDispatch} from "react-redux";
+import {setCommonFields} from "../../../../../store/slices/reportCreateSlice.js";
 
 function LocationMarker({ setLocation, setAddress }) {
   const [position, setPosition] = useState(null)
+    const dispatch = useDispatch()
   const map = useMapEvents({
     click(e) {
       const { lat, lng } = e.latlng
@@ -17,6 +20,7 @@ function LocationMarker({ setLocation, setAddress }) {
           const addressParts = data.address
           const formattedAddress = `${addressParts.house_number || ''} ${addressParts.road || ''}, ${addressParts.city || addressParts.town || addressParts.village}`
           setAddress(formattedAddress.trim())
+            dispatch(setCommonFields({address:formattedAddress.trim()}))
         })
         .catch((err) => {
           console.error('Error fetching address:', err)

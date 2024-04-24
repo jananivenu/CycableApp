@@ -14,9 +14,11 @@ function DatePicker() {
     const handleCheckboxChange = (event) => {
         setUseCurrentTime(event.target.checked);
         if (event.target.checked) {
-            setCustomTime(new Date().toISOString().slice(0, 16));
-
-            dispatch(setCommonFields({custom_date: customTime}));
+            const dateNow= new Date().toISOString().slice(0, 16)
+            console.log("Weare here")
+            setCustomTime(dateNow)
+            console.log(dateNow)
+            dispatch(setCommonFields({custom_date: dateNow}));
         }
     }
 
@@ -35,6 +37,7 @@ function DatePicker() {
                     <input
                         type="checkbox"
                         checked={useCurrentTime}
+                        value={customTime}
                         onChange={handleCheckboxChange}
                     />
                     <DateText>Right Now</DateText>

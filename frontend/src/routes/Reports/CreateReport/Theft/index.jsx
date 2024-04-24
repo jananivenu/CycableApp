@@ -18,7 +18,7 @@ import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportCreateSlice'
-import Description from '../Elements/Description'
+//import Description from '../Elements/Description'
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 const TheftReport = () => {
@@ -132,7 +132,7 @@ const TheftReport = () => {
           <Images />
         </div>
 
-        <Description />
+
         <div>
           <AccentButton onClick={handleSubmit}>Send</AccentButton>
         </div>

@@ -1,24 +1,25 @@
 import {SectionContainer} from '../../../../styles'
-import {FormTwoColumn} from '../../../../styles/elements/forms'
+import {FormTwoColumn, InputGroup} from '../../../../styles/elements/forms'
 import {AccentButton} from '../../../../styles/elements/buttons'
 import {LeadParagraph, StyledH2, StyledH3} from '../../../../styles/elements/typography'
 //import compose from '../../../../assets/icons/compose.png'
-import {useState} from "react";
+//import {useState} from "react";
 import DatePicker from "../Elements/Date/index.jsx";
-import {useNavigate} from "react-router-dom";
+//import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setAccidentReport, setCommonFields, setTheftReport} from "../../../../store/slices/reportCreateSlice.js";
+import {setAccidentReport, setCommonFields} from "../../../../store/slices/reportCreateSlice.js";
 import sendReport from "../../../../axios/sendReport.js";
 import Images from "../Elements/Images/index.jsx";
-import Description from "../Elements/Description.jsx";
 import LocationPicker from "../Elements/Location/index.jsx";
+import {useState} from "react";
+//import {useState} from "react";
 
 //comment
 function AccidentReport() {
     const dispatch = useDispatch()
     //const [reportData, setReportData] = useState({})
     const reportData = useSelector((store) => store.report)
-    const [involvedParty, setInvolvedParty] = useState("")
+    const [uploadedImages, setUploadedImages] = useState([]);
     const INVOLVED_PARTIES_CHOICES = [
         "Car",
         "Bus, trolleybus, tram",
@@ -30,29 +31,38 @@ function AccidentReport() {
         "Road markings or infrastructure",
         "Other",
     ];
-
-
-    const handlePartySelect = (e) =>
-    {
-        setInvolvedParty(e.target.value)
-    }
+      const handleImagesChange = (imageFiles) => {
+          console.log(imageFiles);
+          console.log("we are !!!!")
+        setUploadedImages(imageFiles);
+    };
     const inputHandler = (e) => {
-        const {id, value, checked} = e.target
+        const {id, value} = e.target
 
-        dispatch(setCommonFields({[id]: value}))
-
-        if (id === 'was_police_locked')
-            dispatch(setTheftReport({was_bicycle_locked: checked}))
-        if (id === 'involved_parties')
-            dispatch(setAccidentReport({involved_parties: value}))
+     if (id === 'was_police_called') {
+        dispatch(setAccidentReport({ was_police_called: value }));
+    } else if (id === 'involved_parties') {
+        dispatch(setAccidentReport({ involved_parties: value }));
+    } else {
+        dispatch(setCommonFields({ [id]: value }));}
     }
 
-    const handleSubmit = async () => {
-        const reportData = new FormData
-        reportData
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('description', reportData.description);
+        formData.append('longitude', reportData.longitude);
+        formData.append('latitude', reportData.latitude);
+        formData.append('address', reportData.address);
+        formData.append('custom_date', reportData.custom_date);
+        formData.append('was_police_called', reportData.was_police_called);
+        formData.append('involved_parties', reportData.involved_parties);
+        formData.append("incident_type","bicycle_accident")
+         uploadedImages.forEach((image) => {
+            formData.append('images', image.file);
+        });
         try {
-            await sendReport(reportData)
-            dispatch(setAccidentReport(reportData))
+            await sendReport(formData)
         } catch (error) {
             console.log('error sending the report:', error)
         }
@@ -75,7 +85,8 @@ function AccidentReport() {
                     <StyledH3>Was the police called to document the accident?</StyledH3>
                     <label>
                         <input type="radio"
-                               value="true"
+                               id="was_police_called"
+                               value="True"
                                checked={reportData.was_police_called === true}
                                onChange={inputHandler}
                         />
@@ -84,7 +95,8 @@ function AccidentReport() {
                     <label>
                         <input
                             type="radio"
-                            value="false"
+                            id="was_police_called"
+                            value="False"
                             checked={reportData.was_police_called === false}
                             onChange={inputHandler}
                         />
@@ -96,7 +108,7 @@ function AccidentReport() {
                     <select
                         id="involved_parties"
                         value={reportData.involved_parties}
-                        onChange={handlePartySelect}>
+                        onChange={inputHandler}>
                         <option value="" disabled>Please Choose</option>
                         {
                             INVOLVED_PARTIES_CHOICES.map((party, index) => (
@@ -106,16 +118,30 @@ function AccidentReport() {
                             ))
                         }</select>
                 </div>
-                <Description/>
+                <InputGroup>
+                    <p>
+                        Please share additional details about the accident below. Your input
+                        helps us understand the circumstances and improve safety measures for
+                        cyclists in our community. Your contribution is vital in promoting
+                        awareness and ensuring the well-being of fellow riders:
+                    </p>
+                    <textarea
+                        id="description"
+                        placeholder="More details..."
+                        value={reportData.description}
+                        onChange={inputHandler}
+                        required
+                    ></textarea>
+                </InputGroup>
                 <div>
-                    <Images/>
+                    <Images onImagesChange={handleImagesChange}/>
                 </div>
                 <div>
                     <AccentButton onClick={handleSubmit}>Send</AccentButton>
                 </div>
             </FormTwoColumn>
         </SectionContainer>
-)
+    )
 }
 
 export default AccidentReport

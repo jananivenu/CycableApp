@@ -44,10 +44,7 @@ const Router = () => {
           <Route path="/reports" element={<Reports />} />
           <Route path="/reports/:reportId" element={<ShowReport />} />
 
-          <Route path="new-report" element={<CreateReport />} />
-          <Route path="/create/legal-report" element={<LegalReport />} />
-          <Route path="/create/theft-report" element={<TheftReport />} />
-          <Route path="/create/accident-report" element={<AccidentReport />} />
+          <Route path="new-report" element={<AccidentReport />} />
           <Route path="/create/test" element={<TestForm />} />
 
           <Route path="/send_report" element={<SendReport />} />

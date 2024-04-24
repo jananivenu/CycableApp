@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SectionContainer } from '../../../../styles'
+import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import {
   LeadParagraph,
   StyledH2,
@@ -11,7 +11,6 @@ import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 
 import sendReport from '../../../../axios/sendReport'
-import { FlexContainer } from './styles'
 import { useDispatch } from 'react-redux'
 import {
   setCommonFields,
@@ -61,10 +60,10 @@ const TheftReport = () => {
 
   return (
     <SectionContainer>
-      <FlexContainer>
+      <ComposeIconTitleWrapper>
         <ComposeIcone src={compose} />
         <StyledH2>Bicycle Theft</StyledH2>
-      </FlexContainer>
+      </ComposeIconTitleWrapper>
       <LeadParagraph>
         We understand the frustration and inconvenience that comes with having
         your bike stolen. Here, you have the opportunity to share your
@@ -104,15 +103,17 @@ const TheftReport = () => {
             />
           </label>
         </QuestionGroup>
-
-        <div>
+        <QuestionGroup>
           <p>
             If possible, please attach photo/s of your stolen bicycle, and, if
             available, include a photo of the location where the bike was
             stolen.
           </p>
           <Images />
-        </div>
+        </QuestionGroup>
+        <QuestionGroup></QuestionGroup>
+
+        <StyledH3>Comment</StyledH3>
         <p>
           Feel free to provide additional details about the incident to aid
           fellow cyclists and support our community in preventing bicycle theft:

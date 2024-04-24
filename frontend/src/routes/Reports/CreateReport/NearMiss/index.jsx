@@ -15,11 +15,20 @@ import { useState } from 'react'
 import CameraComponent from '../../../Camera/camera'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import { SuccessMsg } from '../styles'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setCommonFields,
+  setViolationsReport,
+} from '../../../../store/slices/reportCreateSlice'
+import sendReport from '../../../../axios/sendReport'
 
 const NearMiss = () => {
-  const [reportData, setReportData] = useState({})
+  const dispatch = useDispatch()
+
+  const reportData = useSelector((state) => state.report)
+  const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
-  const [involvedParty, setInvolvedParty] = useState('')
+
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
     'Bus, trolleybus, tram',
@@ -32,14 +41,42 @@ const NearMiss = () => {
     'Other',
   ]
 
-  const handlePartySelect = (e) => {
-    setInvolvedParty(e.target.value)
+  const handleImagesChange = (imageFiles) => {
+    console.log(imageFiles)
+    setUploadedImages(imageFiles)
+  }
+  const inputHandler = (e) => {
+    const { id, value } = e.target
+
+    if (id === 'involved_parties') {
+      dispatch(setViolationsReport({ involved_parties: value }))
+    } else {
+      dispatch(setCommonFields({ [id]: value }))
+    }
   }
 
-  const handleSubmit = () => {
-    // add here the logic to dispatch and to fetch to api
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('description', reportData.description)
+    formData.append('longitude', reportData.longitude)
+    formData.append('latitude', reportData.latitude)
+    formData.append('address', reportData.address)
+    formData.append('custom_date', reportData.custom_date)
+    formData.append('involved_parties', reportData.involved_parties)
+    formData.append('incident_type', 'violations')
+    uploadedImages.forEach((image) => {
+      formData.append('images', image.file)
+    })
+    try {
+      await sendReport(formData)
+    } catch (error) {
+      console.log('error sending the report:', error)
+    }
+
     setSuccessMsg(true)
   }
+
   return (
     <>
       {!successMsg && (
@@ -71,7 +108,7 @@ const NearMiss = () => {
                 near miss incident. This could include images of the location,or
                 any visible hazards encountered.
               </p>
-              <Images />
+              <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
             <QuestionGroup>
@@ -79,7 +116,7 @@ const NearMiss = () => {
               <select
                 id="involved_parties"
                 value={reportData.involved_parties}
-                onChange={handlePartySelect}
+                onChange={inputHandler}
               >
                 <option value="" disabled>
                   Please Choose
@@ -99,7 +136,15 @@ const NearMiss = () => {
                 potential risks and improves safety measures for our biking
                 community.
               </p>
-              <Description />
+              <QuestionGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
+              </QuestionGroup>
             </QuestionGroup>
             <div>
               <AccentButton onClick={handleSubmit}>Send</AccentButton>

@@ -13,10 +13,10 @@ export const FileUploadButton = styled.label`
   //width: max-content;
   margin-top: 0.5rem;
 
-  background: var(--accent-main);
-  color: white;
+  background-color: transparent;
+  border: 2px solid var(--accent-main);
+  color: var(--accent-main);
   border-radius: 2rem;
-  border: 0;
 
   text-transform: uppercase;
   font-size: 01rem;

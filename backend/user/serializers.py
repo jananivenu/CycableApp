@@ -7,8 +7,9 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'location',
-                  'profile_description', 'avatar', 'joined_date', 'cover_photo']
+        fields = ['id', 'username', 'first_name', 'last_name', 'location', 'birth_date', 'gender'
+                                                                                         'profile_description',
+                  'avatar', 'joined_date', 'cover_photo']
 
         read_only_fields = ['email']
 
@@ -16,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'username', 'avatar', 'privacy_level']
+        fields = ['id', 'first_name', 'last_name', 'username', 'avatar', 'birth_date', 'gender', 'privacy_level']
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -30,7 +31,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class AuthorCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'username', 'privacy_level']
+        fields = ['id', 'email', 'first_name', 'last_name', 'username', 'birth_date', 'gender', 'privacy_level']
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -44,7 +45,7 @@ class AuthorCommentSerializer(serializers.ModelSerializer):
 class UserPrivateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'avatar', 'cover_photo']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'avatar', 'cover_photo']
 
         read_only_fields = ['email']
 

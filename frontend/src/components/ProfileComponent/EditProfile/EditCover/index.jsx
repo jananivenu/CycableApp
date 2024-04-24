@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setUserObject } from '../../../store/slices/userSlice'
-import { updateUserData } from '../../../axios/UserData'
-import { AccentButton } from '../../../styles/elements/buttons'
+import { setUserObject } from '../../../../store/slices/userSlice'
+import { updateUserData } from '../../../../axios/UserData' 
+import { AccentButton } from '../../../../styles/elements/buttons' 
 
-const AvatarUpload = ({ setUserAvatar }) => {
+const CoverUpload = ({ setCoverPhoto }) => {
   const [selectedFile, setSelectedFile] = useState(null)
   const dispatch = useDispatch()
 
@@ -15,12 +15,12 @@ const AvatarUpload = ({ setUserAvatar }) => {
   const handleFileUpload = async (event) => {
     event.preventDefault()
     let formData = new FormData()
-    formData.append('avatar', selectedFile)
+    formData.append('cover_photo', selectedFile)
 
     try {
       const updatedUser = await updateUserData(formData)
       dispatch(setUserObject(updatedUser))
-      setUserAvatar(updatedUser.avatar) // Update the local state with the new avatar URL
+      setCoverPhoto(updatedUser.cover_photo) // Update the local state with the new cover photo URL
     } catch (error) {
       console.error('Error uploading file: ', error)
     }
@@ -29,9 +29,9 @@ const AvatarUpload = ({ setUserAvatar }) => {
   return (
     <div>
       <input type="file" onChange={handleFileChange} />
-      <AccentButton onClick={handleFileUpload}>Upload New Avatar</AccentButton>
+      <AccentButton onClick={handleFileUpload}>Upload New Cover Photo</AccentButton>
     </div>
   )
 }
 
-export default AvatarUpload
+export default CoverUpload

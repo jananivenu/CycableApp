@@ -10,10 +10,8 @@ export const fetchReports = async (reportId, userId) => {
     }
 
     const response = await UserAxios.get(endpoint);
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error("Error:", error);
     throw error;
   }
 };

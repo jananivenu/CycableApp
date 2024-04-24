@@ -1,11 +1,15 @@
 import styled from 'styled-components'
 import { Cover, SectionContainer } from '../../styles'
+import { BasicForm } from '../../styles/elements/forms'
+import { StyledH2 } from '../../styles/elements/typography'
 
 export const ProfileCover = styled(Cover)`
   position: relative;
   height: 30vh;
   background-image: url(${(props) => props.img});
   opacity: 0.8;
+
+  z-index: 0;
 `
 
 export const ProfileGridContainer = styled(SectionContainer)`
@@ -31,6 +35,21 @@ export const ProfileGridContainer = styled(SectionContainer)`
   }
 `
 
+export const EditProfileForm = styled(BasicForm)`
+  gap: 0;
+  margin-bottom: 1rem;
+
+  & > :last-child {
+    margin: 16px;
+  }
+
+  grid-area: about;
+
+  ${StyledH2} {
+    margin-left: 16px;
+  }
+`
+
 export const ProfilePicture = styled.img`
   max-height: 200px;
   max-width: 200px;
@@ -47,7 +66,6 @@ export const ProfilePicture = styled.img`
 
   @media (max-width: 768px) {
     align-self: center;
-
   }
 `
 

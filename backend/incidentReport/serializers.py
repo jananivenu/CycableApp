@@ -42,6 +42,14 @@ class IncidentReportSerializer(serializers.ModelSerializer):
             serializer = ViolationsSerializer(instance=obj.violations)
             return serializer.data
 
+    def create(self, validated_data):
+        images_data = self.context.get('request').FILES.getlist('images')
+        incident_report = ReportedIncidents.objects.create(**validated_data)
+
+        for image in images_data:
+            Images.objects.create(incident_report=incident_report, images=image)
+        return incident_report
+
 
 class SimpleIncidentReportSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)

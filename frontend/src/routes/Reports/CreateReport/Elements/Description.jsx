@@ -10,7 +10,6 @@ const Description = () => {
         id="description"
         placeholder="More details..."
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
         required
       ></textarea>
     </InputGroup>

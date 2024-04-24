@@ -11,7 +11,7 @@ import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 
 import sendReport from '../../../../axios/sendReport'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   setCommonFields,
   setTheftReport,
@@ -26,40 +26,46 @@ import { SuccessMsg } from '../styles.jsx'
 
 const TheftReport = () => {
   const dispatch = useDispatch()
-  const [reportData, setReportData] = useState({})
+
+  const reportData = useSelector((state) => state.report)
+  const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
 
   const inputHandler = (e) => {
-    const { id, value, checked } = e.target
-
-    if (id === 'use_current_time' || id === 'was_bicycle_locked') {
-      setReportData((prevData) => ({
-        ...prevData,
-        [id]: checked,
-      }))
-    }
-
-    setReportData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }))
-    console.log(reportData)
-
-    dispatch(setCommonFields({ [id]: value }))
-
+    const { id, value } = e.target
     if (id === 'was_bicycle_locked') {
-      dispatch(setTheftReport({ was_bicycle_locked: e.target.checked }))
+      dispatch(setTheftReport({ was_bicycle_locked: value }))
     }
+    dispatch(setCommonFields({ [id]: value }))
   }
 
-  const handleSubmit = async () => {
-    setSuccessMsg(true)
+  const handleImagesChange = (imageFiles) => {
+    console.log(imageFiles)
+    setUploadedImages(imageFiles)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('description', reportData.description)
+    formData.append('longitude', reportData.longitude)
+    formData.append('latitude', reportData.latitude)
+    formData.append('address', reportData.address)
+    formData.append('custom_date', reportData.custom_date)
+
+    formData.append('was_bicycle_locked', reportData.was_bicycle_locked)
+    formData.append('incident_type', 'bicycle_theft')
+
+    uploadedImages.forEach((image) => {
+      formData.append('images', image.file)
+    })
+
     try {
-      await sendReport(reportData)
-      dispatch(setTheftReport(reportData))
+      await sendReport(formData)
     } catch (error) {
       console.log('error sending the report:', error)
     }
+    setSuccessMsg(true)
   }
 
   return (
@@ -81,9 +87,7 @@ const TheftReport = () => {
           </LeadParagraph>
           <FormTwoColumn>
             <LocationPicker />
-
             <DatePicker />
-
             <QuestionGroup>
               <StyledH3>Was The Bicycle Locked?</StyledH3>
 
@@ -94,6 +98,7 @@ const TheftReport = () => {
                   type="radio"
                   name="lockStatus"
                   value="true"
+                  checked={reportData.was_bicycle_locked == true}
                   onChange={inputHandler}
                 />
               </label>
@@ -105,6 +110,7 @@ const TheftReport = () => {
                   type="radio"
                   name="lockStatus"
                   value="false"
+                  checked={reportData.was_bicycle_locked == false}
                   onChange={inputHandler}
                 />
               </label>
@@ -115,7 +121,7 @@ const TheftReport = () => {
                 if available, include a photo of the location where the bike was
                 stolen.
               </p>
-              <Images />
+              <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
             <QuestionGroup></QuestionGroup>
@@ -127,7 +133,15 @@ const TheftReport = () => {
               theft:
             </p>
 
-            <Description />
+            <QuestionGroup>
+              <textarea
+                id="description"
+                placeholder="More details..."
+                value={reportData.description}
+                onChange={inputHandler}
+                required
+              ></textarea>
+            </QuestionGroup>
             <div>
               <AccentButton onClick={handleSubmit}>Send</AccentButton>
             </div>

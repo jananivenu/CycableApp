@@ -17,12 +17,45 @@ import Images from '../Elements/Images'
 import Description from '../Elements/Description'
 import { SuccessMsg } from '../styles'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCommonFields } from '../../../../store/slices/reportCreateSlice'
+import CameraComponent from '../../../Camera/camera'
+import sendReport from '../../../../axios/sendReport'
 
 function LegalReport() {
+  const dispatch = useDispatch()
+  const reportData = useSelector((state) => state.report)
+  const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
 
-  const handleSubmit = () => {
-    // add here the logic to dispatch and to fetch to api
+  const inputHandler = (e) => {
+    const { id, value } = e.target
+    dispatch(setCommonFields({ [id]: value }))
+  }
+
+  const handleImagesChange = (imageFiles) => {
+    console.log(imageFiles)
+    setUploadedImages(imageFiles)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('description', reportData.description)
+    formData.append('longitude', reportData.longitude)
+    formData.append('latitude', reportData.latitude)
+    formData.append('address', reportData.address)
+    formData.append('custom_date', reportData.custom_date)
+    formData.append('incident_type', 'violations')
+    uploadedImages.forEach((image) => {
+      formData.append('images', image.file)
+    })
+    try {
+      await sendReport(formData)
+    } catch (error) {
+      console.log('error sending the report:', error)
+    }
+
     setSuccessMsg(true)
   }
   return (
@@ -51,8 +84,8 @@ function LegalReport() {
               <InputGroup>
                 If possible, please attach any relevant photos related to
                 locations needing improvements for cyclists.
-                <Images />
-                {/* <CameraComponent /> */}
+                <Images onImagesChange={handleImagesChange} />
+                <CameraComponent />
               </InputGroup>
             </QuestionGroup>
             <QuestionGroup>
@@ -64,7 +97,15 @@ function LegalReport() {
                   cyclists below. Your input helps identify potential risks and
                   improves safety measures for our biking community.
                 </p>
-                <Description />
+                <QuestionGroup>
+                  <textarea
+                    id="description"
+                    placeholder="More details..."
+                    value={reportData.description}
+                    onChange={inputHandler}
+                    required
+                  ></textarea>
+                </QuestionGroup>
               </InputGroup>
             </QuestionGroup>
 

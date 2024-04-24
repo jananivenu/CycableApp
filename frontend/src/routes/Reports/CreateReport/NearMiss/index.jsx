@@ -1,4 +1,3 @@
-
 import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 import compose from '../../../../assets/icons/compose.png'
@@ -13,8 +12,7 @@ import DatePicker from '../Elements/Date'
 import Images from '../Elements/Images'
 import Description from '../Elements/Description'
 import { useState } from 'react'
-
-
+import CameraComponent from '../../../Camera/camera'
 
 const NearMiss = () => {
   const [reportData, setReportData] = useState({})
@@ -65,6 +63,7 @@ const NearMiss = () => {
             visible hazards encountered.
           </p>
           <Images />
+          <CameraComponent />
         </QuestionGroup>
         <QuestionGroup>
           <StyledH3>Who was involved in the accident?</StyledH3>

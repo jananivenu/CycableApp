@@ -7,7 +7,7 @@ import {
   ImagePreviewWrapper,
 } from './styles'
 
-const Images = () => {
+const Images = ({ onImagesChange }) => {
   const [images, setImages] = useState([])
 
   const handleFilesChange = (e) => {
@@ -16,6 +16,7 @@ const Images = () => {
       preview: URL.createObjectURL(file),
     }))
     setImages((prevImages) => [...prevImages, ...filesArray])
+    onImagesChange(filesArray)
   }
 
   const handleDeleteImage = (index) => {

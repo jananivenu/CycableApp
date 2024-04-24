@@ -2,7 +2,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDe
 from rest_framework.permissions import AllowAny
 
 from comment.models import Comment
-from comment.serializers import CommentSerializer
+from comment.serializers import CommentSerializer, SimpleCommentSerializer
 from rest_framework.response import Response
 
 from incidentReport.models import ReportedIncidents
@@ -34,7 +34,7 @@ class ListCommentsByReportView(ListAPIView):
 
 # /api/comments/new/<int:report_id>/ POST: Comment on a report by providing the report id
 class CreateCommentView(CreateAPIView):
-    serializer_class = CommentSerializer
+    serializer_class = SimpleCommentSerializer
     queryset = ReportedIncidents.objects.all()
     lookup_url_kwarg = 'report_id'
 

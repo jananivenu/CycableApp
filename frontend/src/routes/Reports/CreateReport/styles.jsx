@@ -73,3 +73,9 @@ export const Question = styled(StyledH2)`
 export const FormsWrapper = styled.div`
   margin-top: 0.1rem;
 `
+export const SuccessMsg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: 1rem;
+`

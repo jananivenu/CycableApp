@@ -122,6 +122,15 @@ function AccidentReport() {
             ))}
           </select>
         </QuestionGroup>
+        <QuestionGroup>
+          <p>
+            If possible, please attach photo/s of the scene of the bike
+            accident, including the location where it occurred. Additionally, if
+            available, include a photo of any damages to the bicycle or other
+            vehicles involved.
+          </p>
+          <Images />
+        </QuestionGroup>
         <StyledH3>Comment</StyledH3>
         <p>
           Feel free to provide additional details about the accident to assist
@@ -129,9 +138,7 @@ function AccidentReport() {
           roads.{' '}
         </p>
         <Description />
-        <QuestionGroup>
-          <Images />
-        </QuestionGroup>
+
         <div>
           <AccentButton onClick={handleSubmit}>Send</AccentButton>
         </div>

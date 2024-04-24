@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { MainContainer, SectionContainer } from '../../styles'
-import ReportsList from '../../components/Reports/ReportsList'
 import { fetchAllReportsAsync } from '../../store/slices/reportsSlice'
+import ReportsList from '../../components/Reports/ReportsList'
+import AnimatedBikeLoading from '../../components/trivias/Loading'
 
 const Reports = () => {
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const Reports = () => {
   }, [dispatch])
 
   if (status === 'loading') {
-    return <div>Loading reports...</div>
+    return <AnimatedBikeLoading />
   }
 
   if (error) {
@@ -25,7 +26,7 @@ const Reports = () => {
   return (
     <MainContainer>
       <SectionContainer>
-        <ReportsList reports={reports}/>
+        <ReportsList reports={reports} />
       </SectionContainer>
     </MainContainer>
   )

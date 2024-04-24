@@ -6,6 +6,7 @@ import { fetchCommentsAsync } from '../../../store/slices/commentsSlice'
 import CommentList from '../../../components/Reports/CommentList'
 import ReportPage from '../../../components/Reports/ReportPage'
 import { MainContainer } from '../../../styles'
+import AnimatedBikeLoading from '../../../components/trivias/Loading'
 
 const ShowReport = () => {
   const { reportId } = useParams()
@@ -26,7 +27,7 @@ const ShowReport = () => {
   const commentsError = useSelector((state) => state.comments.error)
 
   if (status === 'loading') {
-    return <p>Loading report...</p>
+    return <AnimatedBikeLoading />
   }
 
   if (error) {

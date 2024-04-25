@@ -14,7 +14,6 @@ import LocationPicker from '../Elements/Location'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 import compose from '../../../../assets/icons/compose.png'
 import Images from '../Elements/Images'
-import Description from '../Elements/Description'
 import { SuccessMsg } from '../styles'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,7 +23,10 @@ import sendReport from '../../../../axios/sendReport'
 
 function LegalReport() {
   const dispatch = useDispatch()
+
+  const details = useSelector((state) => state.report.description)
   const reportData = useSelector((state) => state.report)
+
   const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
 
@@ -90,27 +92,28 @@ function LegalReport() {
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
+              <p>
+                Feel free to provide details regarding needed improvements for
+                cyclists below. Your input helps identify potential risks and
+                improves safety measures for our biking community.
+              </p>
 
               <InputGroup>
-                <p>
-                  Feel free to provide details regarding needed improvements for
-                  cyclists below. Your input helps identify potential risks and
-                  improves safety measures for our biking community.
-                </p>
-                <QuestionGroup>
-                  <textarea
-                    id="description"
-                    placeholder="More details..."
-                    value={reportData.description}
-                    onChange={inputHandler}
-                    required
-                  ></textarea>
-                </QuestionGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
               </InputGroup>
             </QuestionGroup>
-
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details && details.length > 19 ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

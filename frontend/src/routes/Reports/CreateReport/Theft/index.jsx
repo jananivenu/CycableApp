@@ -5,7 +5,12 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
-import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  FormTwoColumn,
+  InputGroup,
+  QuestionGroup,
+} from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
@@ -16,7 +21,6 @@ import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportCreateSlice'
-import Description from '../Elements/Description'
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
@@ -29,7 +33,10 @@ const TheftReport = () => {
 
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
+
   const [successMsg, setSuccessMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(null)
+  const details = useSelector((state) => state.report.description)
 
   const inputHandler = (e) => {
     const { id, value } = e.target
@@ -42,6 +49,15 @@ const TheftReport = () => {
   const handleImagesChange = (imageFiles) => {
     console.log(imageFiles)
     setUploadedImages(imageFiles)
+  }
+
+  const handleBlur = (e) => {
+    const { id } = e.target
+    if (id === 'was_bicycle_locked' && !reportData.was_bicycle_locked) {
+      setErrorMsg('Please select an option.')
+    } else {
+      setErrorMsg(null)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -97,7 +113,7 @@ const TheftReport = () => {
                   id="was_bicycle_locked"
                   type="radio"
                   name="lockStatus"
-                  value="true"
+                  value="True"
                   checked={reportData.was_bicycle_locked == true}
                   onChange={inputHandler}
                 />
@@ -109,7 +125,7 @@ const TheftReport = () => {
                   id="was_bicycle_locked"
                   type="radio"
                   name="lockStatus"
-                  value="false"
+                  value="False"
                   checked={reportData.was_bicycle_locked == false}
                   onChange={inputHandler}
                 />
@@ -124,26 +140,32 @@ const TheftReport = () => {
               <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
-            <QuestionGroup></QuestionGroup>
-
-            <StyledH3>Comment</StyledH3>
-            <p>
-              Feel free to provide additional details about the incident to aid
-              fellow cyclists and support our community in preventing bicycle
-              theft:
-            </p>
-
             <QuestionGroup>
-              <textarea
-                id="description"
-                placeholder="More details..."
-                value={reportData.description}
-                onChange={inputHandler}
-                required
-              ></textarea>
+              <StyledH3>Comment</StyledH3>
+              <p>
+                Feel free to provide additional details about the incident to
+                aid fellow cyclists and support our community in preventing
+                bicycle theft:
+              </p>
+              <InputGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
+              </InputGroup>
             </QuestionGroup>
+
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details &&
+              details.length > 19 &&
+              reportData.was_bicycle_locked !== '' ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

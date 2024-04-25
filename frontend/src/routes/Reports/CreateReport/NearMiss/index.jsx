@@ -6,18 +6,22 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
-import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  FormTwoColumn,
+  InputGroup,
+  QuestionGroup,
+} from '../../../../styles/elements/forms'
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
 import Images from '../Elements/Images'
-import Description from '../Elements/Description'
 import { useState } from 'react'
 import CameraComponent from '../../../Camera/camera'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import { SuccessMsg } from '../styles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  setCommonFields,
+  setCommonFields, setNearMissReport,
   setViolationsReport,
 } from '../../../../store/slices/reportCreateSlice'
 import sendReport from '../../../../axios/sendReport'
@@ -26,8 +30,11 @@ const NearMiss = () => {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
+  const details = useSelector((state) => state.report.description)
+
   const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(null)
 
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
@@ -49,9 +56,18 @@ const NearMiss = () => {
     const { id, value } = e.target
 
     if (id === 'involved_parties') {
-      dispatch(setViolationsReport({ involved_parties: value }))
+      dispatch(setNearMissReport({ involved_parties: value }))
     } else {
       dispatch(setCommonFields({ [id]: value }))
+    }
+  }
+
+  const handleBlur = (e) => {
+    const { id } = e.target
+    if (id === 'involved_parties' && reportData.involved_parties === '') {
+      setErrorMsg('Please select an option.')
+    } else {
+      setErrorMsg(null)
     }
   }
 
@@ -64,7 +80,7 @@ const NearMiss = () => {
     formData.append('address', reportData.address)
     formData.append('custom_date', reportData.custom_date)
     formData.append('involved_parties', reportData.involved_parties)
-    formData.append('incident_type', 'violations')
+    formData.append('incident_type', 'near_miss')
     uploadedImages.forEach((image) => {
       formData.append('images', image.file)
     })
@@ -111,7 +127,7 @@ const NearMiss = () => {
               <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
-            <QuestionGroup>
+            <QuestionGroup onBlur={handleBlur}>
               <StyledH3>Who was involved in the accident?</StyledH3>
               <select
                 id="involved_parties"
@@ -127,6 +143,7 @@ const NearMiss = () => {
                   </option>
                 ))}
               </select>
+              {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
@@ -136,7 +153,8 @@ const NearMiss = () => {
                 potential risks and improves safety measures for our biking
                 community.
               </p>
-              <QuestionGroup>
+
+              <InputGroup>
                 <textarea
                   id="description"
                   placeholder="More details..."
@@ -144,10 +162,14 @@ const NearMiss = () => {
                   onChange={inputHandler}
                   required
                 ></textarea>
-              </QuestionGroup>
+              </InputGroup>
             </QuestionGroup>
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details && details.length > 19 ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

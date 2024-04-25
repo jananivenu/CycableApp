@@ -16,7 +16,6 @@ import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportCreateSlice'
-import Description from '../Elements/Description'
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
@@ -97,7 +96,7 @@ const TheftReport = () => {
                   id="was_bicycle_locked"
                   type="radio"
                   name="lockStatus"
-                  value="true"
+                  value="True"
                   checked={reportData.was_bicycle_locked == true}
                   onChange={inputHandler}
                 />
@@ -109,7 +108,7 @@ const TheftReport = () => {
                   id="was_bicycle_locked"
                   type="radio"
                   name="lockStatus"
-                  value="false"
+                  value="False"
                   checked={reportData.was_bicycle_locked == false}
                   onChange={inputHandler}
                 />

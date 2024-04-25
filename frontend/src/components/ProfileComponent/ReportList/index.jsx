@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { fetchReportsByUserIdAsync } from '../../../store/slices/reportsSlice'
 import AnimatedBikeLoading from '../../trivias/Loading'
 
+// eslint-disable-next-line react/prop-types
 function ReportList({ userId }) {
   const dispatch = useDispatch()
   const reports = useSelector((state) => state.reports.reports)

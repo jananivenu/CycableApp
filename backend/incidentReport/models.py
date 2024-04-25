@@ -63,6 +63,6 @@ class NearMiss(models.Model):
 
 
 class Violations(models.Model):
-    change_to_add = models.CharField(max_length=400, blank=True,null=True)
+    change_to_add = models.CharField(max_length=400, blank=True, null=True)
     incident_report = models.OneToOneField(ReportedIncidents, on_delete=models.CASCADE, related_name='violations',
                                            null=True)

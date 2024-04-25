@@ -6,32 +6,29 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
-//import compose from '../../../../assets/icons/compose.png'
 import { useState } from 'react'
 import DatePicker from '../Elements/Date/index.jsx'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setAccidentReport,
   setCommonFields,
-  setTheftReport,
 } from '../../../../store/slices/reportCreateSlice.js'
 import sendReport from '../../../../axios/sendReport.js'
 import Images from '../Elements/Images/index.jsx'
-import Description from '../Elements/Description.jsx'
 import LocationPicker from '../Elements/Location/index.jsx'
 import { ComposeIcone } from '../../../../styles/elements/icons.jsx'
 import compose from '../../../../assets/icons/compose.png'
 import CameraComponent from '../../../Camera/camera.jsx'
-import { MenuWrapper, SuccessMsg } from '../styles.jsx'
+import { SuccessMsg } from '../styles.jsx'
 
 //comment
 function AccidentReport() {
   const dispatch = useDispatch()
-  const [reportData, setReportData] = useState({})
-  //   const reportData = useSelector((store) => store.report)
-  const [involvedParty, setInvolvedParty] = useState('')
+
+  const reportData = useSelector((state) => state.report)
+  const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
+
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
     'Bus, trolleybus, tram',
@@ -44,30 +41,43 @@ function AccidentReport() {
     'Other',
   ]
 
-  const handlePartySelect = (e) => {
-    setInvolvedParty(e.target.value)
+  const handleImagesChange = (imageFiles) => {
+    console.log(imageFiles)
+    setUploadedImages(imageFiles)
   }
+
   const inputHandler = (e) => {
-    const { id, value, checked } = e.target
+    const { id, value } = e.target
 
-    dispatch(setCommonFields({ [id]: value }))
-
-    if (id === 'was_police_locked')
-      dispatch(setTheftReport({ was_bicycle_locked: checked }))
-    if (id === 'involved_parties')
+    if (id === 'was_police_called') {
+      dispatch(setAccidentReport({ was_police_called: value }))
+    } else if (id === 'involved_parties') {
       dispatch(setAccidentReport({ involved_parties: value }))
+    } else {
+      dispatch(setCommonFields({ [id]: value }))
+    }
   }
 
-  const handleSubmit = async () => {
-    setSuccessMsg(true)
-    const reportData = new FormData()
-    reportData
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('description', reportData.description)
+    formData.append('longitude', reportData.longitude)
+    formData.append('latitude', reportData.latitude)
+    formData.append('address', reportData.address)
+    formData.append('custom_date', reportData.custom_date)
+    formData.append('was_police_called', reportData.was_police_called)
+    formData.append('involved_parties', reportData.involved_parties)
+    formData.append('incident_type', 'bicycle_accident')
+    uploadedImages.forEach((image) => {
+      formData.append('images', image.file)
+    })
     try {
-      await sendReport(reportData)
-      dispatch(setAccidentReport(reportData))
+      await sendReport(formData)
     } catch (error) {
       console.log('error sending the report:', error)
     }
+    setSuccessMsg(true)
   }
 
   return (
@@ -97,7 +107,7 @@ function AccidentReport() {
                 <input
                   id="was_police_called"
                   type="radio"
-                  value="true"
+                  value="True"
                   checked={reportData.was_police_called === true}
                   onChange={inputHandler}
                 />
@@ -107,7 +117,7 @@ function AccidentReport() {
                 <input
                   id="was_police_called"
                   type="radio"
-                  value="false"
+                  value="False"
                   checked={reportData.was_police_called === false}
                   onChange={inputHandler}
                 />
@@ -119,7 +129,7 @@ function AccidentReport() {
               <select
                 id="involved_parties"
                 value={reportData.involved_parties}
-                onChange={handlePartySelect}
+                onChange={inputHandler}
               >
                 <option value="" disabled>
                   Please Choose
@@ -138,7 +148,7 @@ function AccidentReport() {
                 Additionally, if available, include a photo of any damages to
                 the bicycle or other vehicles involved.
               </p>
-              <Images />
+              <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
             <StyledH3>Comment</StyledH3>
@@ -147,7 +157,13 @@ function AccidentReport() {
               assist fellow cyclists and support our community in promoting
               safety on the roads.{' '}
             </p>
-            <Description />
+            <textarea
+              id="description"
+              placeholder="More details..."
+              value={reportData.description}
+              onChange={inputHandler}
+              required
+            ></textarea>
 
             <div>
               <AccentButton onClick={handleSubmit}>Send</AccentButton>

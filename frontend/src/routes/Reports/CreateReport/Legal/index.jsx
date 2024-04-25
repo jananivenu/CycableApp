@@ -23,7 +23,10 @@ import sendReport from '../../../../axios/sendReport'
 
 function LegalReport() {
   const dispatch = useDispatch()
+
+  const details = useSelector((state) => state.report.description)
   const reportData = useSelector((state) => state.report)
+
   const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
 
@@ -107,9 +110,12 @@ function LegalReport() {
                 </QuestionGroup>
               </InputGroup>
             </QuestionGroup>
-
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details && details.length > 19 ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

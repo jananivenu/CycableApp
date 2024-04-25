@@ -7,8 +7,8 @@ const initialState = {
   address: '',
   involved_parties: '',
   custom_date: '',
-  was_police_called: 'False',
-  was_bicycle_locked: 'False',
+  was_police_called: '',
+  was_bicycle_locked: '',
   change_to_add: '',
 }
 

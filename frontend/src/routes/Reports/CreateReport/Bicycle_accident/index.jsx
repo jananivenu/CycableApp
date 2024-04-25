@@ -1,5 +1,9 @@
 import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
-import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  FormTwoColumn,
+  QuestionGroup,
+} from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import {
   LeadParagraph,
@@ -21,13 +25,15 @@ import compose from '../../../../assets/icons/compose.png'
 import CameraComponent from '../../../Camera/camera.jsx'
 import { SuccessMsg } from '../styles.jsx'
 
-//comment
 function AccidentReport() {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
+  const details = useSelector((state) => state.report.description)
+
   const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(null)
 
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
@@ -55,6 +61,20 @@ function AccidentReport() {
       dispatch(setAccidentReport({ involved_parties: value }))
     } else {
       dispatch(setCommonFields({ [id]: value }))
+    }
+  }
+
+  const handleBlur = (e) => {
+    const { id } = e.target
+    if (id === 'was_police_called' && !reportData.was_police_called) {
+      setErrorMsg('Please select an option.')
+    } else if (
+      id === 'involved_parties' &&
+      reportData.involved_parties === ''
+    ) {
+      setErrorMsg('Please select an option.')
+    } else {
+      setErrorMsg(null)
     }
   }
 
@@ -124,7 +144,7 @@ function AccidentReport() {
                 No
               </label>
             </QuestionGroup>
-            <QuestionGroup>
+            <QuestionGroup onBlur={handleBlur}>
               <StyledH3>Who was involved in the accident?</StyledH3>
               <select
                 id="involved_parties"
@@ -140,6 +160,7 @@ function AccidentReport() {
                   </option>
                 ))}
               </select>
+              {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
             </QuestionGroup>
             <QuestionGroup>
               <p>
@@ -166,7 +187,13 @@ function AccidentReport() {
             ></textarea>
 
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details &&
+              details.length > 19 &&
+              reportData.was_police_called !== '' ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

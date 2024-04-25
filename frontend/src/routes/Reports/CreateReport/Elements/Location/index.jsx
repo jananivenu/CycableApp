@@ -2,7 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import LocationMarker from './LocationMarker'
 import { StyledH3 } from '../../../../../styles/elements/typography'
-import { InputGroup, QuestionGroup } from '../../../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  InputGroup,
+  QuestionGroup,
+} from '../../../../../styles/elements/forms'
 import { useDispatch } from 'react-redux'
 import { setCommonFields } from '../../../../../store/slices/reportCreateSlice'
 
@@ -12,6 +16,7 @@ function LocationPicker() {
   const [address, setAddress] = useState('')
   const mapRef = useRef(null)
   const dispatch = useDispatch()
+  const [errorMsg, setErrorMsg] = useState(null)
 
   const handleLocationChange = (newLocation) => {
     setLocation(newLocation)
@@ -102,8 +107,17 @@ function LocationPicker() {
     setupLocation()
   }, [])
 
+  const handleBlur = (e) => {
+    const { id } = e.target
+    if (id === 'address' && !address) {
+      setErrorMsg('Please select a location.')
+    } else {
+      setErrorMsg(null)
+    }
+  }
+
   return (
-    <QuestionGroup>
+    <QuestionGroup onBlur={handleBlur}>
       <StyledH3>Where?</StyledH3>
       <p>Please select the location on the map</p>
 
@@ -143,6 +157,7 @@ function LocationPicker() {
           onChange={(e) => setAddress(e.target.value)}
         />
       </InputGroup>
+      {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
     </QuestionGroup>
   )
 }

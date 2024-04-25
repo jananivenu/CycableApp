@@ -5,7 +5,11 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
-import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  FormTwoColumn,
+  QuestionGroup,
+} from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import compose from '../../../../assets/icons/compose.png'
 import { ComposeIcone } from '../../../../styles/elements/icons'
@@ -28,7 +32,10 @@ const TheftReport = () => {
 
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
+
   const [successMsg, setSuccessMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(null)
+  const details = useSelector((state) => state.report.description)
 
   const inputHandler = (e) => {
     const { id, value } = e.target
@@ -41,6 +48,15 @@ const TheftReport = () => {
   const handleImagesChange = (imageFiles) => {
     console.log(imageFiles)
     setUploadedImages(imageFiles)
+  }
+
+  const handleBlur = (e) => {
+    const { id } = e.target
+    if (id === 'was_bicycle_locked' && !reportData.was_bicycle_locked) {
+      setErrorMsg('Please select an option.')
+    } else {
+      setErrorMsg(null)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -142,7 +158,13 @@ const TheftReport = () => {
               ></textarea>
             </QuestionGroup>
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details &&
+              details.length > 19 &&
+              reportData.was_bicycle_locked !== '' ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

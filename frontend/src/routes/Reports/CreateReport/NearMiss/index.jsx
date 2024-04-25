@@ -6,7 +6,11 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
-import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  FormTwoColumn,
+  QuestionGroup,
+} from '../../../../styles/elements/forms'
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
 import Images from '../Elements/Images'
@@ -25,8 +29,11 @@ const NearMiss = () => {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
+  const details = useSelector((state) => state.report.description)
+
   const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(null)
 
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
@@ -51,6 +58,15 @@ const NearMiss = () => {
       dispatch(setViolationsReport({ involved_parties: value }))
     } else {
       dispatch(setCommonFields({ [id]: value }))
+    }
+  }
+
+  const handleBlur = (e) => {
+    const { id } = e.target
+    if (id === 'involved_parties' && reportData.involved_parties === '') {
+      setErrorMsg('Please select an option.')
+    } else {
+      setErrorMsg(null)
     }
   }
 
@@ -110,7 +126,7 @@ const NearMiss = () => {
               <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
-            <QuestionGroup>
+            <QuestionGroup onBlur={handleBlur}>
               <StyledH3>Who was involved in the accident?</StyledH3>
               <select
                 id="involved_parties"
@@ -126,6 +142,7 @@ const NearMiss = () => {
                   </option>
                 ))}
               </select>
+              {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
@@ -146,7 +163,11 @@ const NearMiss = () => {
               </QuestionGroup>
             </QuestionGroup>
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details && details.length > 19 ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

@@ -12,14 +12,15 @@ const ReportsList = ({ reports }) => {
   return (
     <MasonryContainer>
       {reports.map((report) => (
-          <CaseReport
-            id={report.id}
-            userName={report.author.username}
-            comment={report.description}
-            address={report.address}
-            date={report.custom_date}
-            type={report.incident_type}
-          />
+        <CaseReport
+          key={report.id}
+          id={report.id}
+          userName={report.author.username}
+          comment={report.description}
+          address={report.address}
+          date={report.custom_date}
+          type={report.incident_type}
+        />
       ))}
     </MasonryContainer>
   )

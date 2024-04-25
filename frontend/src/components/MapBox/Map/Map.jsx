@@ -95,7 +95,7 @@ return (
       {...viewport}
       mapboxAccessToken={token}
       onMove={(evt) => setViewport(evt.viewState)}
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ width: '100%', height: '90vh' }}
       mapStyle="mapbox://styles/mihaels/clvdnhxt3011901qvco3g86vv"
       >
       {/* NEW Heatmap */}

@@ -13,7 +13,7 @@ import { getSpecificUserData } from '../../../axios/UserData'
 import { formatDate } from '../../../utils/formatDate'
 import { useParams } from 'react-router-dom'
 import AnimatedBikeLoading from '../../trivias/Loading'
-import ReportList from '../ReportList'
+import UserReportList from '../ReportList'
 
 const SpecificUserProfile = () => {
   const [userData, setUserData] = useState(null)
@@ -52,7 +52,7 @@ const SpecificUserProfile = () => {
       </ProfileGridContainer>
       <SectionContainer>
         <StyledH3>Reports</StyledH3>
-        <ReportList userId={userID} />
+        <UserReportList userId={userID} />
       </SectionContainer>
     </MainContainer>
   )

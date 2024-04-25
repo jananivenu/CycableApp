@@ -6,9 +6,9 @@ import { fetchReportsByUserIdAsync } from '../../../store/slices/reportsSlice'
 import AnimatedBikeLoading from '../../trivias/Loading'
 
 // eslint-disable-next-line react/prop-types
-function ReportList({ userId }) {
+function UserReportList({ userId }) {
   const dispatch = useDispatch()
-  const reports = useSelector((state) => state.reports.reports)
+  const reports = useSelector((state) => state.reports.userReports)
   const status = useSelector((state) => state.reports.status)
   const error = useSelector((state) => state.reports.error)
 
@@ -44,4 +44,4 @@ function ReportList({ userId }) {
   )
 }
 
-export default ReportList
+export default UserReportList

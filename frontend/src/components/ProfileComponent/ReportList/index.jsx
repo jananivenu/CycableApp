@@ -3,9 +3,9 @@ import CaseReport from '../../CasePreview/CaseReport'
 import MasonryContainer from '../../wrappers/MasonryContainer'
 import { useEffect } from 'react'
 import { fetchReportsByUserIdAsync } from '../../../store/slices/reportsSlice'
+import AnimatedBikeLoading from '../../trivias/Loading'
 
 function ReportList({ userId }) {
-
   const dispatch = useDispatch()
   const reports = useSelector((state) => state.reports.reports)
   const status = useSelector((state) => state.reports.status)
@@ -13,20 +13,32 @@ function ReportList({ userId }) {
 
   useEffect(() => {
     dispatch(fetchReportsByUserIdAsync(userId))
-  }, [dispatch])
+  }, [dispatch, userId])
+
+  if (status === 'loading') {
+    return <AnimatedBikeLoading />
+  }
+
+  if (error) {
+    return <p>Error loading reports: {error}</p>
+  }
 
   return (
     <MasonryContainer>
-      {reports.map((report) => (
-        <CaseReport
-          key={report.id}
-          userName={report.userName}
-          comment={report.comment}
-          address={report.address}
-          date={report.date}
-          type={report.type}
-        />
-      ))}
+      {reports.length > 0 ? (
+        reports.map((report) => (
+          <CaseReport
+            key={report.id}
+            userName={report.userName}
+            comment={report.comment}
+            address={report.address}
+            date={report.date}
+            type={report.type}
+          />
+        ))
+      ) : (
+        <p>No reports found.</p>
+      )}
     </MasonryContainer>
   )
 }

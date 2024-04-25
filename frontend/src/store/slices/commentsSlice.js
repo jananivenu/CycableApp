@@ -38,7 +38,7 @@ const commentsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            //fetch comments
+            // Fetch comments
             .addCase(fetchCommentsAsync.pending, (state) => {
                 state.status = 'loading';
             })
@@ -51,12 +51,11 @@ const commentsSlice = createSlice({
                 state.error = action.payload ? action.payload.error : null;
             })
 
-            // add comment
+            // Add comment
             .addCase(addCommentAsync.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(addCommentAsync.fulfilled, (state, action) => {
-                state.comments.push(action.payload);
+            .addCase(addCommentAsync.fulfilled, (state) => {
                 state.status = 'succeeded';
             })
             .addCase(addCommentAsync.rejected, (state, action) => {

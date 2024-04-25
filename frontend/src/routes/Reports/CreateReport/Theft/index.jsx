@@ -1,39 +1,37 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
+import { AccentButton } from '../../../../styles/elements/buttons'
+import { ComposeIcone } from '../../../../styles/elements/icons'
+import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
+import { SuccessMsg } from '../styles.jsx'
 import {
   LeadParagraph,
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
 import {
-  ErrorMessage,
   FormTwoColumn,
   InputGroup,
   QuestionGroup,
 } from '../../../../styles/elements/forms'
-import { AccentButton } from '../../../../styles/elements/buttons'
+
 import compose from '../../../../assets/icons/compose.png'
-import { ComposeIcone } from '../../../../styles/elements/icons'
 
 import sendReport from '../../../../axios/sendReport'
-import { useDispatch, useSelector } from 'react-redux'
 import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportCreateSlice'
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
-import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
 import DatePicker from '../Elements/Date'
-import CameraComponent from '../../../Camera/camera.jsx'
-import { SuccessMsg } from '../styles.jsx'
 
 const TheftReport = () => {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
-
   const [successMsg, setSuccessMsg] = useState(false)
   const [errorMsg, setErrorMsg] = useState(null)
   const details = useSelector((state) => state.report.description)
@@ -68,7 +66,6 @@ const TheftReport = () => {
     formData.append('latitude', reportData.latitude)
     formData.append('address', reportData.address)
     formData.append('custom_date', reportData.custom_date)
-
     formData.append('was_bicycle_locked', reportData.was_bicycle_locked)
     formData.append('incident_type', 'bicycle_theft')
 
@@ -138,7 +135,6 @@ const TheftReport = () => {
                 stolen.
               </p>
               <Images onImagesChange={handleImagesChange} />
-              <CameraComponent />
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
@@ -174,11 +170,10 @@ const TheftReport = () => {
         <SectionContainer>
           <SuccessMsg>
             <StyledH3>
-              Thank you for taking time and reporting the incident via our App.{' '}
-              <br />
+              Thank you for taking time and reporting the incident via our App.
               Your contribution helps in making our streets safer for cyclists.
               We appreciate your cooperation and concern for the biking
-              community. <br />
+              community.
               <br /> --- Join the Movement for Safer Cycling --- <br />
               --- From Your Stories to Safer Streets ---
             </StyledH3>

@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 import compose from '../../../../assets/icons/compose.png'
@@ -15,14 +18,13 @@ import {
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
 import Images from '../Elements/Images'
-import { useState } from 'react'
-import CameraComponent from '../../../Camera/camera'
+
 import { AccentButton } from '../../../../styles/elements/buttons'
 import { SuccessMsg } from '../styles'
-import { useDispatch, useSelector } from 'react-redux'
+
 import {
-  setCommonFields, setNearMissReport,
-  setViolationsReport,
+  setCommonFields,
+  setNearMissReport,
 } from '../../../../store/slices/reportCreateSlice'
 import sendReport from '../../../../axios/sendReport'
 
@@ -125,7 +127,6 @@ const NearMiss = () => {
                 any visible hazards encountered.
               </p>
               <Images onImagesChange={handleImagesChange} />
-              <CameraComponent />
             </QuestionGroup>
             <QuestionGroup onBlur={handleBlur}>
               <StyledH3>Who was involved in the accident?</StyledH3>

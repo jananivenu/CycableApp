@@ -18,7 +18,6 @@ import { SuccessMsg } from '../styles'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCommonFields } from '../../../../store/slices/reportCreateSlice'
-import CameraComponent from '../../../Camera/camera'
 import sendReport from '../../../../axios/sendReport'
 
 function LegalReport() {
@@ -87,7 +86,6 @@ function LegalReport() {
                 If possible, please attach any relevant photos related to
                 locations needing improvements for cyclists.
                 <Images onImagesChange={handleImagesChange} />
-                <CameraComponent />
               </InputGroup>
             </QuestionGroup>
             <QuestionGroup>

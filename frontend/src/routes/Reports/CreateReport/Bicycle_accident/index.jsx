@@ -23,7 +23,6 @@ import Images from '../Elements/Images/index.jsx'
 import LocationPicker from '../Elements/Location/index.jsx'
 import { ComposeIcone } from '../../../../styles/elements/icons.jsx'
 import compose from '../../../../assets/icons/compose.png'
-import CameraComponent from '../../../Camera/camera.jsx'
 import { SuccessMsg } from '../styles.jsx'
 
 function AccidentReport() {
@@ -171,7 +170,6 @@ function AccidentReport() {
                 the bicycle or other vehicles involved.
               </p>
               <Images onImagesChange={handleImagesChange} />
-              <CameraComponent />
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>

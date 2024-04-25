@@ -1,6 +1,6 @@
 import NavLogout from './NavLogout'
 import { DropdownMenuContainer, DropdownMenuItem, IconWrapper } from './styles'
-import { FaRegCircleUser } from "react-icons/fa6";
+import { TbUserSquareRounded } from 'react-icons/tb'
 
 
 const DropdownMenu = ({ isVisible, toggleMenu }) => {
@@ -10,7 +10,7 @@ const DropdownMenu = ({ isVisible, toggleMenu }) => {
     <DropdownMenuContainer>
       <DropdownMenuItem to="/profile/me" onClick={toggleMenu}>
         <IconWrapper>
-          <FaRegCircleUser />
+          <TbUserSquareRounded />
         </IconWrapper>
         Profile
       </DropdownMenuItem>

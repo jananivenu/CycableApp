@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { BasicForm } from '../../../styles/elements/forms'
-import { AccentButton } from '../../../styles/elements/buttons'
+import { BasicForm } from '../../../../styles/elements/forms'
+import { AccentButton } from '../../../../styles/elements/buttons'
 
 export const FormWrapper = styled.section`
   position: relative;

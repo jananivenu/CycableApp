@@ -33,7 +33,9 @@ const ReportPage = ({ report }) => {
           </CaseBodyContainer>
           <StyledH2>Bicycle Accident</StyledH2>
         </ReportInfo>
-        <ReportPicture src={photo} />
+        <ReportPicture className="report-picture" src={photo} />
+        {/* When we can include the user-uploaded image, uncomment the line below and replace 'report.image' with the actual property where the image is stored */}
+        {/* <ReportPicture className="report-picture" src={URL.createObjectURL(report.image)} /> */}
         <ReportContent>
           <LeadParagraph>
             {description} <ReportAuthor author={author} />

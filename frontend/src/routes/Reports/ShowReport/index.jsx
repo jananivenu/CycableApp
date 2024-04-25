@@ -6,10 +6,17 @@ import ReportPage from '../../../components/Reports/ReportPage'
 import Comments from '../../../components/Reports/Comments'
 import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
+import { generatePDF } from '../ReportToPDF'
 
 const ShowReport = () => {
   const { reportId } = useParams();
   const dispatch = useDispatch();
+
+  const handleGeneratePDF = () => {
+    if (report) {
+      generatePDF(report)
+    }
+  }
 
   useEffect(() => {
     if (reportId) {
@@ -35,6 +42,9 @@ const ShowReport = () => {
 
   return (
     <MainContainer>
+      <button onClick={handleGeneratePDF} disabled={status === 'loading'}>
+        Download PDF{' '}
+      </button>
       <ReportPage report={report} />
       <Comments />
     </MainContainer>

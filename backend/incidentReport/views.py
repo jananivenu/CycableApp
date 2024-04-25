@@ -73,7 +73,7 @@ class ListIncidentReportsByTypeView(ListAPIView):
 
 # /api/reports/user/<int:user_id>/ GET: Get all the reports created by a specific user in chronological order
 class ListIncidentReportsByUserView(ListAPIView):
-    serializer_class = IncidentReportSerializer
+    serializer_class = SimpleIncidentReportSerializer
     permission_classes = [AllowAny]
 
     def get_queryset(self):

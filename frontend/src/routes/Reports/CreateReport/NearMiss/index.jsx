@@ -16,7 +16,7 @@ import { AccentButton } from '../../../../styles/elements/buttons'
 import { SuccessMsg } from '../styles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  setCommonFields,
+  setCommonFields, setNearMissReport,
   setViolationsReport,
 } from '../../../../store/slices/reportCreateSlice'
 import sendReport from '../../../../axios/sendReport'
@@ -48,7 +48,7 @@ const NearMiss = () => {
     const { id, value } = e.target
 
     if (id === 'involved_parties') {
-      dispatch(setViolationsReport({ involved_parties: value }))
+      dispatch(setNearMissReport({ involved_parties: value }))
     } else {
       dispatch(setCommonFields({ [id]: value }))
     }
@@ -63,7 +63,7 @@ const NearMiss = () => {
     formData.append('address', reportData.address)
     formData.append('custom_date', reportData.custom_date)
     formData.append('involved_parties', reportData.involved_parties)
-    formData.append('incident_type', 'violations')
+    formData.append('incident_type', 'near_miss')
     uploadedImages.forEach((image) => {
       formData.append('images', image.file)
     })

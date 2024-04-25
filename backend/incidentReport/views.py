@@ -1,4 +1,6 @@
+
 from django.http import Http404
+from django.utils import timezone
 
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 
@@ -11,9 +13,30 @@ from rest_framework.permissions import AllowAny
 
 # GET /api/reports: Retrieve/ list ALL incident reports.
 class ListAllIncidentReportsView(ListAPIView):
-    queryset = ReportedIncidents.objects.all()
     serializer_class = SimpleIncidentReportSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        queryset = ReportedIncidents.objects.all()
+        start_date = self.request.query_params.get('start')
+        end_date = self.request.query_params.get('end')
+
+        if start_date and end_date:
+            start_datetime = timezone.make_aware(timezone.datetime.strptime(start_date, '%Y-%m-%d'))
+            end_datetime = timezone.make_aware(timezone.datetime.strptime(end_date, '%Y-%m-%d'))
+            #  to include the end of the day
+            end_datetime = end_datetime.replace(hour=23, minute=59, second=59, microsecond=999999)
+            queryset = queryset.filter(custom_date__range=(start_datetime, end_datetime))
+        elif start_date:
+            start_datetime = timezone.make_aware(timezone.datetime.strptime(start_date, '%Y-%m-%d'))
+            queryset = queryset.filter(custom_date__gte=start_datetime)
+        elif end_date:
+            end_datetime = timezone.make_aware(timezone.datetime.strptime(end_date, '%Y-%m-%d'))
+            #  to include the end of the day
+            end_datetime = end_datetime.replace(hour=23, minute=59, second=59, microsecond=999999)
+            queryset = queryset.filter(custom_date__lte=end_datetime)
+
+        return queryset
 
 
 #

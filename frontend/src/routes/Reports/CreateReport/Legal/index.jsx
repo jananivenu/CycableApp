@@ -92,22 +92,20 @@ function LegalReport() {
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
+              <p>
+                Feel free to provide details regarding needed improvements for
+                cyclists below. Your input helps identify potential risks and
+                improves safety measures for our biking community.
+              </p>
 
               <InputGroup>
-                <p>
-                  Feel free to provide details regarding needed improvements for
-                  cyclists below. Your input helps identify potential risks and
-                  improves safety measures for our biking community.
-                </p>
-                <QuestionGroup>
-                  <textarea
-                    id="description"
-                    placeholder="More details..."
-                    value={reportData.description}
-                    onChange={inputHandler}
-                    required
-                  ></textarea>
-                </QuestionGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
               </InputGroup>
             </QuestionGroup>
             <div>

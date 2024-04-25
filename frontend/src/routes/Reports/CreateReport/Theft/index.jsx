@@ -8,6 +8,7 @@ import {
 import {
   ErrorMessage,
   FormTwoColumn,
+  InputGroup,
   QuestionGroup,
 } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
@@ -139,24 +140,24 @@ const TheftReport = () => {
               <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
-            <QuestionGroup></QuestionGroup>
-
-            <StyledH3>Comment</StyledH3>
-            <p>
-              Feel free to provide additional details about the incident to aid
-              fellow cyclists and support our community in preventing bicycle
-              theft:
-            </p>
-
             <QuestionGroup>
-              <textarea
-                id="description"
-                placeholder="More details..."
-                value={reportData.description}
-                onChange={inputHandler}
-                required
-              ></textarea>
+              <StyledH3>Comment</StyledH3>
+              <p>
+                Feel free to provide additional details about the incident to
+                aid fellow cyclists and support our community in preventing
+                bicycle theft:
+              </p>
+              <InputGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
+              </InputGroup>
             </QuestionGroup>
+
             <div>
               {details &&
               details.length > 19 &&

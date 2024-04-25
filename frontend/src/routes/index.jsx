@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Home/Home'
 import Layout from './Layout'
 import Login from './Auth/Login/login'
-import Profile from '../components/ProfileComponent'
+import UserProfile from '../components/ProfileComponent'
 import About from './About'
 import Statistics from './Statistics'
 import NotFound from './NotFound'
@@ -31,9 +31,9 @@ const Router = () => {
           <Route path="/about" element={<About />} />
           <Route path="/statistics" element={<Statistics />} />
 
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/me" element={<Profile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
+         
+          <Route path="/profile/me" element={<UserProfile />} />
+          <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/profile/:user_id" element={<SpecificUserProfile />} />
 
           <Route path="/reports" element={<Reports />} />

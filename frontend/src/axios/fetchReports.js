@@ -1,17 +1,17 @@
-import UserAxios from ".";
+import UserAxios from '.'
 
 export const fetchReports = async (reportId, userId) => {
   try {
-    let endpoint = '/reports/all/';
+    let endpoint = '/reports/all/'
     if (reportId) {
-      endpoint = `/reports/${reportId}`;
+      endpoint = `/reports/${reportId}/`
     } else if (userId) {
-      endpoint = `/reports/user/${userId}`;
+      endpoint = `/reports/user/${userId}/`
     }
 
-    const response = await UserAxios.get(endpoint);
-    return response.data;
+    const response = await UserAxios.get(endpoint)
+    return response.data
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}

@@ -16,9 +16,10 @@ import AccidentReport from './Bicycle_accident'
 import TheftReport from './Theft'
 import LegalReport from './Legal'
 import { BasicForm } from '../../../styles/elements/forms'
+import NearMiss from './NearMiss'
 // main component to render different create_report_types
 const CreateReport = () => {
-  const [type, setType] = useState('')
+  const [incident_type, setType] = useState('')
   const handleSelectType = (selectedType) => {
     setType(selectedType)
     console.log('selected type:', selectedType)
@@ -26,71 +27,80 @@ const CreateReport = () => {
   return (
     <BasicForm>
       <QuestionWrapper>
-        <Question typeSelected={type !== ''}>
+        <Question typeSelected={incident_type !== ''}>
           What Would You Like To Report?
         </Question>
         <MenuWrapper>
           <MenuItems
-            typeSelected={type !== ''}
+            typeSelected={incident_type !== ''}
             onClick={() => handleSelectType('bicycle_accident')}
           >
             <StyledText
-              typeSelected={type !== ''}
-              selected={type === 'bicycle_accident'}
+              typeSelected={incident_type !== ''}
+              selected={incident_type === 'bicycle_accident'}
             >
               Bicycle Accident
             </StyledText>
-            <TypesIcon typeSelected={type !== ''} src={bike_accident} />
+            <TypesIcon
+              typeSelected={incident_type !== ''}
+              src={bike_accident}
+            />
           </MenuItems>
 
           <MenuItems
-            typeSelected={type !== ''}
+            typeSelected={incident_type !== ''}
             onClick={() => handleSelectType('bicycle_theft')}
           >
             <StyledText
-              typeSelected={type !== ''}
-              selected={type === 'bicycle_theft'}
+              typeSelected={incident_type !== ''}
+              selected={incident_type === 'bicycle_theft'}
             >
               Bicycle Theft
             </StyledText>
-            <TypesIcon typeSelected={type !== ''} src={bike_theft} />
+            <TypesIcon typeSelected={incident_type !== ''} src={bike_theft} />
           </MenuItems>
 
           <MenuItems
-            typeSelected={type !== ''}
+            typeSelected={incident_type !== ''}
             onClick={() => handleSelectType('near_miss')}
           >
             <StyledText
-              typeSelected={type !== ''}
-              selected={type === 'near_miss'}
+              typeSelected={incident_type !== ''}
+              selected={incident_type === 'near_miss'}
             >
               Dangerous Locations
             </StyledText>
-            <TypesIcon typeSelected={type !== ''} src={near_miss} />
+            <TypesIcon typeSelected={incident_type !== ''} src={near_miss} />
           </MenuItems>
 
           <MenuItems
-            typeSelected={type !== ''}
+            typeSelected={incident_type !== ''}
             onClick={() => handleSelectType('violations')}
           >
             <StyledText
-              typeSelected={type !== ''}
-              selected={type === 'violations'}
+              typeSelected={incident_type !== ''}
+              selected={incident_type === 'violations'}
             >
               Violations{' '}
             </StyledText>
-            <TypesIcon typeSelected={type !== ''} src={violations} />
+            <TypesIcon typeSelected={incident_type !== ''} src={violations} />
           </MenuItems>
         </MenuWrapper>
       </QuestionWrapper>
 
       <FormsWrapper className="here render forms">
-        {type === 'bicycle_accident' && (
-          <AccidentReport type={'bicycle_accident'} />
+        {incident_type === 'bicycle_accident' && (
+          <AccidentReport incident_type={'bicycle_accident'} />
         )}
-        {type === 'bicycle_theft' && <TheftReport type={'bicycle_theft'} />}
-        {/* {type === 'near_miss' && <NearMissReport />} */}
-        {type === 'violations' && <LegalReport type={'violations'} />}
+        {incident_type === 'bicycle_theft' && (
+          <TheftReport incident_type={'bicycle_theft'} />
+        )}
+        {incident_type === 'near_miss' && (
+          <NearMiss incident_type={'near_miss'} />
+        )}
+        {incident_type === 'violations' && (
+          <LegalReport incident_type={'violations'} />
+        )}
       </FormsWrapper>
     </BasicForm>
   )

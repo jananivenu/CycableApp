@@ -3,12 +3,31 @@ import { MapContainer, TileLayer } from 'react-leaflet'
 import LocationMarker from './LocationMarker'
 import { StyledH3 } from '../../../../../styles/elements/typography'
 import { InputGroup, QuestionGroup } from '../../../../../styles/elements/forms'
+import { useDispatch } from 'react-redux'
+import { setCommonFields } from '../../../../../store/slices/reportCreateSlice'
 
 function LocationPicker() {
   const [location, setLocation] = useState(null)
   const [isLocationLoaded, setIsLocationLoaded] = useState(false)
   const [address, setAddress] = useState('')
   const mapRef = useRef(null)
+  const dispatch = useDispatch()
+
+  const handleLocationChange = (newLocation) => {
+    setLocation(newLocation)
+    if (newLocation) {
+      setAddress(newLocation.address)
+      // Dispatch action to update Redux store
+      console.log(newLocation)
+      dispatch(
+        setCommonFields({
+          latitude: newLocation.latitude,
+          longitude: newLocation.longitude,
+          address: newLocation.address,
+        }),
+      )
+    }
+  }
 
   useEffect(() => {
     const defaultLocation = {
@@ -96,7 +115,10 @@ function LocationPicker() {
           whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <LocationMarker setLocation={setLocation} setAddress={setAddress} />
+          <LocationMarker
+            setLocation={handleLocationChange}
+            setAddress={setAddress}
+          />
         </MapContainer>
       )}
       <InputGroup>

@@ -31,7 +31,7 @@ export const fetchReportsByUserIdAsync = createAsyncThunk(
   'reports/fetchReportsByUserId',
   async (userId, { rejectWithValue }) => {
     try {
-      const data = await fetchReports(userId);
+      const data = await fetchReports(null, userId);
       return data;
     } catch (error) {
       return rejectWithValue(error.response ? error.response.data : error.message);

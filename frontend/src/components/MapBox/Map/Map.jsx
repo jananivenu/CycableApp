@@ -19,7 +19,7 @@ const [viewport, setViewport] = useState({
 
 
 const [popupInfo, setPopupInfo] = useState(null);
-const [userLocation, ] = useState(null);
+
 
 
 const token = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -113,9 +113,7 @@ return (
   </>
 )}
 
-      {userLocation && (
-        <MarkerComponent latitude={userLocation.latitude} longitude={userLocation.longitude} />
-      )}
+      
 
       {popupInfo && (
         <Popup

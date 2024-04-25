@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ReactMapGl, { Popup, GeolocateControl } from 'react-map-gl';
-import Geolocation from '../Geolocation/Geolocation';
+import ReactMapGl, { Popup, GeolocateControl, NavigationControl } from 'react-map-gl';
+import Geolocation from '../Geolocation/Geolocation';  //why is doing problem to my map
 import PopupContent from '../Popup/Popup';
 import MarkerComponent from '../MarkerComponent/MarkerComponent';
 import StreetNameFetcher from '../StreetNameFetcher/StreetNameFetcher';
@@ -18,10 +18,8 @@ const [viewport, setViewport] = useState({
 });
 
 
-
-
 const [popupInfo, setPopupInfo] = useState(null);
-const [userLocation, setUserLocation] = useState(null);
+
 
 
 const token = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -55,15 +53,19 @@ const dummyLocations = [
 ];
 
 
- const handleMarkerClick = (location) => {
-  setViewport({
-    ...viewport,
-    latitude: location.latitude,
-    longitude: location.longitude,
-  });
-  setPopupInfo(location);
-};
-
+const handleMarkerClick = (location) => {
+    const verticalOffset = -0.10;
+    console.log(viewport.zoom);
+    const newLatitude = location.latitude - verticalOffset;
+    const newLongitude = location.longitude;
+    setViewport({
+      ...viewport,
+      latitude: newLatitude,
+      longitude: newLongitude,
+    });
+    setPopupInfo(location);
+  };
+ 
 
 const heatmapData = {
   type: 'FeatureCollection',
@@ -80,45 +82,11 @@ const heatmapData = {
 };
 
 
-
-
-
-const renderClusterLayers = () => {
-   return (
-     <Source
-       id="dummy-locations"
-       type="geojson"
-       data={{
-         type: 'FeatureCollection',
-         features: dummyLocations.map((location, index) => ({
-           type: 'Feature',
-           geometry: {
-             type: 'Point',
-             coordinates: [location.longitude, location.latitude]
-           },
-           properties: {
-             eventType: location.eventType
-           }
-         }))
-       }}
-       cluster={true}
-       clusterMaxZoom={14}
-       clusterRadius={50}
-     >
-       <Layer {...clusterLayer} />
-       <Layer {...clusterCountLayer} />
-       <Layer {...unclusteredPointLayer} />
-     </Source>
-   );
- };
-
-
  const renderMarkers = () => {
    return dummyLocations.map((location, index) => (
      <MarkerComponent key={index} location={location} handleMarkerClick={handleMarkerClick} />
    ));
  };
-
 
 
 return (
@@ -128,9 +96,9 @@ return (
       mapboxAccessToken={token}
       onMove={(evt) => setViewport(evt.viewState)}
       style={{ width: '100vw', height: '100vh' }}
-      mapStyle="mapbox://styles/mihaels/clv4y6ih700i101ph6yg49f96"
+      mapStyle="mapbox://styles/mihaels/clvdnhxt3011901qvco3g86vv"
       >
-      {/* Heatmap */}
+      {/* NEW Heatmap */}
       {viewport.zoom <= 8 && (
   <Source id="heatmap" type="geojson" data={heatmapData}>
     <Layer {...heatmapLayer} />
@@ -145,9 +113,7 @@ return (
   </>
 )}
 
-      {userLocation && (
-        <MarkerComponent latitude={userLocation.latitude} longitude={userLocation.longitude} />
-      )}
+      
 
       {popupInfo && (
         <Popup
@@ -167,10 +133,13 @@ return (
         </Popup>
       )}
       <GeolocateControl
-        positionOptions={{ enableHighAccuracy: true }}
-        trackUserLocation={false} 
-        auto
-      />
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={false} 
+          auto
+        />
+        <div style={{ position: 'absolute', right: 0 }}>
+          <NavigationControl />
+        </div>
     </ReactMapGl>
   </div>
 );

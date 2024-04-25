@@ -15,17 +15,17 @@ const MarkerComponent = ({ location, handleMarkerClick }) => {
     switch (eventType) {
       case 'Bicycle accident':
         console.log('Bicycle accident')
-        setColor('red')
+        setColor('#EE4266')
         break;
       case 'Dangerous location':
         console.log('Dangerous location');
-        setColor('#ffcc00')
+        setColor('#FFB800')
         break;
       case 'Bicycle theft':
-        setColor('blue')
+        setColor('#0075FF')
         break;
       case 'Violations':
-        setColor('green')
+        setColor('#20B69E')
         break;
       default:
         setColor('black')

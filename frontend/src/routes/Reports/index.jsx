@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { MainContainer, SectionContainer } from '../../styles'
 import { fetchAllReportsAsync } from '../../store/slices/reportsSlice'
-import ReportsList from '../../components/Reports/ReportsList'
 import AnimatedBikeLoading from '../../components/trivias/Loading'
+import ReportsList from '../../components/Reports/ReportsList'
+import { MainContainer, SectionContainer } from '../../styles'
+
 
 const Reports = () => {
   const dispatch = useDispatch()

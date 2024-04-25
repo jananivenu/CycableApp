@@ -6,20 +6,36 @@ import {
   StyledH2,
   StyledH3,
 } from '../../../../styles/elements/typography'
-import { FormTwoColumn, QuestionGroup } from '../../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  FormTwoColumn,
+  InputGroup,
+  QuestionGroup,
+} from '../../../../styles/elements/forms'
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
 import Images from '../Elements/Images'
-import Description from '../Elements/Description'
 import { useState } from 'react'
 import CameraComponent from '../../../Camera/camera'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import { SuccessMsg } from '../styles'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setCommonFields, setNearMissReport,
+  setViolationsReport,
+} from '../../../../store/slices/reportCreateSlice'
+import sendReport from '../../../../axios/sendReport'
 
 const NearMiss = () => {
-  const [reportData, setReportData] = useState({})
+  const dispatch = useDispatch()
+
+  const reportData = useSelector((state) => state.report)
+  const details = useSelector((state) => state.report.description)
+
+  const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
-  const [involvedParty, setInvolvedParty] = useState('')
+  const [errorMsg, setErrorMsg] = useState(null)
+
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
     'Bus, trolleybus, tram',
@@ -32,14 +48,51 @@ const NearMiss = () => {
     'Other',
   ]
 
-  const handlePartySelect = (e) => {
-    setInvolvedParty(e.target.value)
+  const handleImagesChange = (imageFiles) => {
+    console.log(imageFiles)
+    setUploadedImages(imageFiles)
+  }
+  const inputHandler = (e) => {
+    const { id, value } = e.target
+
+    if (id === 'involved_parties') {
+      dispatch(setNearMissReport({ involved_parties: value }))
+    } else {
+      dispatch(setCommonFields({ [id]: value }))
+    }
   }
 
-  const handleSubmit = () => {
-    // add here the logic to dispatch and to fetch to api
+  const handleBlur = (e) => {
+    const { id } = e.target
+    if (id === 'involved_parties' && reportData.involved_parties === '') {
+      setErrorMsg('Please select an option.')
+    } else {
+      setErrorMsg(null)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('description', reportData.description)
+    formData.append('longitude', reportData.longitude)
+    formData.append('latitude', reportData.latitude)
+    formData.append('address', reportData.address)
+    formData.append('custom_date', reportData.custom_date)
+    formData.append('involved_parties', reportData.involved_parties)
+    formData.append('incident_type', 'near_miss')
+    uploadedImages.forEach((image) => {
+      formData.append('images', image.file)
+    })
+    try {
+      await sendReport(formData)
+    } catch (error) {
+      console.log('error sending the report:', error)
+    }
+
     setSuccessMsg(true)
   }
+
   return (
     <>
       {!successMsg && (
@@ -71,15 +124,15 @@ const NearMiss = () => {
                 near miss incident. This could include images of the location,or
                 any visible hazards encountered.
               </p>
-              <Images />
+              <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
-            <QuestionGroup>
+            <QuestionGroup onBlur={handleBlur}>
               <StyledH3>Who was involved in the accident?</StyledH3>
               <select
                 id="involved_parties"
                 value={reportData.involved_parties}
-                onChange={handlePartySelect}
+                onChange={inputHandler}
               >
                 <option value="" disabled>
                   Please Choose
@@ -90,6 +143,7 @@ const NearMiss = () => {
                   </option>
                 ))}
               </select>
+              {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
@@ -99,10 +153,23 @@ const NearMiss = () => {
                 potential risks and improves safety measures for our biking
                 community.
               </p>
-              <Description />
+
+              <InputGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
+              </InputGroup>
             </QuestionGroup>
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details && details.length > 19 ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
           </FormTwoColumn>
         </SectionContainer>

@@ -6,7 +6,6 @@ import {
   ProfilePicture,
 } from './styles'
 
-import ReportList from './ReportList'
 import coverBg from '../../assets/photos/ballet.png'
 import avatar from '../../assets/photos/pavlova.png'
 import {
@@ -20,6 +19,7 @@ import { getMyUserDatas } from '../../axios/UserData'
 import { formatDate } from '../../utils/formatDate'
 import { Link } from 'react-router-dom'
 import AnimatedBikeLoading from '../trivias/Loading'
+import UserReportList from './ReportList'
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null)
@@ -63,7 +63,7 @@ const UserProfile = () => {
 
       <SectionContainer>
         <StyledH3>Reports</StyledH3>
-        <ReportList userId={userData.id} />
+        <UserReportList userId={userData.id} />
       </SectionContainer>
     </MainContainer>
   )

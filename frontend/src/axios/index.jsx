@@ -5,7 +5,7 @@ import axios from 'axios'
 //     ? 'http://localhost:8000/backend/api/'
 //     : 'https://cycable.propulsion-learn.ch/backend/api/'
 
-   const BASE_URL = 'https://cycable.propulsion-learn.ch/backend/api/'
+const BASE_URL = 'https://cycable.propulsion-learn.ch/backend/api/'
 
 const UserAxios = axios.create({
   baseURL: BASE_URL,

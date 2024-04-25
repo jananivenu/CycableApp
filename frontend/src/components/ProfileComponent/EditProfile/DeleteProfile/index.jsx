@@ -16,17 +16,16 @@ const DeleteAccount = () => {
     )
 
     if (confirmDelete) {
-
-    try {
-      const data = await deleteUser()
-      console.log(data)
-      dispatch(logoutUser())
-      navigate('/')
-    } catch (error) {
-      console.error('Error deleting user: ', error)
+      try {
+        const data = await deleteUser()
+        console.log(data)
+        dispatch(logoutUser())
+        navigate('/')
+      } catch (error) {
+        console.error('Error deleting user: ', error)
+      }
     }
   }
-}
 
   return <AccentButton onClick={handleDelete}>Delete Account</AccentButton>
 }

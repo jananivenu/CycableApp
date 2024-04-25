@@ -5,10 +5,10 @@ const initialState = {
   longitude: 0.0,
   latitude: 0.0,
   address: '',
-  involved_parties:'',
+  involved_parties: '',
   custom_date: '',
-  was_police_called: false,
-  was_bicycle_locked: false,
+  was_police_called: '',
+  was_bicycle_locked: '',
   change_to_add: '',
 }
 
@@ -17,7 +17,7 @@ const commonFields = [
   'longitude',
   'latitude',
   'address',
-  'custom_date'
+  'custom_date',
 ]
 
 export const reportSlice = createSlice({
@@ -33,16 +33,22 @@ export const reportSlice = createSlice({
       })
     },
     setTheftReport: (state, action) => {
-      state.was_bicycle_locked = action.payload.was_bicycle_locked
-
+      if (action.payload.was_bicycle_locked !== undefined) {
+        state.was_bicycle_locked = action.payload.was_bicycle_locked
+      }
     },
     setAccidentReport: (state, action) => {
-      state.was_police_called = action.payload.was_police_called
-      state.involved_parties
-          = action.payload.involved_parties
+      if (action.payload.was_police_called !== undefined) {
+        state.was_police_called = action.payload.was_police_called
+      }
+      if (action.payload.involved_parties !== undefined) {
+        state.involved_parties = action.payload.involved_parties
+      }
     },
     setNearMissReport: (state, action) => {
-      state.involved_parties = action.payload.involved_parties
+      if (action.payload.involved_parties !== undefined) {
+        state.involved_parties = action.payload.involved_parties
+      }
     },
     setViolationsReport: (state, action) => {
       state.change_to_add = action.payload.change_to_add

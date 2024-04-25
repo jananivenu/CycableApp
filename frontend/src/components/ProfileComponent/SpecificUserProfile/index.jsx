@@ -7,17 +7,17 @@ import {
 } from '../styles'
 import coverBg from '../../../assets/photos/ballet.png'
 import avatar from '../../../assets/photos/pavlova.png'
-import { LeadParagraph, StyledH2 } from '../../../styles/elements/typography'
+import { LeadParagraph, StyledH2, StyledH3 } from '../../../styles/elements/typography'
 import { useState, useEffect } from 'react'
 import { getSpecificUserData } from '../../../axios/UserData'
 import { formatDate } from '../../../utils/formatDate'
 import { useParams } from 'react-router-dom'
+import AnimatedBikeLoading from '../../trivias/Loading'
+import UserReportList from '../ReportList'
 
 const SpecificUserProfile = () => {
   const [userData, setUserData] = useState(null)
-  console.log(useParams())
   const userID = useParams().user_id
-  console.log(userID)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +33,7 @@ const SpecificUserProfile = () => {
   }, [userID])
 
   if (!userData) {
-    return <div>Loading...</div>
+    return <AnimatedBikeLoading />
   }
 
   return (
@@ -50,6 +50,10 @@ const SpecificUserProfile = () => {
           <p>Member since {formatDate(userData.joined_date)} </p>
         </ProfileAbout>
       </ProfileGridContainer>
+      <SectionContainer>
+        <StyledH3>Reports</StyledH3>
+        <UserReportList userId={userID} />
+      </SectionContainer>
     </MainContainer>
   )
 }

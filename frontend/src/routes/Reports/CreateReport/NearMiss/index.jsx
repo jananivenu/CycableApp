@@ -9,6 +9,7 @@ import {
 import {
   ErrorMessage,
   FormTwoColumn,
+  InputGroup,
   QuestionGroup,
 } from '../../../../styles/elements/forms'
 import LocationPicker from '../Elements/Location'
@@ -152,7 +153,8 @@ const NearMiss = () => {
                 potential risks and improves safety measures for our biking
                 community.
               </p>
-              <QuestionGroup>
+
+              <InputGroup>
                 <textarea
                   id="description"
                   placeholder="More details..."
@@ -160,7 +162,7 @@ const NearMiss = () => {
                   onChange={inputHandler}
                   required
                 ></textarea>
-              </QuestionGroup>
+              </InputGroup>
             </QuestionGroup>
             <div>
               {details && details.length > 19 ? (

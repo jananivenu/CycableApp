@@ -2,6 +2,7 @@ import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import {
   ErrorMessage,
   FormTwoColumn,
+  InputGroup,
   QuestionGroup,
 } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
@@ -172,20 +173,23 @@ function AccidentReport() {
               <Images onImagesChange={handleImagesChange} />
               <CameraComponent />
             </QuestionGroup>
-            <StyledH3>Comment</StyledH3>
-            <p>
-              Feel free to provide additional details about the accident to
-              assist fellow cyclists and support our community in promoting
-              safety on the roads.{' '}
-            </p>
-            <textarea
-              id="description"
-              placeholder="More details..."
-              value={reportData.description}
-              onChange={inputHandler}
-              required
-            ></textarea>
-
+            <QuestionGroup>
+              <StyledH3>Comment</StyledH3>
+              <p>
+                Feel free to provide additional details about the accident to
+                assist fellow cyclists and support our community in promoting
+                safety on the roads.{' '}
+              </p>
+              <InputGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
+              </InputGroup>
+            </QuestionGroup>
             <div>
               {details &&
               details.length > 19 &&

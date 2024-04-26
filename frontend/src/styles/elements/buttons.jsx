@@ -26,10 +26,6 @@ export const AccentButton = styled(BaseButton)`
   color: white;
   background-color: var(--accent-main);
   border: 0;
-
-  @media (max-width: 480px) {
-    display: ${(props) => (props.hide ? 'none' : 'inline-block')};
-  }
 `
 
 export const SimpleButton = styled(BaseButton)`

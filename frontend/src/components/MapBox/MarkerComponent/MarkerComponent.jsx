@@ -8,30 +8,30 @@ const MarkerComponent = ({ location, handleMarkerClick }) => {
   const longitude = location.longitude
 
   
-  const eventType = location.eventType
+  const incident_type = location.incident_type
   const [color, setColor] = useState("black");
 
   useEffect(() => {
-    switch (eventType) {
-      case 'Bicycle accident':
-        console.log('Bicycle accident')
+    switch (incident_type) {
+      case 'bicycle_accident':
+        console.log('bicycle_accident')
         setColor('#EE4266')
         break;
-      case 'Dangerous location':
-        console.log('Dangerous location');
+      case 'near_miss':
+        console.log('near_miss');
         setColor('#FFB800')
         break;
-      case 'Bicycle theft':
+      case 'bicycle_theft':
         setColor('#0075FF')
         break;
-      case 'Violations':
+      case 'violations':
         setColor('#20B69E')
         break;
       default:
         setColor('black')
         break;
     }
-  },[eventType]);
+  },[incident_type]);
   
   return (
     <Marker

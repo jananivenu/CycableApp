@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './styles.jsx';
 
-const PopupContent = ({ eventType }) => {
+const PopupContent = ({ incident_type }) => {
   return (
     <div style={styles.popupCard}> 
-      <h2>{eventType}</h2>
+      <h2>{incident_type}</h2>
     </div>
   );
 };

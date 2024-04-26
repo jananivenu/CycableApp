@@ -25,6 +25,7 @@ const Images = ({ onImagesChange }) => {
     setImages(images.filter((_, i) => i !== index))
   }
 
+
   return (
     <>
       <HiddenInput

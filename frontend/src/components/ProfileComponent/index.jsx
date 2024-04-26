@@ -20,7 +20,7 @@ import { getMyUserDatas } from '../../axios/UserData'
 import { formatDate } from '../../utils/formatDate'
 import AnimatedBikeLoading from '../trivias/Loading'
 import UserReportList from './ReportList'
-import { TbId } from "react-icons/tb";
+import { TbIdBadge2 } from "react-icons/tb";
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null)
@@ -52,7 +52,7 @@ const UserProfile = () => {
           <ProfilePicture src={userData.avatar || avatar} />
           <div>
             <SquareButtonLink to="/profile/edit">
-              <TbId /> Edit Profile
+              <TbIdBadge2 /> Edit Profile
             </SquareButtonLink>
           </div>
         </ProfilePictureWrapper>

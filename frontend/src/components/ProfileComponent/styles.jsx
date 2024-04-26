@@ -50,6 +50,21 @@ export const EditProfileForm = styled(BasicForm)`
   }
 `
 
+export const ProfilePictureWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 3rem;
+
+  grid-area: photo;
+
+  /* &:last-child {
+    margin-top: auto;
+  } */
+`
+
 export const ProfilePicture = styled.img`
   max-height: 200px;
   max-width: 200px;
@@ -57,8 +72,6 @@ export const ProfilePicture = styled.img`
 
   border-radius: 50%;
   border: 6px solid var(--accent-main);
-
-  grid-area: photo;
 
   width: 100%;
   margin: 0 !important;
@@ -71,4 +84,12 @@ export const ProfilePicture = styled.img`
 
 export const ProfileAbout = styled.article`
   grid-area: about;
+`
+
+export const EditProfileButtons = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 `

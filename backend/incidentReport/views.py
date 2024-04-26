@@ -1,7 +1,7 @@
-
 from django.http import Http404
 from django.utils import timezone
-
+from django.db.models import F
+from django.db.models.functions import Cos, Sin, ACos, Radians
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 
 from incidentReport.serializers import IncidentReportSerializer, SimpleIncidentReportSerializer
@@ -20,7 +20,8 @@ class ListAllIncidentReportsView(ListAPIView):
         queryset = ReportedIncidents.objects.all()
         start_date = self.request.query_params.get('start')
         end_date = self.request.query_params.get('end')
-
+        latitude = self.request.query_params.get('latitude')
+        longitude = self.request.query_params.get('longitude')
         if start_date and end_date:
             start_datetime = timezone.make_aware(timezone.datetime.strptime(start_date, '%Y-%m-%d'))
             end_datetime = timezone.make_aware(timezone.datetime.strptime(end_date, '%Y-%m-%d'))
@@ -35,11 +36,22 @@ class ListAllIncidentReportsView(ListAPIView):
             #  to include the end of the day
             end_datetime = end_datetime.replace(hour=23, minute=59, second=59, microsecond=999999)
             queryset = queryset.filter(custom_date__lte=end_datetime)
+        elif latitude and longitude:
+            latitude = float(self.request.GET.get('latitude'))
+            longitude = float(self.request.GET.get('longitude'))
+            radius = float(self.request.GET.get('radius', 10))
+            distance_expression = (
+                    ACos(Cos(Radians(latitude)) * Cos(Radians(F('latitude'))) *
+                        Cos(Radians(F('longitude')) - Radians(longitude)) + Sin(Radians(latitude)) * Sin(
+                        Radians(F('latitude')))) * 6371
+            )
+            queryset = ReportedIncidents.objects.annotate(distance=distance_expression).filter(distance__lte=radius)
+        else:
+            raise Http404('Invalid query parameters')
 
         return queryset
 
 
-#
 class CreateIncidentReport(CreateAPIView):
     serializer_class = IncidentReportSerializer
     queryset = ReportedIncidents.objects.all()

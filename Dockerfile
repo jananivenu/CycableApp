@@ -40,6 +40,7 @@ RUN npm install
 
 # Copying frontend files and building application
 COPY ./frontend /frontend
+ENV NODE_OPTIONS --max_old_space_size=4096
 RUN npm run build
 
 # Copying backend files

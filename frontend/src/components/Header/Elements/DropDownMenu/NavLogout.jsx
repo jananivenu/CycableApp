@@ -1,6 +1,6 @@
 import useLogout from '../../../../utils/useLogout'
-import { IconWrapper, LogoutButton } from './styles'
-import { LuDoorOpen } from "react-icons/lu";
+import { LogoutButton } from './styles'
+import { LuDoorOpen } from 'react-icons/lu'
 
 function NavLogout() {
   const logout = useLogout()
@@ -14,9 +14,7 @@ function NavLogout() {
       onClick={handleLogout}
       onKeyDown={(e) => e.key === 'Enter' && handleLogout()}
     >
-      <IconWrapper>
-        <LuDoorOpen />
-      </IconWrapper>
+      <LuDoorOpen />
       Logout
     </LogoutButton>
   )

@@ -52,11 +52,13 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'corsheaders',
+    'django_tgbot',
     # own apps
     'user',
     'authProfile',
     'incidentReport',
     'comment',
+    'cycable_bot',
 
 ]
 

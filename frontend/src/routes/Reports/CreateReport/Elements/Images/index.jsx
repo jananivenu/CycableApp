@@ -6,6 +6,8 @@ import {
   ImagePreview,
   ImagePreviewWrapper,
 } from './styles'
+import { TbPhotoShare } from "react-icons/tb";
+
 
 const Images = ({ onImagesChange }) => {
   const [images, setImages] = useState([])
@@ -23,6 +25,7 @@ const Images = ({ onImagesChange }) => {
     setImages(images.filter((_, i) => i !== index))
   }
 
+
   return (
     <>
       <HiddenInput
@@ -32,7 +35,7 @@ const Images = ({ onImagesChange }) => {
         className="fileInput"
         onChange={handleFilesChange}
       />
-      <FileUploadButton htmlFor="images">Upload Photos</FileUploadButton>
+      <FileUploadButton htmlFor="images"><TbPhotoShare />Upload Photos</FileUploadButton>
       <ImagePreviewWrapper>
         {images.map((image, index) => (
           <ImagePreview

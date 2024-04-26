@@ -19,6 +19,7 @@ const [viewport, setViewport] = useState({
 
 
 const [popupInfo, setPopupInfo] = useState(null);
+<<<<<<< HEAD
 const [userLocation, ] = useState(null);
 const [reportData, setReportData] = useState(null);
 
@@ -38,6 +39,8 @@ useEffect(() => {
     fetchReports();
 }, []);
 
+=======
+>>>>>>> master
 
 
 
@@ -112,7 +115,7 @@ return (
       {...viewport}
       mapboxAccessToken={token}
       onMove={(evt) => setViewport(evt.viewState)}
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ width: '100%', height: '90vh' }}
       mapStyle="mapbox://styles/mihaels/clvdnhxt3011901qvco3g86vv"
       >
       {/* NEW Heatmap */}
@@ -130,9 +133,7 @@ return (
   </>
 )}
 
-      {userLocation && (
-        <MarkerComponent latitude={userLocation.latitude} longitude={userLocation.longitude} />
-      )}
+      
 
       {popupInfo && (
         <Popup

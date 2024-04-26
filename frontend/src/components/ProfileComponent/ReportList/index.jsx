@@ -6,9 +6,9 @@ import { fetchReportsByUserIdAsync } from '../../../store/slices/reportsSlice'
 import AnimatedBikeLoading from '../../trivias/Loading'
 
 // eslint-disable-next-line react/prop-types
-function ReportList({ userId }) {
+function UserReportList({ userId }) {
   const dispatch = useDispatch()
-  const reports = useSelector((state) => state.reports.reports)
+  const reports = useSelector((state) => state.reports.userReports)
   const status = useSelector((state) => state.reports.status)
   const error = useSelector((state) => state.reports.error)
 
@@ -16,32 +16,29 @@ function ReportList({ userId }) {
     dispatch(fetchReportsByUserIdAsync(userId))
   }, [dispatch, userId])
 
-  if (status === 'loading') {
+  if (!reports) {
     return <AnimatedBikeLoading />
   }
 
-  if (error) {
-    return <p>Error loading reports: {error}</p>
+  if (reports.length === 0) {
+    return <p>No reports yet.</p>
   }
 
   return (
     <MasonryContainer>
-      {reports.length > 0 ? (
-        reports.map((report) => (
-          <CaseReport
-            key={report.id}
-            userName={report.userName}
-            comment={report.comment}
-            address={report.address}
-            date={report.date}
-            type={report.type}
-          />
-        ))
-      ) : (
-        <p>No reports found.</p>
-      )}
+      {reports.map((report) => (
+        <CaseReport
+          key={report.id}
+          id={report.id}
+          userName={report.userName}
+          comment={report.description}
+          address={report.address}
+          date={report.custom_date}
+          type={report.incident_type}
+        />
+      ))}
     </MasonryContainer>
   )
 }
 
-export default ReportList
+export default UserReportList

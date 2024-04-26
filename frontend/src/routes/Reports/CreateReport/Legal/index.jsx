@@ -1,5 +1,11 @@
-import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import {
+  ComposeIconTitleWrapper,
+  GridSectionContainer,
+  NarrowSectionContainer,
+  SectionContainer,
+} from '../../../../styles'
+import {
+  BasicForm,
   FormTwoColumn,
   InputGroup,
   QuestionGroup,
@@ -18,12 +24,15 @@ import { SuccessMsg } from '../styles'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCommonFields } from '../../../../store/slices/reportCreateSlice'
-import CameraComponent from '../../../Camera/camera'
 import sendReport from '../../../../axios/sendReport'
+import ThankYouMessage from '../Elements/ThankYouMessage'
 
 function LegalReport() {
   const dispatch = useDispatch()
+
+  const details = useSelector((state) => state.report.description)
   const reportData = useSelector((state) => state.report)
+
   const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
 
@@ -33,7 +42,6 @@ function LegalReport() {
   }
 
   const handleImagesChange = (imageFiles) => {
-    console.log(imageFiles)
     setUploadedImages(imageFiles)
   }
 
@@ -60,7 +68,8 @@ function LegalReport() {
   return (
     <>
       {!successMsg && (
-        <SectionContainer>
+        <GridSectionContainer>
+          <div>
           <ComposeIconTitleWrapper>
             <ComposeIcone src={compose} />
             <StyledH2>Legalizing "Violations"</StyledH2>
@@ -76,7 +85,7 @@ function LegalReport() {
             considered violations. Do you know such places? Tell us!
           </LeadParagraph>
 
-          <FormTwoColumn>
+          <BasicForm>
             <LocationPicker />
 
             <QuestionGroup>
@@ -84,51 +93,39 @@ function LegalReport() {
                 If possible, please attach any relevant photos related to
                 locations needing improvements for cyclists.
                 <Images onImagesChange={handleImagesChange} />
-                <CameraComponent />
               </InputGroup>
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
+              <p>
+                Feel free to provide details regarding needed improvements for
+                cyclists below. Your input helps identify potential risks and
+                improves safety measures for our biking community.
+              </p>
 
               <InputGroup>
-                <p>
-                  Feel free to provide details regarding needed improvements for
-                  cyclists below. Your input helps identify potential risks and
-                  improves safety measures for our biking community.
-                </p>
-                <QuestionGroup>
-                  <textarea
-                    id="description"
-                    placeholder="More details..."
-                    value={reportData.description}
-                    onChange={inputHandler}
-                    required
-                  ></textarea>
-                </QuestionGroup>
+                <textarea
+                  id="description"
+                  placeholder="More details..."
+                  value={reportData.description}
+                  onChange={inputHandler}
+                  required
+                ></textarea>
               </InputGroup>
             </QuestionGroup>
-
             <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              {details && details.length > 19 ? (
+                <AccentButton onClick={handleSubmit}>Send</AccentButton>
+              ) : (
+                <p>greyed out button</p>
+              )}
             </div>
-          </FormTwoColumn>
-        </SectionContainer>
+          </BasicForm>
+          </div>
+          <div></div>
+        </GridSectionContainer>
       )}
-      {successMsg && (
-        <SectionContainer>
-          <SuccessMsg>
-            <StyledH3>
-              Thank you for taking time and reporting the incident via our App.{' '}
-              <br />
-              Your contribution helps in making our streets safer for cyclists.
-              We appreciate your cooperation and concern for the biking
-              community. <br />
-              <br /> --- Join the Movement for Safer Cycling --- <br />
-              --- From Your Stories to Safer Streets ---
-            </StyledH3>
-          </SuccessMsg>
-        </SectionContainer>
-      )}
+      {successMsg && <ThankYouMessage />}
     </>
   )
 }

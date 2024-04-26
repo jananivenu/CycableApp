@@ -7,7 +7,6 @@ export const SquareRadioInput = styled.input`
   outline: none;
   border-radius: 0.2rem;
   cursor: pointer;
-
   &:checked {
     background-color: var(--accent-main);
   }

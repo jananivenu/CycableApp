@@ -11,18 +11,6 @@ export const TypeMenuUl = styled.ul`
   list-style-type: none;
   border-bottom: 1px solid var(--dark-gray);
 `
-export const TypesIcon = styled.img`
-  width: 3rem;
-  height: 3rem;
-  transition: all 0.3s ease;
-  ${(props) =>
-    props.typeSelected &&
-    css`
-      transform: translateY(-20px);
-      width: 2.4rem;
-      height: 2.4rem;
-    `}
-`
 export const MenuWrapper = styled.div`
   margin: 1rem;
   display: flex;

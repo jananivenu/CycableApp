@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUserObject } from '../../../../store/slices/userSlice'
 import { updateUserData } from '../../../../axios/UserData'
-import { TbPhotoSquareRounded } from 'react-icons/tb'
 import { SquareButton } from '../../../../styles/elements/buttons'
 import { BasicForm, ErrorMessage } from '../../../../styles/elements/forms'
 import Modal from '../Modal'
@@ -41,7 +40,7 @@ const CoverUpload = ({ setCoverPhoto }) => {
   return (
     <>
       <SquareButton onClick={toggleModal}>
-        <TbPhotoSquareRounded /> New Cover
+        New Cover
       </SquareButton>
       {isModalOpen && (
         <Modal onClose={toggleModal}>

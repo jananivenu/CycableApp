@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { deleteUser } from '../../../../axios/UserData'
 import { logoutUser } from '../../../../store/slices/userSlice'
 import { SquareButtonDelete } from '../../../../styles/elements/buttons'
-import { TbTrash } from "react-icons/tb";
 
 const DeleteAccount = () => {
   const dispatch = useDispatch()
@@ -31,7 +30,7 @@ const DeleteAccount = () => {
 
   return (
     <SquareButtonDelete onClick={handleDelete}>
-      <TbTrash /> Delete Account
+      Delete Account
     </SquareButtonDelete>
   )
 }

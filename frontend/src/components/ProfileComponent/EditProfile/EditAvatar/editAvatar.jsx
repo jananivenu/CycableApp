@@ -8,7 +8,6 @@ import {
   ErrorMessage,
   InputGroup,
 } from '../../../../styles/elements/forms'
-import { TbUserSquareRounded } from 'react-icons/tb'
 import Modal from '../Modal'
 
 const AvatarUpload = ({ setUserAvatar }) => {
@@ -44,7 +43,7 @@ const AvatarUpload = ({ setUserAvatar }) => {
   return (
     <>
       <SquareButton onClick={toggleModal}>
-        <TbUserSquareRounded /> New Avatar
+        New Avatar
       </SquareButton>
       {isModalOpen && (
         <Modal onClose={toggleModal}>

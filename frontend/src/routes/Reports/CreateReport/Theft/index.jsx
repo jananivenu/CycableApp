@@ -4,7 +4,6 @@ import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import { ComposeIcone } from '../../../../styles/elements/icons'
 import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
-import { SuccessMsg } from '../styles.jsx'
 import {
   LeadParagraph,
   StyledH2,
@@ -26,6 +25,7 @@ import {
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
+import ThankYouMessage from '../Elements/ThankYouMessage/index.jsx'
 
 const TheftReport = () => {
   const dispatch = useDispatch()
@@ -166,20 +166,7 @@ const TheftReport = () => {
           </FormTwoColumn>
         </SectionContainer>
       )}
-      {successMsg && (
-        <SectionContainer>
-          <SuccessMsg>
-            <StyledH3>
-              Thank you for taking time and reporting the incident via our App.
-              Your contribution helps in making our streets safer for cyclists.
-              We appreciate your cooperation and concern for the biking
-              community.
-              <br /> --- Join the Movement for Safer Cycling --- <br />
-              --- From Your Stories to Safer Streets ---
-            </StyledH3>
-          </SuccessMsg>
-        </SectionContainer>
-      )}
+      {successMsg && <ThankYouMessage />}
     </>
   )
 }

@@ -200,21 +200,7 @@ function AccidentReport() {
           </FormTwoColumn>
         </SectionContainer>
       )}
-      {successMsg && (
-        <SectionContainer>
-          <SuccessMsg>
-            <StyledH3>
-              Thank you for taking time and reporting the incident via our App.{' '}
-              <br />
-              Your contribution helps in making our streets safer for cyclists.
-              We appreciate your cooperation and concern for the biking
-              community. <br />
-              <br /> --- Join the Movement for Safer Cycling --- <br />
-              --- From Your Stories to Safer Streets ---
-            </StyledH3>
-          </SuccessMsg>
-        </SectionContainer>
-      )}
+      {successMsg && <ThankYouMessage />}
     </>
   )
 }

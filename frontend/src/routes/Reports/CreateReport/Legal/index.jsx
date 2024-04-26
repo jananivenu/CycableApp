@@ -1,5 +1,11 @@
-import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
 import {
+  ComposeIconTitleWrapper,
+  GridSectionContainer,
+  NarrowSectionContainer,
+  SectionContainer,
+} from '../../../../styles'
+import {
+  BasicForm,
   FormTwoColumn,
   InputGroup,
   QuestionGroup,
@@ -19,6 +25,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCommonFields } from '../../../../store/slices/reportCreateSlice'
 import sendReport from '../../../../axios/sendReport'
+import ThankYouMessage from '../Elements/ThankYouMessage'
 
 function LegalReport() {
   const dispatch = useDispatch()
@@ -35,7 +42,6 @@ function LegalReport() {
   }
 
   const handleImagesChange = (imageFiles) => {
-    console.log(imageFiles)
     setUploadedImages(imageFiles)
   }
 
@@ -62,7 +68,8 @@ function LegalReport() {
   return (
     <>
       {!successMsg && (
-        <SectionContainer>
+        <GridSectionContainer>
+          <div>
           <ComposeIconTitleWrapper>
             <ComposeIcone src={compose} />
             <StyledH2>Legalizing "Violations"</StyledH2>
@@ -78,7 +85,7 @@ function LegalReport() {
             considered violations. Do you know such places? Tell us!
           </LeadParagraph>
 
-          <FormTwoColumn>
+          <BasicForm>
             <LocationPicker />
 
             <QuestionGroup>
@@ -113,24 +120,12 @@ function LegalReport() {
                 <p>greyed out button</p>
               )}
             </div>
-          </FormTwoColumn>
-        </SectionContainer>
+          </BasicForm>
+          </div>
+          <div></div>
+        </GridSectionContainer>
       )}
-      {successMsg && (
-        <SectionContainer>
-          <SuccessMsg>
-            <StyledH3>
-              Thank you for taking time and reporting the incident via our App.{' '}
-              <br />
-              Your contribution helps in making our streets safer for cyclists.
-              We appreciate your cooperation and concern for the biking
-              community. <br />
-              <br /> --- Join the Movement for Safer Cycling --- <br />
-              --- From Your Stories to Safer Streets ---
-            </StyledH3>
-          </SuccessMsg>
-        </SectionContainer>
-      )}
+      {successMsg && <ThankYouMessage />}
     </>
   )
 }

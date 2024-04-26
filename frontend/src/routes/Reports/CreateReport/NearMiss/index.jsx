@@ -10,8 +10,8 @@ import {
   StyledH3,
 } from '../../../../styles/elements/typography'
 import {
+  BasicForm,
   ErrorMessage,
-  FormTwoColumn,
   InputGroup,
   QuestionGroup,
 } from '../../../../styles/elements/forms'
@@ -20,13 +20,16 @@ import DatePicker from '../Elements/Date'
 import Images from '../Elements/Images'
 
 import { AccentButton } from '../../../../styles/elements/buttons'
-import { SuccessMsg } from '../styles'
 
 import {
   setCommonFields,
   setNearMissReport,
 } from '../../../../store/slices/reportCreateSlice'
 import sendReport from '../../../../axios/sendReport'
+import ThankYouMessage from '../Elements/ThankYouMessage'
+import { BiEdit } from "react-icons/bi";
+
+
 
 const NearMiss = () => {
   const dispatch = useDispatch()
@@ -116,7 +119,7 @@ const NearMiss = () => {
             <b> involved parties,</b>
             you're contributing to creating safer streets for cyclists.
           </LeadParagraph>
-          <FormTwoColumn>
+          <BasicForm>
             <LocationPicker />
             <DatePicker />
 
@@ -172,24 +175,10 @@ const NearMiss = () => {
                 <p>greyed out button</p>
               )}
             </div>
-          </FormTwoColumn>
+          </BasicForm>
         </SectionContainer>
       )}
-      {successMsg && (
-        <SectionContainer>
-          <SuccessMsg>
-            <StyledH3>
-              Thank you for taking time and reporting the incident via our App.{' '}
-              <br />
-              Your contribution helps in making our streets safer for cyclists.
-              We appreciate your cooperation and concern for the biking
-              community. <br />
-              <br /> --- Join the Movement for Safer Cycling --- <br />
-              --- From Your Stories to Safer Streets ---
-            </StyledH3>
-          </SuccessMsg>
-        </SectionContainer>
-      )}
+      {successMsg && <ThankYouMessage />}
     </>
   )
 }

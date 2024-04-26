@@ -42,7 +42,7 @@ class ListAllIncidentReportsView(ListAPIView):
             radius = float(self.request.GET.get('radius', 10))
             distance_expression = (
                     ACos(Cos(Radians(latitude)) * Cos(Radians(F('latitude'))) *
-                        Cos(Radians(F('longitude')) - Radians(longitude)) + Sin(Radians(latitude)) * Sin(
+                         Cos(Radians(F('longitude')) - Radians(longitude)) + Sin(Radians(latitude)) * Sin(
                         Radians(F('latitude')))) * 6371
             )
             queryset = ReportedIncidents.objects.annotate(distance=distance_expression).filter(distance__lte=radius)
@@ -50,6 +50,19 @@ class ListAllIncidentReportsView(ListAPIView):
             raise Http404('Invalid query parameters')
 
         return queryset
+
+
+class ListAllIncidentReportsByLatLongView(ListAPIView):
+    serializer_class = SimpleIncidentReportSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        min_lat = float(self.request.GET.get('minLat'))
+        max_lat = float(self.request.GET.get('maxLat'))
+        min_lng = float(self.request.GET.get('minLng'))
+        max_lng = float(self.request.GET.get('maxLng'))
+        return ReportedIncidents.objects.filter(latitude__gte=min_lat, latitude__lte=max_lat, longitude__gte=min_lng,
+                                                longitude__lte=max_lng)
 
 
 class CreateIncidentReport(CreateAPIView):

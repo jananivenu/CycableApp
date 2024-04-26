@@ -55,7 +55,6 @@ class ListAllIncidentReportsView(ListAPIView):
         return queryset
 
 
-#
 class CreateIncidentReport(CreateAPIView):
     serializer_class = IncidentReportSerializer
     queryset = ReportedIncidents.objects.all()

@@ -5,6 +5,7 @@ import { updateUserData } from '../../../../axios/UserData'
 import { SquareButton } from '../../../../styles/elements/buttons'
 import { BasicForm, ErrorMessage } from '../../../../styles/elements/forms'
 import Modal from '../Modal'
+import { TbPhotoSquareRounded } from "react-icons/tb";
 
 const CoverUpload = ({ setCoverPhoto }) => {
   const [selectedFile, setSelectedFile] = useState(null)
@@ -40,7 +41,7 @@ const CoverUpload = ({ setCoverPhoto }) => {
   return (
     <>
       <SquareButton onClick={toggleModal}>
-        New Cover
+        <TbPhotoSquareRounded /> New Cover
       </SquareButton>
       {isModalOpen && (
         <Modal onClose={toggleModal}>

@@ -8,6 +8,7 @@ export const FileUploadButton = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
   padding: 1rem 1rem;
   min-width: max-content;
   //width: max-content;
@@ -18,23 +19,13 @@ export const FileUploadButton = styled.label`
   color: var(--accent-main);
   border-radius: 2rem;
 
-  text-transform: uppercase;
-  font-size: 01rem;
+  /* text-transform: uppercase; */
+  font-size: 1.5rem;
   font-weight: 500;
-  font-family: var(--main-font);
-
-  &:focus,
-  &:focus-visible {
-    outline: 2px solid var(--accent-blue);
-  }
 
   cursor: pointer;
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-    @media (max-width: 480px) {
-      display: ${(props) => (props.hide ? 'none' : 'inline-block')};
-    }
   }
 `
 

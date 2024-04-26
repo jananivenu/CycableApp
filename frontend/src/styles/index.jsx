@@ -115,6 +115,27 @@ export const NarrowSectionContainer = styled.section`
     padding: 1rem 1rem;
   }
 `
+
+export const GridSectionContainer = styled.section`
+  max-width: 1240px;
+  margin: 0 auto;
+
+  padding: 1rem 3rem;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+    grid-template-columns: 1fr;
+
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 1rem;
+  }
+`
+
 export const ComposeIconTitleWrapper = styled.div`
   display: flex;
   gap: 1rem;

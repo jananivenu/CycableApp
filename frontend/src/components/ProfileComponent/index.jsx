@@ -4,6 +4,7 @@ import {
   ProfileCover,
   ProfileGridContainer,
   ProfilePicture,
+  ProfilePictureWrapper,
 } from './styles'
 
 import coverBg from '../../assets/photos/ballet.png'
@@ -13,26 +14,22 @@ import {
   StyledH2,
   StyledH3,
 } from '../../styles/elements/typography'
-import { AccentButton } from '../../styles/elements/buttons'
+import { SquareButtonLink } from '../../styles/elements/buttons'
 import { useState, useEffect } from 'react'
 import { getMyUserDatas } from '../../axios/UserData'
 import { formatDate } from '../../utils/formatDate'
-import { Link } from 'react-router-dom'
 import AnimatedBikeLoading from '../trivias/Loading'
 import UserReportList from './ReportList'
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null)
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getMyUserDatas()
-        console.log(data)
         setUserData(data)
         localStorage.setItem('user', JSON.stringify(data))
-
       } catch (error) {
         console.error('Error fetching user data: ', error)
       }
@@ -48,9 +45,16 @@ const UserProfile = () => {
   return (
     <MainContainer>
       <ProfileCover img={userData.cover_photo || coverBg} />
+
       <ProfileGridContainer>
-        <ProfilePicture src={userData.avatar || avatar} />
-        <AccentButton as={Link} to="/profile/edit">Edit Profile</AccentButton>
+        <ProfilePictureWrapper>
+          <ProfilePicture src={userData.avatar || avatar} />
+          <div>
+            <SquareButtonLink to="/profile/edit">
+              Edit Profile
+            </SquareButtonLink>
+          </div>
+        </ProfilePictureWrapper>
         <ProfileAbout>
           <StyledH2>
             {userData.first_name} {userData.last_name}

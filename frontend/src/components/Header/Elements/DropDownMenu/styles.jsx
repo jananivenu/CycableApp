@@ -60,5 +60,4 @@ export const IconWrapper = styled.span`
   display: inline-flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 0.3rem 0 0;
 `

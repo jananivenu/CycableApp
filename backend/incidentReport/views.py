@@ -1,7 +1,6 @@
 from django.http import Http404
 from django.utils import timezone
-from django.http import JsonResponse
-from django.db.models import Func, F
+from django.db.models import F
 from django.db.models.functions import Cos, Sin, ACos, Radians
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 
@@ -42,11 +41,9 @@ class ListAllIncidentReportsView(ListAPIView):
             longitude = float(self.request.GET.get('longitude'))
             radius = float(self.request.GET.get('radius', 10))
             distance_expression = (
-                    ACos(
-                        Cos(Radians(latitude)) * Cos(Radians(F('latitude'))) *
-                        Cos(Radians(F('longitude')) - Radians(longitude)) +
-                        Sin(Radians(latitude)) * Sin(Radians(F('latitude')))
-                    ) * 6371
+                    ACos(Cos(Radians(latitude)) * Cos(Radians(F('latitude'))) *
+                        Cos(Radians(F('longitude')) - Radians(longitude)) + Sin(Radians(latitude)) * Sin(
+                        Radians(F('latitude')))) * 6371
             )
             queryset = ReportedIncidents.objects.annotate(distance=distance_expression).filter(distance__lte=radius)
         else:

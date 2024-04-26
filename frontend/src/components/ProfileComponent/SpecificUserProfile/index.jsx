@@ -4,10 +4,15 @@ import {
   ProfileCover,
   ProfileGridContainer,
   ProfilePicture,
+  ProfilePictureWrapper,
 } from '../styles'
 import coverBg from '../../../assets/photos/ballet.png'
-import avatar from '../../../assets/photos/pavlova.png'
-import { LeadParagraph, StyledH2, StyledH3 } from '../../../styles/elements/typography'
+import avatar from '../../../assets/icons/user-cl.png'
+import {
+  LeadParagraph,
+  StyledH2,
+  StyledH3,
+} from '../../../styles/elements/typography'
 import { useState, useEffect } from 'react'
 import { getSpecificUserData } from '../../../axios/UserData'
 import { formatDate } from '../../../utils/formatDate'
@@ -40,7 +45,9 @@ const SpecificUserProfile = () => {
     <MainContainer>
       <ProfileCover img={userData.cover_photo || coverBg} />
       <ProfileGridContainer>
-        <ProfilePicture src={userData.avatar || avatar} />
+        <ProfilePictureWrapper>
+          <ProfilePicture src={userData.avatar || avatar} />
+        </ProfilePictureWrapper>
         <ProfileAbout>
           <StyledH2>
             {userData.first_name} {userData.last_name}

@@ -1,8 +1,9 @@
-import { AccentButton } from '../../../../styles/elements/buttons'
-import { deleteUser } from '../../../../axios/UserData'
-import { useDispatch } from 'react-redux'
-import { logoutUser } from '../../../../store/slices/userSlice'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import { deleteUser } from '../../../../axios/UserData'
+import { logoutUser } from '../../../../store/slices/userSlice'
+import { SquareButtonDelete } from '../../../../styles/elements/buttons'
 
 const DeleteAccount = () => {
   const dispatch = useDispatch()
@@ -27,7 +28,11 @@ const DeleteAccount = () => {
     }
   }
 
-  return <AccentButton onClick={handleDelete}>Delete Account</AccentButton>
+  return (
+    <SquareButtonDelete onClick={handleDelete}>
+      Delete Account
+    </SquareButtonDelete>
+  )
 }
 
 export default DeleteAccount

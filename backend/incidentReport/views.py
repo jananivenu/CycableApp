@@ -51,6 +51,19 @@ class ListAllIncidentReportsView(ListAPIView):
 
         return queryset
 
+class ListAllIncidentReportsByLatLongView(ListAPIView):
+    serializer_class = SimpleIncidentReportSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+
+        min_lat = float(self.request.GET.get('minLat'))
+        max_lat = float(self.request.GET.get('maxLat'))
+        min_lng = float(self.request.GET.get('minLng'))
+        max_lng = float(self.request.GET.get('maxLng'))
+        return ReportedIncidents.objects.filter(latitude__gte=min_lat, latitude__lte=max_lat,longitude__gte=min_lng, longitude__lte=max_lng)
+
+
 
 class CreateIncidentReport(CreateAPIView):
     serializer_class = IncidentReportSerializer

@@ -21,7 +21,8 @@ import { AccentButton } from '../../../../styles/elements/buttons'
 import { SuccessMsg } from '../styles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  setCommonFields, setNearMissReport,
+  setCommonFields,
+  setNearMissReport,
   setViolationsReport,
 } from '../../../../store/slices/reportCreateSlice'
 import sendReport from '../../../../axios/sendReport'
@@ -194,3 +195,4 @@ const NearMiss = () => {
 }
 
 export default NearMiss
+// comment to check build stage

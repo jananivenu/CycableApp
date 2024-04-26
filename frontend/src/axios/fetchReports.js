@@ -15,3 +15,15 @@ export const fetchReports = async (reportId, userId) => {
     throw error
   }
 }
+
+export const fetchAllReports = async () => {
+  try {
+    let endpoint = '/reports/all/'
+    
+    const response = await UserAxios.get(endpoint)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}

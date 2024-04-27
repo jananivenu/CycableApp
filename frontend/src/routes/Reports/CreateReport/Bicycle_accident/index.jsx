@@ -24,6 +24,7 @@ import LocationPicker from '../Elements/Location/index.jsx'
 import { ComposeIcone } from '../../../../styles/elements/icons.jsx'
 import compose from '../../../../assets/icons/compose.png'
 import { SuccessMsg } from '../styles.jsx'
+import ThankYouMessage from '../Elements/ThankYouMessage/index.jsx'
 
 function AccidentReport() {
   const dispatch = useDispatch()

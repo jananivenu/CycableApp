@@ -89,9 +89,9 @@ function DatePicker() {
   }
 
   const handleCustomTimeChange = (event) => {
-    const formattedDate = formatDateTime(event.target.value)
-    setCustomTime(formattedDate)
-    dispatch(setCommonFields({ custom_date: formattedDate }))
+    // const formattedDate = formatDateTime(event.target.value)
+    setCustomTime(event.target.value)
+    dispatch(setCommonFields({ custom_date: event.target.value }))
   }
 
   return (

@@ -1,18 +1,23 @@
 import { MainContainer } from '../../../styles'
 import {
+  EditProfileButtons,
   EditProfileForm,
   ProfileCover,
   ProfileGridContainer,
   ProfilePicture,
+  ProfilePictureWrapper,
 } from '../styles'
 import { StyledH2 } from '../../../styles/elements/typography'
-import { ErrorMessage, InputGroup, QuestionGroup } from '../../../styles/elements/forms'
+import {
+  ErrorMessage,
+  InputGroup,
+  QuestionGroup,
+} from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
 import { useState, useEffect } from 'react'
 import coverBg from '../../../assets/photos/ballet.png'
 import avatar from '../../../assets/photos/pavlova.png'
 
-import { BasicForm } from '../../../styles/elements/forms'
 import { updateUserData } from '../../../axios/UserData'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,12 +25,10 @@ import { setUserObject } from '../../../store/slices/userSlice'
 import AvatarUpload from './EditAvatar/editAvatar'
 import DeleteAccount from './DeleteProfile'
 import CoverUpload from './EditCover'
+import FormField from './FormField'
 
 const EditProfile = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'))
-  console.log('from store')
-  console.log(storedUser)
-  const [userData, setUserData] = useState(null)
   const [error, setError] = useState(null)
 
   const [first_name, setFirstName] = useState(storedUser.first_name)
@@ -42,7 +45,6 @@ const EditProfile = () => {
   const [userAvatar, setUserAvatar] = useState(storedUser.avatar)
 
   const navigate = useNavigate()
-
   const dispatch = useDispatch()
 
   //const [genderUser, setGenderUser] = useState(storedUser.gender)
@@ -83,14 +85,11 @@ const EditProfile = () => {
 
     try {
       const updatedData = await updateUserData(data)
-      console.log(updatedData)
       localStorage.setItem('user', JSON.stringify(updatedData))
       dispatch(setUserObject(updatedData))
-
       navigate('/profile/me/')
     } catch (error) {
       setError(error.response.data.username[0])
-
       console.error('Error updating user data: ', error)
     }
   }
@@ -99,16 +98,16 @@ const EditProfile = () => {
     <MainContainer>
       <ProfileCover img={cover_photo || coverBg} />
       <ProfileGridContainer>
-        <div>
+        <ProfilePictureWrapper>
           <ProfilePicture src={userAvatar || avatar} />
-          <BasicForm>
+
+          <EditProfileButtons>
             <AvatarUpload setUserAvatar={setUserAvatar} />
-            <div>
-              <DeleteAccount />
-            </div>
             <CoverUpload setCoverPhoto={setCoverPhoto} />
-          </BasicForm>
-        </div>
+            <DeleteAccount />
+          </EditProfileButtons>
+        </ProfilePictureWrapper>
+
         <EditProfileForm onSubmit={onSubmitChanges}>
           <StyledH2>Edit Profile</StyledH2>
           <QuestionGroup>
@@ -119,49 +118,40 @@ const EditProfile = () => {
                 name="username"
                 value={username}
                 onChange={(e) => {
-                  const inputValue = e.target.value;
+                  const inputValue = e.target.value
                   // Remove spaces from the input value
-                  const noSpaces = inputValue.replace(/\s/g, '');
-                  setUsername(noSpaces);
+                  const noSpaces = inputValue.replace(/\s/g, '')
+                  setUsername(noSpaces)
                 }}
               />
-               {/* Display the error message */}
-      {error && <ErrorMessage style={{ color: 'red' }}>{error}</ErrorMessage>}
+              {error && (
+                <ErrorMessage style={{ color: 'red' }}>{error}</ErrorMessage>
+              )}
             </InputGroup>
           </QuestionGroup>
-          <QuestionGroup>
-            <InputGroup>
-              <label htmlFor="firstname">First Name: </label>
-              <input
-                id="firstname"
-                name="first_name"
-                value={first_name}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </InputGroup>
-          </QuestionGroup>
-          <QuestionGroup>
-            <InputGroup>
-              <label htmlFor="lastname">Last Name: </label>
-              <input
-                id="lastname"
-                name="last_name"
-                value={last_name}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </InputGroup>
-          </QuestionGroup>
-          <QuestionGroup>
-            <InputGroup>
-              <label htmlFor="location">Location:</label>
-              <input
-                id="location"
-                name="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </InputGroup>
-          </QuestionGroup>
+
+          <FormField
+            label="First Name"
+            id="firstname"
+            name="first_name"
+            value={first_name}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <FormField
+            label="Last Name"
+            id="lastname"
+            name="last_name"
+            value={last_name}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <FormField
+            label="Location"
+            id="location"
+            name="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+
           <QuestionGroup>
             <InputGroup>
               <label htmlFor="gender">Gender:</label>
@@ -182,7 +172,7 @@ const EditProfile = () => {
           </QuestionGroup>
           <QuestionGroup>
             <InputGroup>
-              <label htmlFor="description">Description:</label>
+              <label htmlFor="description">About me:</label>
               <textarea
                 id="description"
                 name="profile_description"
@@ -209,5 +199,6 @@ const EditProfile = () => {
     </MainContainer>
   )
 }
+
 
 export default EditProfile

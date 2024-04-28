@@ -23,7 +23,6 @@ import Images from '../Elements/Images/index.jsx'
 import LocationPicker from '../Elements/Location/index.jsx'
 import { ComposeIcone } from '../../../../styles/elements/icons.jsx'
 import compose from '../../../../assets/icons/compose.png'
-import CameraComponent from '../../../Camera/camera.jsx'
 import { SuccessMsg } from '../styles.jsx'
 
 function AccidentReport() {
@@ -171,7 +170,6 @@ function AccidentReport() {
                 the bicycle or other vehicles involved.
               </p>
               <Images onImagesChange={handleImagesChange} />
-              <CameraComponent />
             </QuestionGroup>
             <QuestionGroup>
               <StyledH3>Comment</StyledH3>
@@ -202,21 +200,7 @@ function AccidentReport() {
           </FormTwoColumn>
         </SectionContainer>
       )}
-      {successMsg && (
-        <SectionContainer>
-          <SuccessMsg>
-            <StyledH3>
-              Thank you for taking time and reporting the incident via our App.{' '}
-              <br />
-              Your contribution helps in making our streets safer for cyclists.
-              We appreciate your cooperation and concern for the biking
-              community. <br />
-              <br /> --- Join the Movement for Safer Cycling --- <br />
-              --- From Your Stories to Safer Streets ---
-            </StyledH3>
-          </SuccessMsg>
-        </SectionContainer>
-      )}
+      {successMsg && <ThankYouMessage />}
     </>
   )
 }

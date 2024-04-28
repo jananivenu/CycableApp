@@ -32,7 +32,7 @@ export const NoButton = styled(BaseButton)`
 
   font-family: var(--main-font);
   font-size: 1rem;
-  line-height: 1.2;
+  line-height: 1;
 
   border: 2px solid
     ${(props) => (props.selected ? 'var(--accent-red)' : 'transparent')};

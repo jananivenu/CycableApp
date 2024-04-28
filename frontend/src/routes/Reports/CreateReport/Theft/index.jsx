@@ -2,23 +2,26 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SectionContainer } from '../../../../styles'
 import { AccentButton } from '../../../../styles/elements/buttons'
-import { StyledH3 } from '../../../../styles/elements/typography'
 import { BasicForm, QuestionGroup } from '../../../../styles/elements/forms'
-
-import sendReport from '../../../../axios/sendReport'
+import { InLineGroup } from '../styles.jsx'
 import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportCreateSlice'
+
+import sendReport from '../../../../axios/sendReport'
+
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
 import ThankYouMessage from '../Elements/ThankYouMessage/index.jsx'
 import YesNoButtonGroup from '../Elements/YesNo/index.jsx'
-import { InLineGroup } from '../styles.jsx'
 import AboutForm from '../Elements/AboutForm/index.jsx'
 import formsData from '../Elements/AboutForm/formsData.jsx'
 import Description from '../Elements/Description/index.jsx'
+import DescriptionIntro from './IntroDescription.jsx'
+import IntroImages from './IntroImages.jsx'
+import IntroYesNo from './IntroYesNo.jsx'
 
 const TheftReport = () => {
   const dispatch = useDispatch()
@@ -77,7 +80,7 @@ const TheftReport = () => {
             <DatePicker />
 
             <QuestionGroup>
-              <StyledH3>Was the bicycle locked?</StyledH3>
+              <IntroYesNo />
               <InLineGroup>
                 <YesNoButtonGroup
                   value={lockStatus}
@@ -87,22 +90,12 @@ const TheftReport = () => {
             </QuestionGroup>
 
             <QuestionGroup>
-              <StyledH3>Do you have any photos?</StyledH3>
-              <p>
-                If possible, please attach photo/s of your stolen bicycle, and,
-                if available, include a photo of the location where the bike was
-                stolen.
-              </p>
+              <IntroImages />
               <Images onImagesChange={handleImagesChange} />
             </QuestionGroup>
 
             <QuestionGroup>
-              <StyledH3>Comment</StyledH3>
-              <p>
-                Feel free to provide additional details about the incident to
-                aid fellow cyclists and support our community in preventing
-                bicycle theft:
-              </p>
+              <DescriptionIntro />
               <Description
                 value={reportData.description}
                 onChange={inputHandler}

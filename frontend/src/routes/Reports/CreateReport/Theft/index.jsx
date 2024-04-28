@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { SectionContainer } from '../../../../styles'
+import { GridSectionContainer } from '../../../../styles'
 import { AccentButton } from '../../../../styles/elements/buttons'
 import { BasicForm, QuestionGroup } from '../../../../styles/elements/forms'
 import { InLineGroup } from '../styles.jsx'
@@ -73,9 +73,10 @@ const TheftReport = () => {
   return (
     <>
       {!successMsg && (
-        <SectionContainer>
-          <AboutForm title={title}>{content}</AboutForm>
+        <GridSectionContainer>
           <BasicForm>
+            <AboutForm title={title}>{content}</AboutForm>
+
             <LocationPicker />
             <DatePicker />
 
@@ -106,7 +107,7 @@ const TheftReport = () => {
               <AccentButton onClick={handleSubmit}>Send</AccentButton>
             </div>
           </BasicForm>
-        </SectionContainer>
+        </GridSectionContainer>
       )}
       {successMsg && <ThankYouMessage />}
     </>

@@ -62,6 +62,10 @@ export const InLineGroup = styled.div`
   align-items: center;
   width: 100%;
   gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+  }
 `
 
 export const FormsWrapper = styled.div`

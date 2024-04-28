@@ -70,59 +70,54 @@ function LegalReport() {
       {!successMsg && (
         <GridSectionContainer>
           <div>
-          <ComposeIconTitleWrapper>
-            <ComposeIcone src={compose} />
-            <StyledH2>Legalizing "Violations"</StyledH2>
-          </ComposeIconTitleWrapper>
-          <LeadParagraph>
-            There are many places in the city where minor changes would make
-            life safer and more convenient for bicyclists. For example, at{' '}
-            <b>
-              locations where traffic light phases allow safe crossing but
-              there's no pedestrian crossing or bike path
-            </b>
-            , simply drawing them could stop such crossings from being
-            considered violations. Do you know such places? Tell us!
-          </LeadParagraph>
+            <ComposeIconTitleWrapper>
+              <ComposeIcone src={compose} />
+              <StyledH2>Legalizing "Violations"</StyledH2>
+            </ComposeIconTitleWrapper>
+            <LeadParagraph>
+              There are many places in the city where minor changes would make
+              life safer and more convenient for bicyclists. For example, at{' '}
+              <b>
+                locations where traffic light phases allow safe crossing but
+                there's no pedestrian crossing or bike path
+              </b>
+              , simply drawing them could stop such crossings from being
+              considered violations. Do you know such places? Tell us!
+            </LeadParagraph>
 
-          <BasicForm>
-            <LocationPicker />
+            <BasicForm>
+              <LocationPicker />
 
-            <QuestionGroup>
-              <InputGroup>
-                If possible, please attach any relevant photos related to
-                locations needing improvements for cyclists.
-                <Images onImagesChange={handleImagesChange} />
-              </InputGroup>
-            </QuestionGroup>
-            <QuestionGroup>
-              <StyledH3>Comment</StyledH3>
-              <p>
-                Feel free to provide details regarding needed improvements for
-                cyclists below. Your input helps identify potential risks and
-                improves safety measures for our biking community.
-              </p>
+              <QuestionGroup>
+                <InputGroup>
+                  If possible, please attach any relevant photos related to
+                  locations needing improvements for cyclists.
+                  <Images onImagesChange={handleImagesChange} />
+                </InputGroup>
+              </QuestionGroup>
+              <QuestionGroup>
+                <StyledH3>Comment</StyledH3>
+                <p>
+                  Feel free to provide details regarding needed improvements for
+                  cyclists below. Your input helps identify potential risks and
+                  improves safety measures for our biking community.
+                </p>
 
-              <InputGroup>
-                <textarea
-                  id="description"
-                  placeholder="More details..."
-                  value={reportData.description}
-                  onChange={inputHandler}
-                  required
-                ></textarea>
-              </InputGroup>
-            </QuestionGroup>
-            <div>
-              {details && details.length > 19 ? (
+                <InputGroup>
+                  <textarea
+                    id="description"
+                    placeholder="More details..."
+                    value={reportData.description}
+                    onChange={inputHandler}
+                    required
+                  ></textarea>
+                </InputGroup>
+              </QuestionGroup>
+              <div>
                 <AccentButton onClick={handleSubmit}>Send</AccentButton>
-              ) : (
-                <p>greyed out button</p>
-              )}
-            </div>
-          </BasicForm>
+              </div>
+            </BasicForm>
           </div>
-          <div></div>
         </GridSectionContainer>
       )}
       {successMsg && <ThankYouMessage />}

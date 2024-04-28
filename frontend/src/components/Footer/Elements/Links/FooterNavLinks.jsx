@@ -6,7 +6,7 @@ function FooterNavLinks() {
     { to: '/about', content: <>About</> },
     { to: '/statistics', content: <>Statistics</> },
     { to: '/', content: <>Press</> },
-    { to: '/', content: <>Safety Tips</> },
+    { to: '/safety-tips', content: <>Safety Tips</> },
     {
       to: '/',
       content: (

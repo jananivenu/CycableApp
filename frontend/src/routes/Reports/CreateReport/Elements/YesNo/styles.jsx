@@ -20,9 +20,8 @@ export const YesButton = styled(BaseButton)`
     outline: 2px solid var(--accent-blue);
   }
 
-  &:hover{
-    background-color: var(--gray-100);
-    border: 2px solid var(--accent-main-10);
+  &:hover {
+    border: 2px solid var(--gray-500);
   }
 `
 
@@ -44,8 +43,7 @@ export const NoButton = styled(BaseButton)`
   &:focus-visible {
     outline: 2px solid var(--accent-blue);
   }
-  &:hover{
-    background-color: var(--gray-100);
-    border: 2px solid var(--accent-red-10);
+  &:hover {
+    border: 2px solid var(--gray-500);
   }
 `

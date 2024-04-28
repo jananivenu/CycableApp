@@ -17,14 +17,14 @@ const YesNoButtonGroup = ({ onChange, value }) => {
         selected={selected === true}
         onClick={() => handleClick(true)}
       >
-        YES
+        Yes
       </YesButton>
       <NoButton
         type="button"
         selected={selected === false}
         onClick={() => handleClick(false)}
       >
-        NO
+        No
       </NoButton>
     </>
   )

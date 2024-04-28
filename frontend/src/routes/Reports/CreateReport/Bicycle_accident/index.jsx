@@ -24,6 +24,7 @@ import LocationPicker from '../Elements/Location/index.jsx'
 import { ComposeIcone } from '../../../../styles/elements/icons.jsx'
 import compose from '../../../../assets/icons/compose.png'
 import { SuccessMsg } from '../styles.jsx'
+import ThankYouMessage from '../Elements/ThankYouMessage/index.jsx'
 
 function AccidentReport() {
   const dispatch = useDispatch()
@@ -189,13 +190,7 @@ function AccidentReport() {
               </InputGroup>
             </QuestionGroup>
             <div>
-              {details &&
-              details.length > 19 &&
-              reportData.was_police_called !== '' ? (
-                <AccentButton onClick={handleSubmit}>Send</AccentButton>
-              ) : (
-                <p>greyed out button</p>
-              )}
+              <AccentButton onClick={handleSubmit}>Send</AccentButton>
             </div>
           </FormTwoColumn>
         </SectionContainer>

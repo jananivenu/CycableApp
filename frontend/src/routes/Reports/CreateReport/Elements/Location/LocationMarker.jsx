@@ -30,7 +30,7 @@ function LocationMarker({ setLocation, setAddress }) {
 
   return position ? (
     <Marker position={position}>
-      <Popup>A simple popup</Popup>
+      <Popup>!</Popup>
     </Marker>
   ) : null
 }

@@ -14,6 +14,7 @@ import ShowReport from './Reports/ShowReport'
 import EditProfile from '../components/ProfileComponent/EditProfile/index.jsx'
 import CreateReport from './Reports/CreateReport/index.jsx'
 import SpecificUserProfile from '../components/ProfileComponent/SpecificUserProfile/index.jsx'
+import SafetyTips from './SafetyTips/index.jsx'
 
 const Router = () => {
   return (
@@ -30,8 +31,8 @@ const Router = () => {
           <Route path="/verification" element={<Verification />} />
           <Route path="/about" element={<About />} />
           <Route path="/statistics" element={<Statistics />} />
+          <Route path="/safety-tips" element={<SafetyTips />} />
 
-         
           <Route path="/profile/me" element={<UserProfile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/profile/:user_id" element={<SpecificUserProfile />} />

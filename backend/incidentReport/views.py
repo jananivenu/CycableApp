@@ -47,9 +47,10 @@ class ListAllIncidentReportsView(ListAPIView):
             )
             queryset = ReportedIncidents.objects.annotate(distance=distance_expression).filter(distance__lte=radius)
         else:
-            raise Http404('Invalid query parameters')
+            pass
 
         return queryset
+    #comment to push
 
 
 class ListAllIncidentReportsByLatLongView(ListAPIView):

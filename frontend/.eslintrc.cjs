@@ -17,5 +17,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    "import/extensions": ["error", "never", { "js": "never", "jsx": "never" }],
   },
 }

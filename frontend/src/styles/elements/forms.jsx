@@ -9,6 +9,8 @@ export const BasicForm = styled.form`
 
   margin: 0 auto;
 
+  grid-area: form;
+  
   @media (max-width: 480px) {
     max-width: 100%;
   }

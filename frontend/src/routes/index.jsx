@@ -15,6 +15,7 @@ import EditProfile from '../components/ProfileComponent/EditProfile/index.jsx'
 import CreateReport from './Reports/CreateReport/index.jsx'
 import SpecificUserProfile from '../components/ProfileComponent/SpecificUserProfile/index.jsx'
 import SafetyTips from './SafetyTips/index.jsx'
+import ProtectedRoutes from './ProtectedRoutes/index.jsx'
 
 const Router = () => {
   return (
@@ -33,17 +34,18 @@ const Router = () => {
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/safety-tips" element={<SafetyTips />} />
 
-          <Route path="/profile/me" element={<UserProfile />} />
-          <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/profile/:user_id" element={<SpecificUserProfile />} />
 
           <Route path="/reports" element={<Reports />} />
           <Route path="/reports/:reportId" element={<ShowReport />} />
-
           <Route path="/new-report" element={<CreateReport />} />
-
-          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/profile/me" element={<UserProfile />} />
+          <Route path="/profile/edit" element={<EditProfile />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

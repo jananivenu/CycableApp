@@ -1,4 +1,5 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
+import Layout from '../Layout'
 
 const ProtectedRoutes = () => {
   const location = useLocation()
@@ -7,7 +8,7 @@ const ProtectedRoutes = () => {
   return !isLoggedIn ? (
     <Navigate to="/login" replace state={{ from: location.pathname }} />
   ) : (
-    <Outlet />
+    <Layout />
   )
 }
 

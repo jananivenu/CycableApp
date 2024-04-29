@@ -9,6 +9,8 @@ import {
   InputGroup,
 } from '../../../../styles/elements/forms'
 import Modal from '../Modal'
+import { TbUserSquareRounded } from "react-icons/tb";
+
 
 const AvatarUpload = ({ setUserAvatar }) => {
   const [selectedFile, setSelectedFile] = useState(null)
@@ -43,7 +45,7 @@ const AvatarUpload = ({ setUserAvatar }) => {
   return (
     <>
       <SquareButton onClick={toggleModal}>
-        New Avatar
+        <TbUserSquareRounded /> New Avatar
       </SquareButton>
       {isModalOpen && (
         <Modal onClose={toggleModal}>

@@ -1,16 +1,11 @@
-import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
+import { GridSectionContainer } from '../../../../styles'
 import {
+  BasicForm,
   ErrorMessage,
-  FormTwoColumn,
-  InputGroup,
   QuestionGroup,
 } from '../../../../styles/elements/forms'
 import { AccentButton } from '../../../../styles/elements/buttons'
-import {
-  LeadParagraph,
-  StyledH2,
-  StyledH3,
-} from '../../../../styles/elements/typography'
+import { StyledH3 } from '../../../../styles/elements/typography'
 import { useState } from 'react'
 import DatePicker from '../Elements/Date/index.jsx'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,19 +16,21 @@ import {
 import sendReport from '../../../../axios/sendReport.js'
 import Images from '../Elements/Images/index.jsx'
 import LocationPicker from '../Elements/Location/index.jsx'
-import { ComposeIcone } from '../../../../styles/elements/icons.jsx'
-import compose from '../../../../assets/icons/compose.png'
-import { SuccessMsg } from '../styles.jsx'
+import ThankYouMessage from '../Elements/ThankYouMessage/ThankYouMessage.jsx'
+import formsData from '../Elements/AboutForm/formsData.jsx'
+import AboutForm from '../Elements/AboutForm/index.jsx'
+import YesNoButtonGroup from '../Elements/YesNo/index.jsx'
+import Description from '../Elements/Description/index.jsx'
+import { InLineGroup } from '../styles.jsx'
 
 function AccidentReport() {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
-  const details = useSelector((state) => state.report.description)
-
   const [uploadedImages, setUploadedImages] = useState([])
   const [successMsg, setSuccessMsg] = useState(false)
   const [errorMsg, setErrorMsg] = useState(null)
+  const { title, content } = formsData.bicycleAccident
 
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
@@ -47,8 +44,11 @@ function AccidentReport() {
     'Other',
   ]
 
+  const handleWasPoliceCalledChange = (newValue) => {
+    dispatch(setAccidentReport({ was_police_called: newValue }))
+  }
+
   const handleImagesChange = (imageFiles) => {
-    console.log(imageFiles)
     setUploadedImages(imageFiles)
   }
 
@@ -103,46 +103,21 @@ function AccidentReport() {
   return (
     <>
       {!successMsg && (
-        <SectionContainer>
-          <ComposeIconTitleWrapper>
-            <ComposeIcone src={compose} />
-            <StyledH2>Bicycle Accident</StyledH2>
-          </ComposeIconTitleWrapper>
-          <LeadParagraph>
-            We hear a lot of Bicycle Accidents!Mostly because the people are not
-            following rules, or run into potholes or unkempt roads.Sometimes it
-            is unfortunate!!Maybe he lane is too small for two vehicles to be on
-            the same lane/oppposite to each other. Please report your incident
-            here,so that it can get a larger audience,and also that people are
-            BikeAware.
-          </LeadParagraph>
-          <FormTwoColumn>
+        <GridSectionContainer>
+          <BasicForm>
+            <AboutForm title={title}>{content}</AboutForm>
             <LocationPicker />
             <DatePicker />
             <QuestionGroup>
               <StyledH3>
                 Was the police called to document the accident?
               </StyledH3>
-              <label>
-                <input
-                  id="was_police_called"
-                  type="radio"
-                  value="True"
-                  checked={reportData.was_police_called === true}
-                  onChange={inputHandler}
+              <InLineGroup>
+                <YesNoButtonGroup
+                  value={reportData.was_police_called === 'True'}
+                  onChange={handleWasPoliceCalledChange}
                 />
-                Yes
-              </label>
-              <label>
-                <input
-                  id="was_police_called"
-                  type="radio"
-                  value="False"
-                  checked={reportData.was_police_called === false}
-                  onChange={inputHandler}
-                />
-                No
-              </label>
+              </InLineGroup>
             </QuestionGroup>
             <QuestionGroup onBlur={handleBlur}>
               <StyledH3>Who was involved in the accident?</StyledH3>
@@ -178,27 +153,16 @@ function AccidentReport() {
                 assist fellow cyclists and support our community in promoting
                 safety on the roads.{' '}
               </p>
-              <InputGroup>
-                <textarea
-                  id="description"
-                  placeholder="More details..."
-                  value={reportData.description}
-                  onChange={inputHandler}
-                  required
-                ></textarea>
-              </InputGroup>
+              <Description
+                value={reportData.description}
+                onChange={inputHandler}
+              />
             </QuestionGroup>
             <div>
-              {details &&
-              details.length > 19 &&
-              reportData.was_police_called !== '' ? (
-                <AccentButton onClick={handleSubmit}>Send</AccentButton>
-              ) : (
-                <p>greyed out button</p>
-              )}
+              <AccentButton onClick={handleSubmit}>Send</AccentButton>
             </div>
-          </FormTwoColumn>
-        </SectionContainer>
+          </BasicForm>
+        </GridSectionContainer>
       )}
       {successMsg && <ThankYouMessage />}
     </>

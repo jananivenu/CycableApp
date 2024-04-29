@@ -124,11 +124,12 @@ export const GridSectionContainer = styled.section`
 
   display: grid;
   grid-template-columns: 2fr 1fr;
+  grid-template-areas: 'form .';
 
   @media (max-width: 768px) {
     padding: 1rem 2rem;
     grid-template-columns: 1fr;
-
+    grid-template-areas: 'form';
   }
 
   @media (max-width: 480px) {

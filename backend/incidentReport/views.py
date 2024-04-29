@@ -46,6 +46,8 @@ class ListAllIncidentReportsView(ListAPIView):
                         Radians(F('latitude')))) * 6371
             )
             queryset = ReportedIncidents.objects.annotate(distance=distance_expression).filter(distance__lte=radius)
+        else:
+            pass
 
         return queryset
 
@@ -130,6 +132,7 @@ class ListIncidentReportsByUserView(ListAPIView):
 # /api/reports/<int:id>/ GET: Get the details of a report by providing the id
 # /api/reports/<int:id>/ PATCH: Update a report by id (allowed only for owner or admin)
 # /api/reports/<int:id>/ DELETE: Delete a report by id (allowed only for owner or admin)
+# comment to push
 
 
 class ReadUpdateDeleteIncidentReportView(RetrieveUpdateDestroyAPIView):

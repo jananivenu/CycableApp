@@ -1,65 +1,54 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
+import { GridSectionContainer } from '../../../../styles'
 import { AccentButton } from '../../../../styles/elements/buttons'
-import { ComposeIcone } from '../../../../styles/elements/icons'
-import { SquareRadioInput } from '../../../../styles/elements/checkbox.jsx'
-import {
-  LeadParagraph,
-  StyledH2,
-  StyledH3,
-} from '../../../../styles/elements/typography'
-import {
-  FormTwoColumn,
-  InputGroup,
-  QuestionGroup,
-} from '../../../../styles/elements/forms'
-
-import compose from '../../../../assets/icons/compose.png'
-
-import sendReport from '../../../../axios/sendReport'
+import { BasicForm, QuestionGroup } from '../../../../styles/elements/forms'
+import { InLineGroup } from '../styles.jsx'
 import {
   setCommonFields,
   setTheftReport,
 } from '../../../../store/slices/reportCreateSlice'
+
+import sendReport from '../../../../axios/sendReport'
+
 import Images from '../Elements/Images'
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
-import ThankYouMessage from '../Elements/ThankYouMessage/index.jsx'
+import YesNoButtonGroup from '../Elements/YesNo/index.jsx'
+import AboutForm from '../Elements/AboutForm/index.jsx'
+import formsData from '../Elements/AboutForm/formsData.jsx'
+import Description from '../Elements/Description/index.jsx'
+import ThankYouModal from '../Elements/ThankYouMessage/ThankYouModal.jsx'
+import IntroDescription from './IntroDescription.jsx'
+import IntroYesNo from './IntroYesNo.jsx'
+import IntroImages from './IntroImages.jsx'
 
 const TheftReport = () => {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
+  const [lockStatus, setLockStatus] = useState(null)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   const [uploadedImages, setUploadedImages] = useState([])
-  const [successMsg, setSuccessMsg] = useState(false)
   const [errorMsg, setErrorMsg] = useState(null)
-  const details = useSelector((state) => state.report.description)
+  const { title, content } = formsData.bicycleTheft
 
   const inputHandler = (e) => {
-    const { id, value } = e.target
-    if (id === 'was_bicycle_locked') {
-      dispatch(setTheftReport({ was_bicycle_locked: value }))
-    }
-    dispatch(setCommonFields({ [id]: value }))
+    dispatch(setCommonFields({ description: e.target.value }))
   }
 
   const handleImagesChange = (imageFiles) => {
-    console.log(imageFiles)
     setUploadedImages(imageFiles)
   }
 
-  const handleBlur = (e) => {
-    const { id } = e.target
-    if (id === 'was_bicycle_locked' && !reportData.was_bicycle_locked) {
-      setErrorMsg('Please select an option.')
-    } else {
-      setErrorMsg(null)
-    }
+  const handleLockStatusChange = (status) => {
+    setLockStatus(status)
+    dispatch(setTheftReport({ was_bicycle_locked: status }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     const formData = new FormData()
     formData.append('description', reportData.description)
     formData.append('longitude', reportData.longitude)
@@ -75,98 +64,71 @@ const TheftReport = () => {
 
     try {
       await sendReport(formData)
+      setModalIsOpen(true)
     } catch (error) {
-      console.log('error sending the report:', error)
+      console.log('Error sending the report:', error)
+      setModalIsOpen(false)
     }
-    setSuccessMsg(true)
+  }
+
+  const resetForm = () => {
+    dispatch(
+      setCommonFields({
+        description: '',
+        longitude: '',
+        latitude: '',
+        address: '',
+        custom_date: '',
+        incident_type: '',
+      }),
+    )
+    setUploadedImages([])
+  }
+
+  const closeModal = () => {
+    resetForm()
+    setModalIsOpen(false)
   }
 
   return (
     <>
-      {!successMsg && (
-        <SectionContainer>
-          <ComposeIconTitleWrapper>
-            <ComposeIcone src={compose} />
-            <StyledH2>Bicycle Theft</StyledH2>
-          </ComposeIconTitleWrapper>
-          <LeadParagraph>
-            We understand the frustration and inconvenience that comes with
-            having your bike stolen. Here, you have the opportunity to share
-            your experience and help us address this issue within our community.
-            <b>Was your bike stolen? Don't hesitate to report it!</b>
-            By providing details such as the <b>location</b> and
-            <b> whether your bicycle was locked</b>, you're contributing to
-            creating safer streets for cyclists.
-          </LeadParagraph>
-          <FormTwoColumn>
-            <LocationPicker />
-            <DatePicker />
-            <QuestionGroup>
-              <StyledH3>Was The Bicycle Locked?</StyledH3>
+      <GridSectionContainer>
+        <BasicForm>
+          <AboutForm title={title}>{content}</AboutForm>
 
-              <label>
-                YES
-                <SquareRadioInput
-                  id="was_bicycle_locked"
-                  type="radio"
-                  name="lockStatus"
-                  value="True"
-                  checked={reportData.was_bicycle_locked == true}
-                  onChange={inputHandler}
-                />
-              </label>
+          <LocationPicker />
+          <DatePicker />
 
-              <label>
-                NO
-                <SquareRadioInput
-                  id="was_bicycle_locked"
-                  type="radio"
-                  name="lockStatus"
-                  value="False"
-                  checked={reportData.was_bicycle_locked == false}
-                  onChange={inputHandler}
-                />
-              </label>
-            </QuestionGroup>
-            <QuestionGroup>
-              <p>
-                If possible, please attach photo/s of your stolen bicycle, and,
-                if available, include a photo of the location where the bike was
-                stolen.
-              </p>
-              <Images onImagesChange={handleImagesChange} />
-            </QuestionGroup>
-            <QuestionGroup>
-              <StyledH3>Comment</StyledH3>
-              <p>
-                Feel free to provide additional details about the incident to
-                aid fellow cyclists and support our community in preventing
-                bicycle theft:
-              </p>
-              <InputGroup>
-                <textarea
-                  id="description"
-                  placeholder="More details..."
-                  value={reportData.description}
-                  onChange={inputHandler}
-                  required
-                ></textarea>
-              </InputGroup>
-            </QuestionGroup>
+          <QuestionGroup>
+            <IntroYesNo />
+            <InLineGroup>
+              <YesNoButtonGroup
+                value={lockStatus}
+                onChange={handleLockStatusChange}
+              />
+            </InLineGroup>
+          </QuestionGroup>
 
-            <div>
-              {details &&
-              details.length > 19 &&
-              reportData.was_bicycle_locked !== '' ? (
-                <AccentButton onClick={handleSubmit}>Send</AccentButton>
-              ) : (
-                <p>greyed out button</p>
-              )}
-            </div>
-          </FormTwoColumn>
-        </SectionContainer>
-      )}
-      {successMsg && <ThankYouMessage />}
+          <QuestionGroup>
+            <IntroImages />
+            <Images onImagesChange={handleImagesChange} />
+          </QuestionGroup>
+
+          <QuestionGroup>
+            <IntroDescription />
+            <Description
+              value={reportData.description}
+              onChange={inputHandler}
+            />
+          </QuestionGroup>
+
+          <div>
+            <AccentButton onClick={handleSubmit}>Send</AccentButton>
+          </div>
+        </BasicForm>
+      </GridSectionContainer>
+
+      <ThankYouModal isOpen={modalIsOpen} onClose={closeModal} />
     </>
   )
 }

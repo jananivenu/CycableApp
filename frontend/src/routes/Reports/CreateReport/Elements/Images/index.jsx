@@ -6,8 +6,8 @@ import {
   ImagePreview,
   ImagePreviewWrapper,
 } from './styles'
-import { TbPhotoShare } from "react-icons/tb";
-
+import { TbPhotoShare } from 'react-icons/tb'
+import { SquareButton } from '../../../../../styles/elements/buttons'
 
 const Images = ({ onImagesChange }) => {
   const [images, setImages] = useState([])
@@ -25,7 +25,6 @@ const Images = ({ onImagesChange }) => {
     setImages(images.filter((_, i) => i !== index))
   }
 
-
   return (
     <>
       <HiddenInput
@@ -35,7 +34,10 @@ const Images = ({ onImagesChange }) => {
         className="fileInput"
         onChange={handleFilesChange}
       />
-      <FileUploadButton htmlFor="images"><TbPhotoShare />Upload Photos</FileUploadButton>
+      <FileUploadButton htmlFor="images">
+        <TbPhotoShare />
+        Upload Photos
+      </FileUploadButton>
       <ImagePreviewWrapper>
         {images.map((image, index) => (
           <ImagePreview
@@ -43,7 +45,7 @@ const Images = ({ onImagesChange }) => {
             style={{ backgroundImage: `url(${image.preview})` }}
           >
             <DeleteButton onClick={() => handleDeleteImage(index)}>
-              <i className="las la-times"></i>
+              x
             </DeleteButton>
           </ImagePreview>
         ))}

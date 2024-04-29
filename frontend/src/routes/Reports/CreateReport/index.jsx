@@ -21,12 +21,9 @@ const CreateReport = () => {
   return (
     <MainContainer>
       <SectionContainer>
-        <QuestionWrapper>
-          <StyledH2>What Would You Like To Report?</StyledH2>
-          <IncidentTypeSelector onSelect={handleSelectType} />
-        </QuestionWrapper>
+        <IncidentTypeSelector onSelect={handleSelectType} />
       </SectionContainer>
-      <BasicForm>
+      {/* <BasicForm> */}
         <FormsWrapper className="here render forms">
           {incidentType === 'bicycle_accident' && (
             <AccidentReport incident_type={'bicycle_accident'} />
@@ -41,7 +38,7 @@ const CreateReport = () => {
             <LegalReport incident_type={'violations'} />
           )}
         </FormsWrapper>
-      </BasicForm>
+      {/* </BasicForm> */}
     </MainContainer>
   )
 }

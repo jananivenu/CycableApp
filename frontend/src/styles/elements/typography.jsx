@@ -23,7 +23,7 @@ export const StyledH2 = styled.h2`
 `
 export const StyledH3 = styled.h3`
   font-size: 1.5rem;
-  font-weight: 200;
+  font-weight: 400;
   line-height: 1.5;
   margin: 2rem 0 1rem 0;
 

@@ -46,8 +46,6 @@ class ListAllIncidentReportsView(ListAPIView):
                         Radians(F('latitude')))) * 6371
             )
             queryset = ReportedIncidents.objects.annotate(distance=distance_expression).filter(distance__lte=radius)
-        else:
-            raise Http404('Invalid query parameters')
 
         return queryset
 

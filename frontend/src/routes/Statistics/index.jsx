@@ -1,6 +1,6 @@
 import {MainContainer, SectionContainer} from '../../styles'
 import BarChart from "../../components/Charts/BarChartData.jsx";
-import BarChartByHour from "../../components/Charts/AccidentByHour.jsx";
+
 import StackedBarChartByHour from "../../components/Charts/BarChartByIncidentType.jsx";
 
 function Statistics() {

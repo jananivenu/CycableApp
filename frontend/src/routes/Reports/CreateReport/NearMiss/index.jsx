@@ -1,45 +1,33 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { ComposeIconTitleWrapper, SectionContainer } from '../../../../styles'
-import { ComposeIcone } from '../../../../styles/elements/icons'
-import compose from '../../../../assets/icons/compose.png'
-import {
-  LeadParagraph,
-  StyledH2,
-  StyledH3,
-} from '../../../../styles/elements/typography'
+import { GridSectionContainer } from '../../../../styles'
 import {
   BasicForm,
   ErrorMessage,
-  InputGroup,
   QuestionGroup,
 } from '../../../../styles/elements/forms'
+import { StyledH3 } from '../../../../styles/elements/typography'
+import { AccentButton } from '../../../../styles/elements/buttons'
 import LocationPicker from '../Elements/Location'
 import DatePicker from '../Elements/Date'
 import Images from '../Elements/Images'
-
-import { AccentButton } from '../../../../styles/elements/buttons'
-
+import Description from '../Elements/Description'
+import AboutForm from '../Elements/AboutForm'
+import formsData from '../Elements/AboutForm/formsData'
 import {
   setCommonFields,
   setNearMissReport,
 } from '../../../../store/slices/reportCreateSlice'
 import sendReport from '../../../../axios/sendReport'
-import ThankYouMessage from '../Elements/ThankYouMessage'
-import { BiEdit } from "react-icons/bi";
-
-
+import ThankYouModal from '../Elements/ThankYouMessage/ThankYouModal'
 
 const NearMiss = () => {
   const dispatch = useDispatch()
-
   const reportData = useSelector((state) => state.report)
-  const details = useSelector((state) => state.report.description)
-
   const [uploadedImages, setUploadedImages] = useState([])
-  const [successMsg, setSuccessMsg] = useState(false)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   const [errorMsg, setErrorMsg] = useState(null)
+  const { title, content } = formsData.nearMiss
 
   const INVOLVED_PARTIES_CHOICES = [
     'Car',
@@ -54,17 +42,7 @@ const NearMiss = () => {
   ]
 
   const handleImagesChange = (imageFiles) => {
-    console.log(imageFiles)
     setUploadedImages(imageFiles)
-  }
-  const inputHandler = (e) => {
-    const { id, value } = e.target
-
-    if (id === 'involved_parties') {
-      dispatch(setNearMissReport({ involved_parties: value }))
-    } else {
-      dispatch(setCommonFields({ [id]: value }))
-    }
   }
 
   const handleBlur = (e) => {
@@ -73,6 +51,15 @@ const NearMiss = () => {
       setErrorMsg('Please select an option.')
     } else {
       setErrorMsg(null)
+    }
+  }
+
+  const inputHandler = (e) => {
+    const { id, value } = e.target
+    if (id === 'involved_parties') {
+      dispatch(setNearMissReport({ involved_parties: value }))
+    } else {
+      dispatch(setCommonFields({ [id]: value }))
     }
   }
 
@@ -85,100 +72,82 @@ const NearMiss = () => {
     formData.append('address', reportData.address)
     formData.append('custom_date', reportData.custom_date)
     formData.append('involved_parties', reportData.involved_parties)
-    formData.append('incident_type', 'near_miss')
     uploadedImages.forEach((image) => {
       formData.append('images', image.file)
     })
+
     try {
       await sendReport(formData)
+      setModalIsOpen(true)
     } catch (error) {
-      console.log('error sending the report:', error)
+      console.log('Error sending the report:', error)
+      setModalIsOpen(false)
     }
+  }
 
-    setSuccessMsg(true)
+  const resetForm = () => {
+    dispatch(
+      setCommonFields({
+        description: '',
+        longitude: '',
+        latitude: '',
+        address: '',
+        custom_date: '',
+        incident_type: '',
+      }),
+    )
+    setUploadedImages([])
+  }
+
+  const closeModal = () => {
+    resetForm()
+    setModalIsOpen(false)
   }
 
   return (
     <>
-      {!successMsg && (
-        <SectionContainer>
-          <ComposeIconTitleWrapper>
-            <ComposeIcone src={compose} />
-            <StyledH2> Dangerous Locations</StyledH2>
-          </ComposeIconTitleWrapper>
-          <LeadParagraph>
-            We empathize with the stress of experiencing a near miss or
-            encountering dangerous locations while cycling. Here, you have the
-            opportunity to share your experience and help us address this issue
-            within our community.
-            <b>
-              Did you experience a near miss or encounter a hazardous location?
-              Don't hesitate to report it!
-            </b>
-            By providing details such as <b>the location</b>, and any
-            <b> involved parties,</b>
-            you're contributing to creating safer streets for cyclists.
-          </LeadParagraph>
-          <BasicForm>
-            <LocationPicker />
-            <DatePicker />
-
-            <QuestionGroup>
-              <p>
-                If possible, please attach any relevant photos related to the
-                near miss incident. This could include images of the location,or
-                any visible hazards encountered.
-              </p>
-              <Images onImagesChange={handleImagesChange} />
-            </QuestionGroup>
-            <QuestionGroup onBlur={handleBlur}>
-              <StyledH3>Who was involved in the accident?</StyledH3>
-              <select
-                id="involved_parties"
-                value={reportData.involved_parties}
-                onChange={inputHandler}
-              >
-                <option value="" disabled>
-                  Please Choose
+      <GridSectionContainer>
+        <BasicForm onSubmit={handleSubmit}>
+          <AboutForm title={title}>{content}</AboutForm>
+          <LocationPicker />
+          <DatePicker />
+          <QuestionGroup>
+            <p>
+              If possible, please attach any relevant photos related to the near
+              miss incident.
+            </p>
+            <Images onImagesChange={handleImagesChange} />
+          </QuestionGroup>
+          <QuestionGroup onBlur={handleBlur}>
+            <StyledH3>Who was involved in the accident?</StyledH3>
+            <select
+              id="involved_parties"
+              value={reportData.involved_parties || ''}
+              onChange={inputHandler}
+            >
+              <option value="" disabled>
+                Please Choose
+              </option>
+              {INVOLVED_PARTIES_CHOICES.map((party, index) => (
+                <option key={index} value={party}>
+                  {party}
                 </option>
-                {INVOLVED_PARTIES_CHOICES.map((party, index) => (
-                  <option key={index} value={party}>
-                    {party}
-                  </option>
-                ))}
-              </select>
-              {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
-            </QuestionGroup>
-            <QuestionGroup>
-              <StyledH3>Comment</StyledH3>
-              <p>
-                Feel free to provide details regarding near misses or hazardous
-                locations for cyclists below. Your input helps identify
-                potential risks and improves safety measures for our biking
-                community.
-              </p>
+              ))}
+            </select>
+            {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
+          </QuestionGroup>
+          <QuestionGroup>
+            <StyledH3>Comment</StyledH3>
+            <Description
+              value={reportData.description}
+              onChange={inputHandler}
+            />
+          </QuestionGroup>
+          <AccentButton type="submit">Send</AccentButton>
+        </BasicForm>
+      </GridSectionContainer>
 
-              <InputGroup>
-                <textarea
-                  id="description"
-                  placeholder="More details..."
-                  value={reportData.description}
-                  onChange={inputHandler}
-                  required
-                ></textarea>
-              </InputGroup>
-            </QuestionGroup>
-            <div>
-              {details && details.length > 19 ? (
-                <AccentButton onClick={handleSubmit}>Send</AccentButton>
-              ) : (
-                <p>greyed out button</p>
-              )}
-            </div>
-          </BasicForm>
-        </SectionContainer>
-      )}
-      {successMsg && <ThankYouMessage />}
+      <ThankYouModal isOpen={modalIsOpen} onClose={closeModal} />
     </>
   )
 }

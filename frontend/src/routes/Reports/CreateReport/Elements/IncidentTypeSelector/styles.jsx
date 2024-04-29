@@ -20,5 +20,6 @@ export const SelectorWrappen = styled.div`
 
 export const TransQuestionWrapper = styled(QuestionWrapper)`
   transition: transform 0.3s ease;
-  transform: ${(props) => (props.isScaledDown ? 'scale(0.7)' : 'none')};
+  transform: ${(props) =>
+    props.isScaledDown ? 'scale(0.7) translateY(-50px)' : 'none'};
 `

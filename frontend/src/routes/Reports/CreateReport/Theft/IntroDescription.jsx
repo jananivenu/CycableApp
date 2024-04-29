@@ -1,6 +1,6 @@
 import { StyledH3 } from "../../../../styles/elements/typography"
 
-function DescriptionIntro() {
+function IntroDescription() {
   return (
     <>
       <StyledH3>Comment</StyledH3>
@@ -12,4 +12,4 @@ function DescriptionIntro() {
   )
 }
 
-export default DescriptionIntro
+export default IntroDescription

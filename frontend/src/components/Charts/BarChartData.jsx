@@ -25,7 +25,7 @@ const BarChart = () => {
             }, {});
 
             // Extracting labels and values from incidentTypeCounts
-            const labels = Object.keys(incidentTypeCounts);
+            const labels = ['Bicycle Accident','Legalize Violations','Bicycle Theft','Dangerous Location']
             console.log(labels);
             const values = Object.values(incidentTypeCounts);
             console.log(values);
@@ -35,7 +35,7 @@ const BarChart = () => {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Incident rates for each Incident type',
+                        label: 'No of Reports for each Incident type',
                         data: values,
                        // backgroundColor: ['var(--accent-main)','var(--accent-red)','var(--accent-blue)','var(--accent-orange)'],
                          //backgroundColor:  ["pink", "Thistle", "azure","PaleGreen"],

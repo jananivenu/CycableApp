@@ -44,10 +44,12 @@ const ShowReport = () => {
 
   return (
     <MainContainer>
+      
       <ReportPage report={report} />
       <button onClick={handleGeneratePDF} disabled={status === 'loading'}>
         Download PDF
       </button>
+     
       <CommentList
         comments={comments}
         status={commentsStatus}

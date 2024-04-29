@@ -50,7 +50,6 @@ class ListAllIncidentReportsView(ListAPIView):
             pass
 
         return queryset
-    #comment to push
 
 
 class ListAllIncidentReportsByLatLongView(ListAPIView):
@@ -133,6 +132,7 @@ class ListIncidentReportsByUserView(ListAPIView):
 # /api/reports/<int:id>/ GET: Get the details of a report by providing the id
 # /api/reports/<int:id>/ PATCH: Update a report by id (allowed only for owner or admin)
 # /api/reports/<int:id>/ DELETE: Delete a report by id (allowed only for owner or admin)
+# comment to push
 
 
 class ReadUpdateDeleteIncidentReportView(RetrieveUpdateDestroyAPIView):

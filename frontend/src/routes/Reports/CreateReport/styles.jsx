@@ -57,13 +57,24 @@ export const Question = styled(StyledH2)`
       font-size: 1.2rem;
     `}
 `
+export const InLineGroup = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+  }
+`
 
 export const FormsWrapper = styled.div`
   margin-top: 0.1rem;
 `
 export const SuccessMsg = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: 1rem;
+  gap: 1rem;
 `

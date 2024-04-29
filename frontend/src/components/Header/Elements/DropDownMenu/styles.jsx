@@ -55,9 +55,3 @@ export const LogoutButton = styled.button`
     background-color: var(--gray-100);
   }
 `
-
-export const IconWrapper = styled.span`
-  display: inline-flex;
-  justify-content: space-around;
-  align-items: center;
-`

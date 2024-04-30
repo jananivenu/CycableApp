@@ -14,6 +14,7 @@ export const LogoLink = styled(NavLink)`
 export const AvatarContainer = styled.div`
   position: relative;
   max-height: 100%;
+  aspect-ratio: 1/1 !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,13 +24,6 @@ export const AvatarContainer = styled.div`
   /* overflow: hidden; */
   cursor: pointer;
 `
-
-// export const AvatarImage = styled.img`
-//   max-height: 100%;
-//   aspect-ratio: 1/1;
-//   border-radius: 50%;
-//   margin: 0 !important;
-// `
 
 export const AvatarImage = styled.img`
   width: 100%;

@@ -72,6 +72,7 @@ const NearMiss = () => {
     formData.append('address', reportData.address)
     formData.append('custom_date', reportData.custom_date)
     formData.append('involved_parties', reportData.involved_parties)
+    formData.append('incident_type', 'near_miss')
     uploadedImages.forEach((image) => {
       formData.append('images', image.file)
     })
@@ -119,7 +120,7 @@ const NearMiss = () => {
             <Images onImagesChange={handleImagesChange} />
           </QuestionGroup>
           <QuestionGroup onBlur={handleBlur}>
-            <StyledH3>Who was involved in the accident?</StyledH3>
+            <StyledH3>Who was involved in the incident?</StyledH3>
             <select
               id="involved_parties"
               value={reportData.involved_parties || ''}
@@ -143,7 +144,9 @@ const NearMiss = () => {
               onChange={inputHandler}
             />
           </QuestionGroup>
-          <AccentButton type="submit">Send</AccentButton>
+          <div>
+            <AccentButton type="submit">Send</AccentButton>
+          </div>
         </BasicForm>
       </GridSectionContainer>
 

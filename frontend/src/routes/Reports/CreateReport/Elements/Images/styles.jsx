@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { SquareButton } from '../../../../../styles/elements/buttons'
 
 export const HiddenInput = styled.input`
   display: none;

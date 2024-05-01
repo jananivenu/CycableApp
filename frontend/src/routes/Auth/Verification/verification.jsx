@@ -13,8 +13,9 @@ import { AccentButton } from '../../../styles/elements/buttons'
 import ValidationCodeInput from './InputCode'
 
 const Verification = () => {
-  const emailReduxStore = useSelector((state) => state.user.email) //call eMail from the store
-  const [email, setEmail] = useState(emailReduxStore || '') // use email as initial value
+  const emailReduxStore = useSelector((state) => state.user.user.email) //call eMail from the store
+  console.log('email from store: ', emailReduxStore)
+  // const [email, setEmail] = useState(emailReduxStore || '') // use email as initial value
   const [userName, setUserName] = useState('')
   const [validationCode, setValidationCode] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -26,8 +27,8 @@ const Verification = () => {
   const navigate = useNavigate()
 
   const handleValidationCodeChange = (code) => {
-    setValidationCode(code);
-  };
+    setValidationCode(code)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -38,7 +39,7 @@ const Verification = () => {
 
     try {
       await UserRegistration.patch('/auth/registration/validation/', {
-        email: email,
+        email: emailReduxStore,
         username: userName,
         code: validationCode,
         first_name: firstName,
@@ -62,12 +63,7 @@ const Verification = () => {
           <QuestionGroup>
             <InputGroup>
               <label htmlFor="email">Email:</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input id="email" type="email" value={emailReduxStore} readOnly />
             </InputGroup>
           </QuestionGroup>
           <QuestionGroup>

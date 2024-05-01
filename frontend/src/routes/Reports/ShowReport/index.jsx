@@ -8,7 +8,7 @@ import ReportPage from '../../../components/Reports/ReportPage'
 import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
 import { generatePDF } from '../ReportToPDF'
-
+import NotFound from '../../NotFound'
 
 const ShowReport = () => {
   const { reportId } = useParams()
@@ -28,7 +28,7 @@ const ShowReport = () => {
   const commentsStatus = useSelector((state) => state.comments.status)
   const commentsError = useSelector((state) => state.comments.error)
 
-  const handleGeneratePDF = () => generatePDF(report) 
+  const handleGeneratePDF = () => generatePDF(report)
 
   if (status === 'loading') {
     return <AnimatedBikeLoading />
@@ -39,7 +39,7 @@ const ShowReport = () => {
   }
 
   if (!report) {
-    return <p>Report not found!</p>
+    return <NotFound />
   }
 
   return (

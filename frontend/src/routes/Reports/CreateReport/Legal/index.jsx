@@ -91,7 +91,7 @@ function LegalReport() {
           </QuestionGroup>
 
           <QuestionGroup>
-            <StyledH3>Comment</StyledH3>
+            <StyledH3>What improvements do you suggest?</StyledH3>
             <p>
               Feel free to provide details regarding needed improvements for
               cyclists below. Your input helps identify potential risks and

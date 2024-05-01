@@ -50,13 +50,16 @@ const ReportPage = ({ report }) => {
           </CaseBodyContainer>
           <StyledH2>Bicycle Accident</StyledH2>
         </ReportInfo>
-        {hasImages && (
-          <ReportPicture
-            className="report-picture"
-            src={images[0].images}
-            onClick={() => setShowGallery(true)}
-          />
-        )}{' '}
+        {hasImages &&
+          images.map((image, index) => (
+            <ReportPicture
+              key={index}
+              className="report-picture"
+              src={image.images}
+              onClick={() => setShowGallery(true)}
+            />
+          ))}{' '}
+
         {/* When we can include the user-uploaded image, uncomment the line below and replace 'report.image' with the actual property where the image is stored */}
         {/* <ReportPicture className="report-picture" src={URL.createObjectURL(report.image)} /> */}
         <Gallery

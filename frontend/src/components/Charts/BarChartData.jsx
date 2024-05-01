@@ -55,8 +55,8 @@ const BarChart = () => {
 
     return (
         <div>
-            <h2>Bar Chart For Cycable</h2>
-            <Bar data={chartData} />
+            <h2>No of Reports for each Incident type</h2>
+            <Bar data={chartData} options={{ legend: { display: false } }} />
         </div>
     );
 };

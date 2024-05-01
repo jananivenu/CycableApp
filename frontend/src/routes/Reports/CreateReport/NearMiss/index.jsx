@@ -138,7 +138,12 @@ const NearMiss = () => {
             {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
           </QuestionGroup>
           <QuestionGroup>
-            <StyledH3>Comment</StyledH3>
+            <StyledH3>Tell us what happened</StyledH3>
+            <p>
+              Feel free to provide more details about the near miss or hazardous
+              location. Your input is crucial in creating safer streets for
+              cyclists.
+            </p>
             <Description
               value={reportData.description}
               onChange={inputHandler}

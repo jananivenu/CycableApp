@@ -7,8 +7,6 @@ import CommentList from '../../../components/Reports/Comments/'
 import ReportPage from '../../../components/Reports/ReportPage'
 import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
-import { generatePDF } from '../ReportToPDF'
-
 
 const ShowReport = () => {
   const { reportId } = useParams()
@@ -28,8 +26,6 @@ const ShowReport = () => {
   const commentsStatus = useSelector((state) => state.comments.status)
   const commentsError = useSelector((state) => state.comments.error)
 
-  const handleGeneratePDF = () => generatePDF(report) 
-
   if (status === 'loading') {
     return <AnimatedBikeLoading />
   }
@@ -44,12 +40,8 @@ const ShowReport = () => {
 
   return (
     <MainContainer>
-      
       <ReportPage report={report} />
-      <button onClick={handleGeneratePDF} disabled={status === 'loading'}>
-        Download PDF
-      </button>
-     
+
       <CommentList
         comments={comments}
         status={commentsStatus}

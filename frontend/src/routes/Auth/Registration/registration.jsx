@@ -11,11 +11,14 @@ import {
 import { AccentButton } from '../../../styles/elements/buttons'
 import { MainContainer, NarrowSectionContainer } from '../../../styles'
 import { StyledH2 } from '../../../styles/elements/typography'
+import { setEmail } from '../../../store/slices/userSlice'
 
 const Registration = () => {
-  const [email, setEmail] = useState('')
-  const navigate = useNavigate()
+  const [email, setEmailState] = useState('')
   const [error, setError] = useState(null)
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,6 +29,7 @@ const Registration = () => {
       })
 
       if (response) {
+        dispatch(setEmail(email))
         navigate('/verification')
       }
     } catch (error) {
@@ -48,7 +52,7 @@ const Registration = () => {
                 type="email"
                 placeholder="email@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmailState(e.target.value)}
                 required
               />
             </InputGroup>
@@ -57,7 +61,7 @@ const Registration = () => {
           <AccentButton type="submit">Register</AccentButton>
           {error && (
             <ErrorMessage>
-              The email is already used or not valid. Please try again
+              The email is already used or not valid. Please try again...
             </ErrorMessage>
           )}
         </AuthForm>

@@ -6,24 +6,22 @@ import MapReportFooter from './Elements/MapReportFooter'
 import MapReportRow from './Elements/MapReportRow'
 import MapReportImg from './Elements/MapReportImg'
 
-function CaseReportMap({ report }) {
+function ReportOnMap({ report, onClose }) {
   const { id, address, description, created_at, incident_type, images } = report
 
   const truncatedComment = truncateText(description, 200)
   const date = formatDate(created_at)
 
-  console.log(images)
-
   return (
     <MapReportContainer>
-      <MapReportHeader type={incident_type} />
+      <MapReportHeader type={incident_type} onClose={onClose} />
       <MapReportImg images={images} />
-      <MapReportRow type="pin" content={address} />
       <MapReportRow type="comment" content={truncatedComment} />
+      <MapReportRow type="pin" content={address} />
       <MapReportRow type="calendar" content={date} />
       <MapReportFooter id={id} />
     </MapReportContainer>
   )
 }
 
-export default CaseReportMap
+export default ReportOnMap

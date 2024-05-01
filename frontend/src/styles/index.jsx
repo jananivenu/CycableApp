@@ -63,6 +63,19 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  .mapboxgl-popup {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  .mapboxgl-popup-content {
+    padding: 0;
+    background: none;
+    border-radius: 10px;
+
+  }
 `
 
 export const MainContainer = styled.main`

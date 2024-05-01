@@ -9,6 +9,7 @@ import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
 import { SquareButton } from '../../../styles/elements/buttons'
 import DeleteReport from '../DeleteReport'
+import NotFound from '../../NotFound'
 
 
 const ShowReport = () => {

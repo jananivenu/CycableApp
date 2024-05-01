@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchComments } from '../../axios/fetchComments';
 import { addComment } from '../../axios/addComment';
+import { deleteComment } from '../../axios/deleteComment';
 
 export const fetchCommentsAsync = createAsyncThunk(
     'comments/fetchComments',
@@ -25,7 +26,17 @@ export const addCommentAsync = createAsyncThunk(
         }
     }
 );
-
+export const deleteCommentsAsync = createAsyncThunk(
+    'comments/deleteComment',
+    async (commentId, { rejectWithValue }) => {
+        try {
+            await deleteComment(commentId);
+            return commentId;
+        } catch (error) {
+            return rejectWithValue(error.response ? error.response.data : error.message);
+        }
+    }
+);
 const initialState = {
     comments: [],
     status: 'idle',
@@ -59,6 +70,17 @@ const commentsSlice = createSlice({
                 state.status = 'succeeded';
             })
             .addCase(addCommentAsync.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload ? action.payload.error : null;
+            })
+
+            .addCase(deleteCommentsAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(deleteCommentsAsync.fulfilled, (state) => {
+                state.status = 'succeeded';
+            })
+            .addCase(deleteCommentsAsync.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.payload ? action.payload.error : null;
             });

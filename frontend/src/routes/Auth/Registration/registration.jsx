@@ -4,6 +4,7 @@ import UserAxios, { UserRegistration } from '../../../axios'
 import { useNavigate } from 'react-router-dom'
 import {
   AuthForm,
+  ErrorMessage,
   InputGroup,
   QuestionGroup,
 } from '../../../styles/elements/forms'
@@ -14,6 +15,7 @@ import { StyledH2 } from '../../../styles/elements/typography'
 const Registration = () => {
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
+  const [error, setError] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,13 +30,14 @@ const Registration = () => {
       }
     } catch (error) {
       console.error(error)
+      setError(true)
     }
   }
 
   return (
     <MainContainer>
       <NarrowSectionContainer>
-      <StyledH2>Registration</StyledH2>
+        <StyledH2>Registration</StyledH2>
 
         <AuthForm onSubmit={handleSubmit}>
           <QuestionGroup>
@@ -52,6 +55,11 @@ const Registration = () => {
           </QuestionGroup>
 
           <AccentButton type="submit">Register</AccentButton>
+          {error && (
+            <ErrorMessage>
+              The email is already used or not valid. Please try again
+            </ErrorMessage>
+          )}
         </AuthForm>
       </NarrowSectionContainer>
     </MainContainer>

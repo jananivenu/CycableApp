@@ -1,5 +1,7 @@
 import { MainContainer, NarrowSectionContainer } from '../../styles'
 import { LeadParagraph, StyledH2 } from '../../styles/elements/typography'
+import team from '../../assets/us/team.png'
+import { TeamPhoto } from './styles'
 
 function About() {
   return (
@@ -14,6 +16,7 @@ function About() {
           riders and city authorities. Join us in our mission to make every ride
           safer with Cycable.
         </LeadParagraph>
+        <TeamPhoto src={team} />
       </NarrowSectionContainer>
     </MainContainer>
   )

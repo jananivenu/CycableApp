@@ -10,6 +10,7 @@ import AnimatedBikeLoading from '../../../components/trivias/Loading'
 import { SquareButton } from '../../../styles/elements/buttons'
 import DeleteReport from '../DeleteReport'
 import NotFound from '../../NotFound'
+import { AccentButton } from '../../../styles/elements/buttons'
 
 
 const ShowReport = () => {
@@ -50,9 +51,10 @@ const ShowReport = () => {
   return (
     <MainContainer>
       <ReportPage report={report} />
+      <AccentButton onClick={handleGeneratePDF} disabled={status === 'loading'}>
+        Download as PDF
+      </AccentButton>
       <DeleteReport reportId={reportId} onSuccess={handleDeleteSuccess} />
-
-
       <CommentList
         comments={comments}
         status={commentsStatus}

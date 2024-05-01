@@ -15,6 +15,7 @@ import CaseRow from '../../../components/CasePreview/Elements/CaseRow'
 import { formatDate } from '../../../utils/formatDate'
 import ReportCoverMap from './Elements/ReportCoverMap'
 import ReportAuthor from './Elements/ReportAuthor'
+import ReportType from './Elements/ReportType'
 import Gallery from './Gallery'
 import { useState } from 'react'
 import { generatePDF } from '../../../routes/Reports/ReportToPDF'
@@ -27,9 +28,13 @@ const ReportPage = ({ report }) => {
     custom_date,
     latitude,
     longitude,
+    incident_type,
     images,
   } = report
+
+  console.log('the type of this report is : ', incident_type)
   console.log(report)
+  
   const date = formatDate(custom_date)
   const [showGallery, setShowGallery] = useState(false)
 
@@ -48,7 +53,8 @@ const ReportPage = ({ report }) => {
             <CaseRow type="pin" content={address} />
             <CaseRow type="calendar" content={date} />
           </CaseBodyContainer>
-          <StyledH2>Bicycle Accident</StyledH2>
+          <ReportType type={incident_type} />
+          {/* <StyledH2>Bicycle Accident</StyledH2> */}
         </ReportInfo>
         {hasImages &&
           images.map((image, index) => (

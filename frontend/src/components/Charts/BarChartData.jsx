@@ -41,7 +41,7 @@ const BarChart = () => {
                          //backgroundColor:  ["pink", "Thistle", "azure","PaleGreen"],
                         backgroundColor:  ['#EE4266','#20B69E','#FFB800','#0075FF'],
                         borderColor: "WhiteSmoke",
-                        borderWidth: 1,
+                        borderWidth: 10,
                     },
                 ],
             };
@@ -55,8 +55,8 @@ const BarChart = () => {
 
     return (
         <div>
-            <h2>Bar Chart For Cycable</h2>
-            <Bar data={chartData} />
+            <h2>No of Reports for each Incident type</h2>
+            <Bar data={chartData} options={{ legend: { display: false } }} />
         </div>
     );
 };

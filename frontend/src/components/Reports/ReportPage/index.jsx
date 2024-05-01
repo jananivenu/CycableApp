@@ -9,12 +9,16 @@ import {
   ReportInfo,
   ReportPicture,
 } from './styles'
+import { SquareButton } from '../../../styles/elements/buttons'
 import { CaseBodyContainer } from '../../../components/CasePreview/styles'
 import CaseRow from '../../../components/CasePreview/Elements/CaseRow'
 import { formatDate } from '../../../utils/formatDate'
 import ReportCoverMap from './Elements/ReportCoverMap'
 import ReportAuthor from './Elements/ReportAuthor'
 import ReportType from './Elements/ReportType'
+import Gallery from './Gallery'
+import { useState } from 'react'
+import { generatePDF } from '../../../routes/Reports/ReportToPDF'
 
 const ReportPage = ({ report }) => {
   const {
@@ -25,9 +29,18 @@ const ReportPage = ({ report }) => {
     latitude,
     longitude,
     incident_type,
+    images,
   } = report
+
   console.log('the type of this report is : ', incident_type)
+  console.log(report)
+  
   const date = formatDate(custom_date)
+  const [showGallery, setShowGallery] = useState(false)
+
+  const hasImages = Array.isArray(images) && images.length > 0
+
+  const handleGeneratePDF = () => generatePDF(report)
 
   return (
     <>
@@ -43,13 +56,33 @@ const ReportPage = ({ report }) => {
           <ReportType type={incident_type} />
           {/* <StyledH2>Bicycle Accident</StyledH2> */}
         </ReportInfo>
-        <ReportPicture className="report-picture" src={photo} />
+        {hasImages &&
+          images.map((image, index) => (
+            <ReportPicture
+              key={index}
+              className="report-picture"
+              src={image.images}
+              onClick={() => setShowGallery(true)}
+            />
+          ))}{' '}
+
         {/* When we can include the user-uploaded image, uncomment the line below and replace 'report.image' with the actual property where the image is stored */}
         {/* <ReportPicture className="report-picture" src={URL.createObjectURL(report.image)} /> */}
+        <Gallery
+          images={report.images}
+          showGallery={showGallery}
+          setShowGallery={setShowGallery}
+        />
         <ReportContent>
           <LeadParagraph>
             {description} <ReportAuthor author={author} />
           </LeadParagraph>
+          <SquareButton
+            onClick={handleGeneratePDF}
+            disabled={status === 'loading'}
+          >
+            Download PDF
+          </SquareButton>
         </ReportContent>
       </ReportGridContainer>
     </>

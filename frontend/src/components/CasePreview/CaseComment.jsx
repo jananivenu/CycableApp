@@ -19,6 +19,13 @@ function CaseComment({ author, text, commentId }) {
   console.log("Logged In User ID:", loggedInUserId);
 
   const handleDelete = async () => {
+        const confirmDelete = window.confirm(
+      'Are you sure you want to delete this comment?'
+    );
+
+    if (!confirmDelete) {
+      return; // If user cancels, do not proceed with deletion
+    }
     setIsDeleting(true);
     try {
       console.log('Deleting comment with commentId:', commentId);

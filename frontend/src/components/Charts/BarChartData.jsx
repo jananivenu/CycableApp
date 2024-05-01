@@ -41,7 +41,7 @@ const BarChart = () => {
                          //backgroundColor:  ["pink", "Thistle", "azure","PaleGreen"],
                         backgroundColor:  ['#EE4266','#20B69E','#FFB800','#0075FF'],
                         borderColor: "WhiteSmoke",
-                        borderWidth: 1,
+                        borderWidth: 10,
                     },
                 ],
             };

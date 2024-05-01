@@ -43,7 +43,7 @@ const ShowReport = () => {
   }
 
   if (!report) {
-    return <p>Report not found!</p>
+    return <NotFound />
   }
 
   return (

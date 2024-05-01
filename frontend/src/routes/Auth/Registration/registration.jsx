@@ -4,16 +4,21 @@ import UserAxios, { UserRegistration } from '../../../axios'
 import { useNavigate } from 'react-router-dom'
 import {
   AuthForm,
+  ErrorMessage,
   InputGroup,
   QuestionGroup,
 } from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
 import { MainContainer, NarrowSectionContainer } from '../../../styles'
 import { StyledH2 } from '../../../styles/elements/typography'
+import { setEmail } from '../../../store/slices/userSlice'
 
 const Registration = () => {
-  const [email, setEmail] = useState('')
+  const [email, setEmailState] = useState('')
+  const [error, setError] = useState(null)
+
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,17 +29,19 @@ const Registration = () => {
       })
 
       if (response) {
+        dispatch(setEmail(email))
         navigate('/verification')
       }
     } catch (error) {
       console.error(error)
+      setError(true)
     }
   }
 
   return (
     <MainContainer>
       <NarrowSectionContainer>
-      <StyledH2>Registration</StyledH2>
+        <StyledH2>Registration</StyledH2>
 
         <AuthForm onSubmit={handleSubmit}>
           <QuestionGroup>
@@ -45,13 +52,18 @@ const Registration = () => {
                 type="email"
                 placeholder="email@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmailState(e.target.value)}
                 required
               />
             </InputGroup>
           </QuestionGroup>
 
           <AccentButton type="submit">Register</AccentButton>
+          {error && (
+            <ErrorMessage>
+              The email is already used or not valid. Please try again...
+            </ErrorMessage>
+          )}
         </AuthForm>
       </NarrowSectionContainer>
     </MainContainer>

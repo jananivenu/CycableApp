@@ -6,6 +6,7 @@ import { MainContainer, NarrowSectionContainer } from '../../../styles'
 import { StyledH2 } from '../../../styles/elements/typography'
 import {
   AuthForm,
+  ErrorMessage,
   InputGroup,
   QuestionGroup,
 } from '../../../styles/elements/forms'
@@ -13,8 +14,9 @@ import { AccentButton } from '../../../styles/elements/buttons'
 import ValidationCodeInput from './InputCode'
 
 const Verification = () => {
-  const emailReduxStore = useSelector((state) => state.user.email) //call eMail from the store
-  const [email, setEmail] = useState(emailReduxStore || '') // use email as initial value
+  const emailReduxStore = useSelector((state) => state.user.user.email) //call eMail from the store
+  console.log('email from store: ', emailReduxStore)
+  // const [email, setEmail] = useState(emailReduxStore || '') // use email as initial value
   const [userName, setUserName] = useState('')
   const [validationCode, setValidationCode] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -23,22 +25,48 @@ const Verification = () => {
   const [genderUser, setGenderUser] = useState('')
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [errors, setErrors] = useState([])
+
   const navigate = useNavigate()
 
   const handleValidationCodeChange = (code) => {
-    setValidationCode(code);
-  };
+    setValidationCode(code)
+  }
+
+  // const handleUserName = (e) => {
+  //   try {
+  //     setUserName(e.target.value)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrors([])
+    const newErrors = []
     if (password !== passwordRepeat) {
-      alert('Passwords do not match!')
-      return
+      // alert('Passwords do not match!')
+      newErrors.push('Passwords do not match!')
+    }
+    if (!birthDate) {
+      newErrors.push('Please enter your birth date!')
+    }
+    if (!genderUser) {
+      newErrors.push('Please enter your gender!')
+    }
+    if (!password) {
+      newErrors.push('Please enter a password!')
+    }
+
+    if (newErrors.length > 0) {
+      setErrors(newErrors)
+      return // Exit early if there are errors
     }
 
     try {
       await UserRegistration.patch('/auth/registration/validation/', {
-        email: email,
+        email: emailReduxStore,
         username: userName,
         code: validationCode,
         first_name: firstName,
@@ -51,6 +79,7 @@ const Verification = () => {
       navigate('/registration-message')
     } catch (error) {
       console.error('Validation error:', error.response.data)
+      setErrors(['This username is taken, please try again..'])
     }
   }
 
@@ -62,12 +91,7 @@ const Verification = () => {
           <QuestionGroup>
             <InputGroup>
               <label htmlFor="email">Email:</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input id="email" type="email" value={emailReduxStore} readOnly />
             </InputGroup>
           </QuestionGroup>
           <QuestionGroup>
@@ -78,6 +102,7 @@ const Verification = () => {
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
+                // onChange={handleUserName}
               />
             </InputGroup>
           </QuestionGroup>
@@ -170,6 +195,13 @@ const Verification = () => {
             </InputGroup>
           </QuestionGroup>
           <AccentButton type="submit">Submit</AccentButton>
+          {errors.length > 0 && (
+            <ErrorMessage>
+              {errors.map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
+            </ErrorMessage>
+          )}
         </AuthForm>
       </NarrowSectionContainer>
     </MainContainer>

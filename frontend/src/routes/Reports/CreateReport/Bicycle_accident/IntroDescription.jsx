@@ -5,8 +5,9 @@ function IntroDescription() {
     <>
       <StyledH3>Tell us what happened</StyledH3>
       <p>
-        Feel free to provide additional details about the incident to aid fellow
-        cyclists and support our community in preventing bicycle theft:
+        Feel free to provide additional details about the accident to assist
+        fellow cyclists and support our community in promoting safety on the
+        roads.
       </p>
     </>
   )

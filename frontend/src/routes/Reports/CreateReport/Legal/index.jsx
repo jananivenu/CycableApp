@@ -22,7 +22,7 @@ function LegalReport() {
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const { title, content } = formsData.bicycleAccident
+  const { title, content } = formsData.violations
 
   const inputHandler = (e) => {
     const { id, value } = e.target

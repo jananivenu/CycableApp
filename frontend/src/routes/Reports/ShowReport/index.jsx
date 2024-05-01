@@ -9,6 +9,7 @@ import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
 import { generatePDF } from '../ReportToPDF'
 import NotFound from '../../NotFound'
+import { AccentButton } from '../../../styles/elements/buttons'
 
 const ShowReport = () => {
   const { reportId } = useParams()
@@ -45,9 +46,9 @@ const ShowReport = () => {
   return (
     <MainContainer>
       <ReportPage report={report} />
-      <button onClick={handleGeneratePDF} disabled={status === 'loading'}>
-        Download PDF
-      </button>
+      <AccentButton onClick={handleGeneratePDF} disabled={status === 'loading'}>
+        Download as PDF
+      </AccentButton>
       <CommentList
         comments={comments}
         status={commentsStatus}

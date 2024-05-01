@@ -14,10 +14,19 @@ import CaseRow from '../../../components/CasePreview/Elements/CaseRow'
 import { formatDate } from '../../../utils/formatDate'
 import ReportCoverMap from './Elements/ReportCoverMap'
 import ReportAuthor from './Elements/ReportAuthor'
+import ReportType from './Elements/ReportType'
 
 const ReportPage = ({ report }) => {
-  const { address, author, description, custom_date, latitude, longitude } =
-    report
+  const {
+    address,
+    author,
+    description,
+    custom_date,
+    latitude,
+    longitude,
+    incident_type,
+  } = report
+  console.log('the type of this report is : ', incident_type)
   const date = formatDate(custom_date)
 
   return (
@@ -31,7 +40,8 @@ const ReportPage = ({ report }) => {
             <CaseRow type="pin" content={address} />
             <CaseRow type="calendar" content={date} />
           </CaseBodyContainer>
-          <StyledH2>Bicycle Accident</StyledH2>
+          <ReportType type={incident_type} />
+          {/* <StyledH2>Bicycle Accident</StyledH2> */}
         </ReportInfo>
         <ReportPicture className="report-picture" src={photo} />
         {/* When we can include the user-uploaded image, uncomment the line below and replace 'report.image' with the actual property where the image is stored */}

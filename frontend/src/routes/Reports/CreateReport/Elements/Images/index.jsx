@@ -8,6 +8,7 @@ import {
 } from './styles'
 import { TbPhotoShare } from 'react-icons/tb'
 
+
 const Images = ({ onImagesChange }) => {
   const [images, setImages] = useState([])
 

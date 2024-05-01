@@ -4,6 +4,7 @@ import MasonryContainer from '../../wrappers/MasonryContainer'
 import { useEffect } from 'react'
 import { fetchReportsByUserIdAsync } from '../../../store/slices/reportsSlice'
 import AnimatedBikeLoading from '../../trivias/Loading'
+import NotFound from '../../../routes/NotFound'
 
 // eslint-disable-next-line react/prop-types
 function UserReportList({ userId }) {
@@ -16,12 +17,23 @@ function UserReportList({ userId }) {
     dispatch(fetchReportsByUserIdAsync(userId))
   }, [dispatch, userId])
 
-  if (!reports) {
+  // if (!reports) {
+  //   return <AnimatedBikeLoading />
+  // }
+
+  // if (reports.length === 0) {
+  //   return <p>No reports yet.</p>
+  // }
+  if (status === 'loading') {
     return <AnimatedBikeLoading />
   }
 
-  if (reports.length === 0) {
-    return <p>No reports yet.</p>
+  if (error) {
+    return <p>An error occurred while fetching the report: {error}</p>
+  }
+
+  if (!reports) {
+    return <NotFound />
   }
 
   return (

@@ -30,7 +30,6 @@ const TheftReport = () => {
   const [lockStatus, setLockStatus] = useState(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [uploadedImages, setUploadedImages] = useState([])
-  const [errorMsg, setErrorMsg] = useState(null)
   const { title, content } = formsData.bicycleTheft
 
   const inputHandler = (e) => {

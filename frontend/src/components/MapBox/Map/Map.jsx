@@ -201,6 +201,8 @@ return (
     onClick={handleMapClick}
     style={{ width: '100vw', height: '100vh' }}
     mapStyle="mapbox://styles/mihaels/clvdnhxt3011901qvco3g86vv"
+    // dragPan={false}
+    scrollZoom={false}
     >
     {/* NEW Heatmap */}
     {viewport.zoom <= 8 && (

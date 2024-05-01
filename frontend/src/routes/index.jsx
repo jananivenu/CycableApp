@@ -41,6 +41,7 @@ const Router = () => {
           <Route path="/new-report" element={<CreateReport />} />
         </Route>
         <Route element={<ProtectedRoutes />}>
+          <Route path="/new-report" element={<CreateReport />} />
           <Route path="/profile/me" element={<UserProfile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
         </Route>

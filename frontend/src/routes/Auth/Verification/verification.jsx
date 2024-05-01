@@ -6,6 +6,7 @@ import { MainContainer, NarrowSectionContainer } from '../../../styles'
 import { StyledH2 } from '../../../styles/elements/typography'
 import {
   AuthForm,
+  ErrorMessage,
   InputGroup,
   QuestionGroup,
 } from '../../../styles/elements/forms'
@@ -24,17 +25,43 @@ const Verification = () => {
   const [genderUser, setGenderUser] = useState('')
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
+  const [errors, setErrors] = useState([])
+
   const navigate = useNavigate()
 
   const handleValidationCodeChange = (code) => {
     setValidationCode(code)
   }
 
+  // const handleUserName = (e) => {
+  //   try {
+  //     setUserName(e.target.value)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrors([])
+    const newErrors = []
     if (password !== passwordRepeat) {
-      alert('Passwords do not match!')
-      return
+      // alert('Passwords do not match!')
+      newErrors.push('Passwords do not match!')
+    }
+    if (!birthDate) {
+      newErrors.push('Please enter your birth date!')
+    }
+    if (!genderUser) {
+      newErrors.push('Please enter your gender!')
+    }
+    if (!password) {
+      newErrors.push('Please enter a password!')
+    }
+
+    if (newErrors.length > 0) {
+      setErrors(newErrors)
+      return // Exit early if there are errors
     }
 
     try {
@@ -52,6 +79,7 @@ const Verification = () => {
       navigate('/registration-message')
     } catch (error) {
       console.error('Validation error:', error.response.data)
+      setErrors(['This username is taken, please try again..'])
     }
   }
 
@@ -74,6 +102,7 @@ const Verification = () => {
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
+                // onChange={handleUserName}
               />
             </InputGroup>
           </QuestionGroup>
@@ -166,6 +195,13 @@ const Verification = () => {
             </InputGroup>
           </QuestionGroup>
           <AccentButton type="submit">Submit</AccentButton>
+          {errors.length > 0 && (
+            <ErrorMessage>
+              {errors.map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
+            </ErrorMessage>
+          )}
         </AuthForm>
       </NarrowSectionContainer>
     </MainContainer>

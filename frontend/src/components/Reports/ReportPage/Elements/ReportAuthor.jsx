@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 
 function ReportAuthor({ author }) {
   const currentUserId = useSelector((state) => state.user.user.id)
-  console.log(currentUserId)
   const authorName = formatUserName(author)
   const authorAvatar = author.avatar ? author.avatar : avatar
 

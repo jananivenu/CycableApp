@@ -1,7 +1,6 @@
 import { StyledH2 } from '../../../../styles/elements/typography'
 
 const ReportType = ({ type }) => {
-  console.log(type)
   let title = ''
   if (type === 'bicycle_accident') {
     title = 'Bicycle Accident'

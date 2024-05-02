@@ -4,10 +4,7 @@ const MapCover = ({ latitude, longitude }) => {
   const position = [latitude, longitude]
   const zoomLevel = 16
   const offsetFraction = 0.2
-
-  // const pixelsPerDegree = 256 * Math.pow(2, zoomLevel) / 360;
   const longitudeOffset = (offsetFraction * 360) / Math.pow(2, zoomLevel)
-
   const offsetPosition = [latitude, longitude + longitudeOffset]
 
   return (

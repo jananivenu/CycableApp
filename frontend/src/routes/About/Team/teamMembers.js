@@ -5,7 +5,7 @@ export const teamMembers = [
         lastName: "Boumeshouli",
         role: "Full-Stack",
         previousJob: "Energy Efficiency & HSE Engineer",
-        photoUrl: "/assets/photos/imane.png",
+        photoUrl: "/team/imane.png",
         fromCountry: "Morocco",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/imane-boumeshouli/"
@@ -16,7 +16,7 @@ export const teamMembers = [
         lastName: "Kumov",
         role: "Techlead / Frontend",
         previousJob: "Leader of the Russian urban cycling advocacy project Let’s bike it!",
-        photoUrl: "/assets/photos/vladimir.png",
+        photoUrl: "/team/vladimir.png",
         fromCountry: "Russia",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/vkumov/"
@@ -27,9 +27,9 @@ export const teamMembers = [
         lastName: "Pinjuh",
         role: "Frontend",
         previousJob: "CNC mechanic",
-        photoUrl: "/assets/photos/toni.png",
-        fromCountry: "Croatia",
-        currentCountry: "Germany",
+        photoUrl: "/team/toni.png",
+        fromCountry: "Bosnia and Herzegovina",
+        currentCountry: "Switzerland",
         linkedInUrl: "https://www.linkedin.com/in/toni-pinjuh/"
     },
     {
@@ -38,9 +38,9 @@ export const teamMembers = [
         lastName: "Softic",
         role: "Frontend",
         previousJob: "Graphic designer",
-        photoUrl: "/assets/photos/michael.png",
-        fromCountry: "Bosnia and Herzegovina",
-        currentCountry: "Switzerland",
+        photoUrl: "/team/michael.png",
+        fromCountry: "Croatia",
+        currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/mihaelsoftic/"
     },
     {
@@ -49,7 +49,7 @@ export const teamMembers = [
         lastName: "Venugopal",
         role: "Full-Stack",
         previousJob: "Software Test Engineer",
-        photoUrl: "/assets/photos/janani.png",
+        photoUrl: "/team/janani.png",
         fromCountry: "India",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/janani-venugopal/"

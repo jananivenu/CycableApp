@@ -20,8 +20,7 @@ const Footer = () => {
         <FooterMainContainer>
           <FooterLogoGroup>
             <h3>Cycable</h3>
-            "Join the Movement for Safer Cycling" or "From Your Stories to Safer
-            Streets"
+            "From Your Stories to Safer Streets"
           </FooterLogoGroup>
           <SocialIconsList />
 

@@ -77,10 +77,32 @@ export const LinkLikeAccentButton = styled(BaseLinkLikeButton)`
   color: white;
   background-color: var(--accent-main);
   border: 0;
+
+  @media (max-width: 480px) {
+    padding: 0.6rem 1.2rem;
+  }
 `
 
 export const LinkLikeSimpleButton = styled(BaseLinkLikeButton)`
   background-color: transparent;
   border: 1px solid var(--accent-main);
   color: var(--accent-main);
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+`
+
+export const LinkLikeSimpleButtonMobile = styled(LinkLikeSimpleButton)`
+  display: none;
+
+  @media (max-width: 480px) {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    padding: 0.6rem;
+    aspect-ratio: 1/1 !important;
+  }
 `

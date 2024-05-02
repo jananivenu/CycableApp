@@ -11,7 +11,6 @@ export const LogoLink = styled(NavLink)`
   }
 `
 
-
 export const AvatarContainer = styled.div`
   position: relative;
   max-height: 100%;
@@ -34,7 +33,6 @@ export const AvatarImage = styled.img`
   margin: 0 !important;
   object-fit: cover; 
 `
-
 
 export const DropdownButton = styled(FaCircleChevronDown)`
   position: absolute;

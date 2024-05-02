@@ -16,7 +16,6 @@ import {
 import sendReport from '../../../../axios/sendReport.js'
 import Images from '../Elements/Images/index.jsx'
 import LocationPicker from '../Elements/Location/index.jsx'
-import ThankYouMessage from '../Elements/ThankYouMessage/ThankYouMessage.jsx'
 import formsData from '../Elements/AboutForm/formsData.jsx'
 import AboutForm from '../Elements/AboutForm/index.jsx'
 import YesNoButtonGroup from '../Elements/YesNo/index.jsx'
@@ -27,7 +26,7 @@ import IntroImages from './IntroImages.jsx'
 import IntroDescription from './IntroDescription.jsx'
 import ThankYouModal from '../Elements/ThankYouMessage/ThankYouModal.jsx'
 
-function AccidentReport() {
+function AccidentReport({ onCloseModal }) {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
@@ -110,6 +109,9 @@ function AccidentReport() {
   const closeModal = () => {
     resetForm()
     setModalIsOpen(false)
+    if (onCloseModal) {
+      onCloseModal()
+    }
   }
 
   return (

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchReportsAsync } from '../../../store/slices/reportsSlice'
 import { fetchCommentsAsync } from '../../../store/slices/commentsSlice'
@@ -7,12 +7,16 @@ import CommentList from '../../../components/Reports/Comments/'
 import ReportPage from '../../../components/Reports/ReportPage'
 import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
-import { generatePDF } from '../ReportToPDF'
+import { SquareButton } from '../../../styles/elements/buttons'
+import DeleteReport from '../DeleteReport'
+import NotFound from '../../NotFound'
+import { AccentButton } from '../../../styles/elements/buttons'
 
 
 const ShowReport = () => {
   const { reportId } = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (reportId) {
@@ -28,7 +32,9 @@ const ShowReport = () => {
   const commentsStatus = useSelector((state) => state.comments.status)
   const commentsError = useSelector((state) => state.comments.error)
 
-  const handleGeneratePDF = () => generatePDF(report) 
+  const handleDeleteSuccess = () => {
+    navigate('/profile/me'); // Navigate to profile/me page after successful deletion
+  };
 
   if (status === 'loading') {
     return <AnimatedBikeLoading />
@@ -39,15 +45,16 @@ const ShowReport = () => {
   }
 
   if (!report) {
-    return <p>Report not found!</p>
+    return <NotFound />
   }
 
   return (
     <MainContainer>
       <ReportPage report={report} />
-      <button onClick={handleGeneratePDF} disabled={status === 'loading'}>
-        Download PDF
-      </button>
+      <AccentButton onClick={handleGeneratePDF} disabled={status === 'loading'}>
+        Download as PDF
+      </AccentButton>
+      <DeleteReport reportId={reportId} onSuccess={handleDeleteSuccess} />
       <CommentList
         comments={comments}
         status={commentsStatus}

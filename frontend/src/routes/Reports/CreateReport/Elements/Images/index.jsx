@@ -1,4 +1,4 @@
-import { useState } from 'react'
+    import { useState } from 'react'
 import {
   DeleteButton,
   FileUploadButton,
@@ -7,6 +7,7 @@ import {
   ImagePreviewWrapper,
 } from './styles'
 import { TbPhotoShare } from 'react-icons/tb'
+
 
 const Images = ({ onImagesChange }) => {
   const [images, setImages] = useState([])
@@ -17,11 +18,15 @@ const Images = ({ onImagesChange }) => {
       preview: URL.createObjectURL(file),
     }))
     setImages((prevImages) => [...prevImages, ...filesArray])
-    onImagesChange(filesArray)
+    onImagesChange([...images, ...filesArray])
   }
 
   const handleDeleteImage = (index) => {
-    setImages(images.filter((_, i) => i !== index))
+    //setImages(images.filter((_, i) => i !== index))
+      const newImages = [...images]
+    newImages.splice(index, 1)
+    setImages(newImages)
+    onImagesChange(newImages)
   }
 
   return (

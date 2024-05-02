@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchReports } from '../../axios/fetchReports';
+import { fetchReports, deleteReport } from '../../axios/fetchReports';
 
 // All
 export const fetchAllReportsAsync = createAsyncThunk(
@@ -121,5 +121,21 @@ const reportsSlice = createSlice({
       });
   },
 });
+
+export const deleteReportAsync = createAsyncThunk(
+  'reports/deleteReport',
+  async (reportId, { rejectWithValue }) => {
+    try {
+      // Call your API function to delete the report
+      await deleteReport(reportId);
+      return reportId; // Return the reportId if deletion is successful
+    } catch (error) {
+      // If deletion fails, reject the promise with the error message
+      return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+  }
+);
+
+    
 
 export default reportsSlice.reducer;

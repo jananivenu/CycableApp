@@ -46,3 +46,13 @@ export const fetchAllReports = async () => {
     throw error
   }
 }
+
+export const deleteReport = async (reportId) => {
+  try {
+    const endpoint = `/reports/${reportId}/`;
+    const response = await UserAxios.delete(endpoint);
+    return response.data; 
+  } catch (error) {
+    throw error;
+  }
+}

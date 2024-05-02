@@ -18,6 +18,7 @@ function CommentList({ comments, status, error }) {
           {comments.map((comment) => (
             <CaseComment
               key={comment.id}
+              commentId={comment.id}
               author={comment.author}
               text={comment.text}
             />

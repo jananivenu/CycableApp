@@ -17,6 +17,8 @@ const ShowReport = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
+  const currentUser = useSelector((state) => state.user.user);
+
   useEffect(() => {
     if (reportId) {
       dispatch(fetchReportsAsync(reportId))
@@ -50,8 +52,9 @@ const ShowReport = () => {
   return (
     <MainContainer>
       <ReportPage report={report} />
-      <DeleteReport reportId={reportId} onSuccess={handleDeleteSuccess} />
-
+      {report.author.id === currentUser.id && (
+        <DeleteReport reportId={reportId} onSuccess={handleDeleteSuccess} />
+      )}
 
       <CommentList
         comments={comments}

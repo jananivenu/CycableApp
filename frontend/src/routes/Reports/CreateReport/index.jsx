@@ -17,6 +17,10 @@ const CreateReport = () => {
     console.log('Selected type:', selectedType)
   }
 
+  const resetIncidentType = () => {
+    setIncidentType('')
+  }
+
   return (
     <MainContainer>
       <SectionContainer>
@@ -25,16 +29,28 @@ const CreateReport = () => {
       {/* <BasicForm> */}
       <FormsWrapper className="here render forms">
         {incidentType === 'bicycle_accident' && (
-          <AccidentReport incident_type={'bicycle_accident'} />
+          <AccidentReport
+            incident_type={'bicycle_accident'}
+            onCloseModal={resetIncidentType}
+          />
         )}
         {incidentType === 'bicycle_theft' && (
-          <TheftReport incident_type={'bicycle_theft'} />
+          <TheftReport
+            incident_type={'bicycle_theft'}
+            onCloseModal={resetIncidentType}
+          />
         )}
         {incidentType === 'near_miss' && (
-          <NearMiss incident_type={'near_miss'} />
+          <NearMiss
+            incident_type={'near_miss'}
+            onCloseModal={resetIncidentType}
+          />
         )}
         {incidentType === 'violations' && (
-          <LegalReport incident_type={'violations'} />
+          <LegalReport
+            incident_type={'violations'}
+            onCloseModal={resetIncidentType}
+          />
         )}
       </FormsWrapper>
       {/* </BasicForm> */}

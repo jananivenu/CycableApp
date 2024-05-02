@@ -9,7 +9,7 @@ function IncidentTypeSelector({ onSelect, isSelected }) {
   const types = [
     { type: 'bicycle_accident', text: 'Bicycle Accident' },
     { type: 'bicycle_theft', text: 'Bicycle Theft' },
-    { type: 'near_miss', text: 'Dangerous Locations' },
+    { type: 'near_miss', text: 'Near Miss' },
     { type: 'violations', text: 'Violations' },
   ]
 

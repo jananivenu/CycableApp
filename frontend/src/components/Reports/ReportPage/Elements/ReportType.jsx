@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
 import { StyledH2 } from '../../../../styles/elements/typography'
 
 const ReportType = ({ type }) => {
   console.log(type)
-  //   const [title, setTitle] = useState('')
   let title = ''
   if (type === 'bicycle_accident') {
     title = 'Bicycle Accident'
@@ -12,7 +10,7 @@ const ReportType = ({ type }) => {
   } else if (type === 'near_miss') {
     title = 'Dangerous Location'
   } else if (type === 'violations') {
-    title = 'Violations'
+    title = 'Legalize "Violation"'
   }
   return <StyledH2>{title}</StyledH2>
 }

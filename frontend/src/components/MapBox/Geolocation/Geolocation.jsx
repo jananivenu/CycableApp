@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ReactMapGl, { GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { IconButton } from '@mui/material';
@@ -8,7 +8,7 @@ const Geolocation = ({ onLocationChange }) => {
   const [viewport, setViewport] = useState({
     latitude: 47.3769,
     longitude: 8.5417,
-    width: '100vw',
+    width: '100%',
     height: '100vh',
     zoom: 6,
   });

@@ -6,7 +6,7 @@ import {
   ProfilePicture,
   ProfilePictureWrapper,
 } from '../styles'
-import coverBg from '../../../assets/photos/ballet.png'
+import coverBg from '../../../assets/photos/default.png'
 import avatar from '../../../assets/icons/user-cl.png'
 import {
   LeadParagraph,
@@ -57,9 +57,13 @@ const SpecificUserProfile = () => {
             <StyledH2>
               {userData.first_name} {userData.last_name}
             </StyledH2>
-            <LeadParagraph>{userData.profile_description}</LeadParagraph>
-            <p>Lives in {userData.location}.</p>
-            <p>Member since {formatDate(userData.joined_date)} </p>
+            {userData.profile_description && (
+              <LeadParagraph>{userData.profile_description}</LeadParagraph>
+            )}
+            {userData.location && <p>Lives in {userData.location}.</p>}
+            {userData.joined_date && (
+              <p>Member since {formatDate(userData.joined_date)}</p>
+            )}
           </ProfileAbout>
         </ProfileGridContainer>
         <SectionContainer>

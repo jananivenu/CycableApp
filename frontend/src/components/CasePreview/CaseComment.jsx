@@ -12,11 +12,8 @@ function CaseComment({ author, text, commentId }) {
   const [isDeleting, setIsDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState(null)
   const dispatch = useDispatch()
-  const UserLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const loggedInUserId = useSelector((state) => state.user.user.id)
   const isUserAuthor = author.id === loggedInUserId
-  console.log('Author ID:', author.id)
-  console.log('Logged In User ID:', loggedInUserId)
 
   const handleDelete = async () => {
     const confirmDelete = window.confirm(
@@ -28,11 +25,7 @@ function CaseComment({ author, text, commentId }) {
     }
     setIsDeleting(true)
     try {
-      console.log('Deleting comment with commentId:', commentId)
-      // Dispatch deleteCommentsAsync action
       await dispatch(deleteCommentsAsync(commentId))
-      // Update UI or perform any other necessary actions upon successful deletion
-      // For example, you can remove the comment from the UI
     } catch (error) {
       setDeleteError('Failed to delete comment. Please try again.')
       console.error('Error deleting comment:', error)

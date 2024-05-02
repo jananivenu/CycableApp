@@ -1,17 +1,6 @@
 export const teamMembers = [
     {
         id: 1,
-        firstName: "Imane",
-        lastName: "Boumeshouli",
-        role: "Full-Stack",
-        previousJob: "Energy Efficiency & HSE Engineer",
-        photoUrl: "/team/imane.png",
-        fromCountry: "Morocco",
-        currentCountry: "Germany",
-        linkedInUrl: "https://www.linkedin.com/in/imane-boumeshouli/"
-    },
-    {
-        id: 2,
         firstName: "Vladimir",
         lastName: "Kumov",
         role: "Techlead / Frontend",
@@ -20,6 +9,17 @@ export const teamMembers = [
         fromCountry: "Russia",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/vkumov/"
+    },
+    {
+        id: 2,
+        firstName: "Imane",
+        lastName: "Boumeshouli",
+        role: "Full-Stack",
+        previousJob: "Energy Efficiency & HSE Engineer",
+        photoUrl: "/team/imane.png",
+        fromCountry: "Morocco",
+        currentCountry: "Germany",
+        linkedInUrl: "https://www.linkedin.com/in/imane-boumeshouli/"
     },
     {
         id: 3,

@@ -48,19 +48,21 @@ export const ReportGridContainer = styled(SectionContainer)`
 `
 
 export const ReportPicture = styled.div`
-  
-  max-width: 100%;
+  width: 100%;
 
-  box-shadow: rgba(0, 0, 0, 0.15) 1.5px 1.5px 2px;
-  position:relative;
+  position: relative;
   border-radius: 10px;
-  /* border: 6px solid var(--accent-main); */
-  aspect-ratio: 16 / 9;
-  grid-area: photo;
   background-position: bottom;
-    object-fit:cover;
+  object-fit: cover;
+  background-size: cover; 
+  background-repeat: no-repeat;
+  aspect-ratio: 16 / 9;
+
   margin: 0 0 2rem 0 !important;
-  
+  box-shadow: rgba(0, 0, 0, 0.15) 1.5px 1.5px 2px;
+
+  grid-area: photo;
+
 `
 export const ImageCountLabel = styled.span`
   position: absolute;
@@ -93,4 +95,3 @@ export const ReportContent = styled.div`
 export const ReportNav = styled.div`
   grid-area: btns;
 `
-

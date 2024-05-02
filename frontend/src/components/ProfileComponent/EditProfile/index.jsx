@@ -15,8 +15,8 @@ import {
 } from '../../../styles/elements/forms'
 import { AccentButton } from '../../../styles/elements/buttons'
 import { useState, useEffect } from 'react'
-import coverBg from '../../../assets/photos/ballet.png'
-import avatar from '../../../assets/photos/pavlova.png'
+import coverBg from '../../../assets/photos/default.png'
+import avatar from '../../../assets/icons/user-cl.png'
 
 import { updateUserData } from '../../../axios/UserData'
 import { useNavigate } from 'react-router-dom'
@@ -54,22 +54,6 @@ const EditProfile = () => {
     dispatch(setUserObject(JSON.parse(localStorage.getItem('user'))))
   }, [])
 
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const data = await getMyUserDatas()
-  //         setUserData(data)
-  //       } catch (error) {
-  //         console.error('Error fetching user data: ', error)
-  //       }
-  //     }
-
-  //     fetchData()
-  //   }, [])
-
-  //   if (!userData) {
-  //     return <div>Loading...</div>
-  //   }
 
   const onSubmitChanges = async (e) => {
     e.preventDefault()

@@ -46,7 +46,6 @@ const ReportPage = ({ report }) => {
   const handleDeleteSuccess = () => {
     navigate('/profile/me') // Navigate to profile/me page after successful deletion
   }
-
   return (
     <>
       <ReportCover img={coverBg}>
@@ -85,12 +84,14 @@ const ReportPage = ({ report }) => {
               <TbFileTypePdf /> Download PDF
             </SquareButton>
 
-            {report.author.id === currentUser.id && (
-              <DeleteReport
-                reportId={report.id}
-                onSuccess={handleDeleteSuccess}
-              />
-            )}
+            {report?.author?.id &&
+              currentUser?.id &&
+              report.author.id === currentUser.id && (
+                <DeleteReport
+                  reportId={report.id}
+                  onSuccess={handleDeleteSuccess}
+                />
+              )}
           </ReportButtons>
         </ReportContent>
       </ReportGridContainer>

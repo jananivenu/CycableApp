@@ -7,16 +7,11 @@ import CommentList from '../../../components/Reports/Comments/'
 import ReportPage from '../../../components/Reports/ReportPage'
 import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
-import { SquareButton } from '../../../styles/elements/buttons'
-import DeleteReport from '../DeleteReport'
 import NotFound from '../../NotFound'
-import { AccentButton } from '../../../styles/elements/buttons'
-
 
 const ShowReport = () => {
   const { reportId } = useParams()
   const dispatch = useDispatch()
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (reportId) {
@@ -31,10 +26,6 @@ const ShowReport = () => {
   const error = useSelector((state) => state.reports.error)
   const commentsStatus = useSelector((state) => state.comments.status)
   const commentsError = useSelector((state) => state.comments.error)
-
-  const handleDeleteSuccess = () => {
-    navigate('/profile/me'); // Navigate to profile/me page after successful deletion
-  };
 
   if (status === 'loading') {
     return <AnimatedBikeLoading />
@@ -51,10 +42,7 @@ const ShowReport = () => {
   return (
     <MainContainer>
       <ReportPage report={report} />
-      <AccentButton onClick={handleGeneratePDF} disabled={status === 'loading'}>
-        Download as PDF
-      </AccentButton>
-      <DeleteReport reportId={reportId} onSuccess={handleDeleteSuccess} />
+
       <CommentList
         comments={comments}
         status={commentsStatus}

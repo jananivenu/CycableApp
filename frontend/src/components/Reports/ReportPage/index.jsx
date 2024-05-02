@@ -1,7 +1,6 @@
 import { LeadParagraph, StyledH2 } from '../../../styles/elements/typography'
 
 import coverBg from '../../../assets/photos/map.png'
-import photo from '../../../assets/photos/sample.png'
 import {
   ReportContent,
   ReportCover,
@@ -18,7 +17,10 @@ import ReportAuthor from './Elements/ReportAuthor'
 import ReportType from './Elements/ReportType'
 import Gallery from './Gallery'
 import { useState } from 'react'
-import { generatePDF } from '../../../routes/Reports/ReportToPDF'
+import { generatePDF } from './Elements/ReportToPDF'
+import DeleteReport from './Elements/DeleteReport'
+import { ReportButtons } from './Elements/styles'
+import { TbFileTypePdf } from 'react-icons/tb'
 
 const ReportPage = ({ report }) => {
   const {
@@ -34,13 +36,16 @@ const ReportPage = ({ report }) => {
 
   console.log('the type of this report is : ', incident_type)
   console.log(report)
-  
+
   const date = formatDate(custom_date)
   const [showGallery, setShowGallery] = useState(false)
 
   const hasImages = Array.isArray(images) && images.length > 0
 
   const handleGeneratePDF = () => generatePDF(report)
+  const handleDeleteSuccess = () => {
+    navigate('/profile/me') // Navigate to profile/me page after successful deletion
+  }
 
   return (
     <>
@@ -54,7 +59,6 @@ const ReportPage = ({ report }) => {
             <CaseRow type="calendar" content={date} />
           </CaseBodyContainer>
           <ReportType type={incident_type} />
-          {/* <StyledH2>Bicycle Accident</StyledH2> */}
         </ReportInfo>
         {hasImages &&
           images.map((image, index) => (
@@ -65,7 +69,6 @@ const ReportPage = ({ report }) => {
               onClick={() => setShowGallery(true)}
             />
           ))}{' '}
-
         {/* When we can include the user-uploaded image, uncomment the line below and replace 'report.image' with the actual property where the image is stored */}
         {/* <ReportPicture className="report-picture" src={URL.createObjectURL(report.image)} /> */}
         <Gallery
@@ -77,12 +80,15 @@ const ReportPage = ({ report }) => {
           <LeadParagraph>
             {description} <ReportAuthor author={author} />
           </LeadParagraph>
-          <SquareButton
-            onClick={handleGeneratePDF}
-            disabled={status === 'loading'}
-          >
-            Download PDF
-          </SquareButton>
+          <ReportButtons>
+            <SquareButton onClick={handleGeneratePDF}>
+              <TbFileTypePdf /> Download PDF
+            </SquareButton>
+            <DeleteReport
+              reportId={report.id}
+              onSuccess={handleDeleteSuccess}
+            />
+          </ReportButtons>
         </ReportContent>
       </ReportGridContainer>
     </>

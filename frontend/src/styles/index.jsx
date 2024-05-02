@@ -150,6 +150,25 @@ export const GridSectionContainer = styled.section`
   }
 `
 
+export const GridTwoColumns= styled.div`
+  width: 100%;
+
+  padding: 2rem 0;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 1rem;
+  }
+`
+
 export const ComposeIconTitleWrapper = styled.div`
   display: flex;
   gap: 1rem;

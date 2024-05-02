@@ -47,20 +47,30 @@ export const ReportGridContainer = styled(SectionContainer)`
   }
 `
 
-export const ReportPicture = styled.img`
-  max-height: 100%;
+export const ReportPicture = styled.div`
+  
   max-width: 100%;
 
   box-shadow: rgba(0, 0, 0, 0.15) 1.5px 1.5px 2px;
-
+  position:relative;
   border-radius: 10px;
   /* border: 6px solid var(--accent-main); */
-
+  aspect-ratio: 16 / 9;
   grid-area: photo;
-
-  width: 100%;
+  background-position: bottom;
+    object-fit:cover;
   margin: 0 0 2rem 0 !important;
-  object-fit: cover;
+  
+`
+export const ImageCountLabel = styled.span`
+  position: absolute;
+  top: 0.5rem; /* Adjust the top position as needed */
+  left: 0.5rem; /* Adjust the left position as needed */
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
 `
 
 export const ReportInfo = styled.div`
@@ -83,3 +93,4 @@ export const ReportContent = styled.div`
 export const ReportNav = styled.div`
   grid-area: btns;
 `
+

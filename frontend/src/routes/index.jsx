@@ -33,12 +33,9 @@ const Router = () => {
           <Route path="/about" element={<About />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/safety-tips" element={<SafetyTips />} />
-
           <Route path="/profile/:user_id" element={<SpecificUserProfile />} />
-
           <Route path="/reports" element={<Reports />} />
           <Route path="/reports/:reportId" element={<ShowReport />} />
-          <Route path="/new-report" element={<CreateReport />} />
         </Route>
         <Route element={<ProtectedRoutes />}>
           <Route path="/new-report" element={<CreateReport />} />

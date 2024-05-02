@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../../../store/slices/userSlice'
 import UserAxios from '../../../axios'
-import { StyledH2 } from '../../../styles/elements/typography'
+import { StyledH2, StyledLink } from '../../../styles/elements/typography'
 import {
   AuthForm,
   InputGroup,
@@ -26,9 +26,7 @@ const Login = () => {
         email: email,
         password: password,
       })
-      console.log('API login response:', response)
       if (response.data.access) {
-        console.log('Token saved to localStorage:', response.data.access)
         localStorage.setItem('token', response.data.access)
         dispatch(
           loginUser({
@@ -79,7 +77,8 @@ const Login = () => {
           <AccentButton>Login</AccentButton>
         </AuthForm>
         <p>
-          Not a user yet? Please <Link to="/registration">register here</Link>.
+          Not a user yet? Please{' '}
+          <StyledLink to="/registration">register here</StyledLink>.
         </p>
       </NarrowSectionContainer>
     </MainContainer>

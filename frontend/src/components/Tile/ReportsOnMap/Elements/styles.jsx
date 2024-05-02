@@ -59,14 +59,19 @@ export const ReportPreviewImage = styled.div`
   display: flex;
   grid-template-columns: min-content 1fr;
   align-items: center;
-  justify-content: center;
-  overflow: hide;
-
+  justify-content:center;
+  overflow: hidden;
+  
   margin-bottom: 0.6rem;
+   
 `
 
-export const PreviewImage = styled.img`
-  max-width: 100%;
+export const PreviewImage = styled.div`
+    object-fit: cover;
+    width: 100%; /* Set the width of the container */
+    height: 170px; /* Set the height of the container */
+    background-size: cover;
+    background-position: bottom;
 `
 
 export const ShowDetailsLink = styled(Link)`

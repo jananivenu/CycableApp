@@ -112,7 +112,6 @@ export const NarrowSectionContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* gap: 1rem; */
 
   max-width: 612px;
   min-height: 90%;
@@ -160,12 +159,12 @@ export const GridTwoColumns= styled.div`
   gap: 3rem;
 
   @media (max-width: 768px) {
-    padding: 1rem 2rem;
+    padding: 1rem 0;
     grid-template-columns: 1fr;
   }
 
   @media (max-width: 480px) {
-    padding: 1rem 1rem;
+    padding: 1rem 0;
   }
 `
 

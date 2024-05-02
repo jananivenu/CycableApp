@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const LeadParagraph = styled.p`
@@ -29,5 +30,31 @@ export const StyledH3 = styled.h3`
 
   @media (max-width: 480px) {
     font-size: 1.5rem;
+  }
+`
+
+export const NotaBene = styled.p`
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+`
+
+export const StyledA = styled.a`
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: var(--accent-main);
+  }
+`
+
+export const StyledLink = styled(Link)`
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: var(--accent-main);
   }
 `

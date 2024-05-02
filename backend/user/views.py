@@ -3,7 +3,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView, get_object_or_
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from user.serializers import UserSerializer, UserPrivateSerializer, UserAnonymousSerializer
+from user.serializers import UserSerializer
 
 from project.permissions import IsSelfOrReadOnly
 

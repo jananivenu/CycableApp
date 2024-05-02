@@ -3,7 +3,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView, get_object_or_
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from user.serializers import UserSerializer, UserPrivateSerializer, UserAnonymousSerializer
+from user.serializers import UserSerializer
 
 from project.permissions import IsSelfOrReadOnly
 
@@ -36,16 +36,17 @@ class ReadUpdateDeleteMyUserView(RetrieveUpdateDestroyAPIView):
 class RetrieveUserByPrivacyLevelView(RetrieveAPIView):
     queryset = User.objects.all()
     permission_classes = [AllowAny]
+    serializer_class = UserSerializer
     lookup_url_kwarg = 'user_id'
 
-    def get_serializer_class(self):
-        user = self.get_object()
-        if user.privacy_level == "show_all":
-            return UserSerializer
-        elif user.privacy_level == "only_show_info":
-            return UserPrivateSerializer
-        else:
-            return UserAnonymousSerializer
+    # def get_serializer_class(self):
+    #     user = self.get_object()
+    #     if user.privacy_level == "show_all":
+    #         return UserSerializer
+    #     elif user.privacy_level == "only_show_info":
+    #         return UserPrivateSerializer
+    #     else:
+    #         return UserAnonymousSerializer
 
     def get_object(self):
         obj = get_object_or_404(User, id=self.kwargs['user_id'])

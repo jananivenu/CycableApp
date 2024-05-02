@@ -52,7 +52,6 @@ export const ReportPreviewRow = styled.div`
   padding: 0.2rem 0.8rem 0.2rem 0.6rem;
 
   font-size: 0.9rem;
-  font-weight: 500;
 `
 
 export const ReportPreviewImage = styled.div`

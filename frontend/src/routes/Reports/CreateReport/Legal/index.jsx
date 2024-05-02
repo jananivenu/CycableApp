@@ -17,7 +17,7 @@ import Description from '../Elements/Description'
 import LocationPicker from '../Elements/Location'
 import Images from '../Elements/Images'
 
-function LegalReport() {
+function LegalReport({ onCloseModal }) {
   const dispatch = useDispatch()
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
@@ -72,6 +72,9 @@ function LegalReport() {
   const closeModal = () => {
     resetForm()
     setModalIsOpen(false)
+    if (onCloseModal) {
+      onCloseModal()
+    }
   }
 
   return (

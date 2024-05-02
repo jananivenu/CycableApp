@@ -22,6 +22,7 @@ const Map = () => {
   const error = useSelector((state) => state.reports.error)
   const mapRef = useRef(null)
 
+  const [isExpanded, setIsExpanded] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null)
   const [viewport, setViewport] = useState({
     latitude: 48.13610080093856,
@@ -52,41 +53,45 @@ const Map = () => {
     }
   }, [viewport, fetchReportsDebounced])
 
-
   const handleMarkerClick = (report) => {
     if (mapRef.current) {
-      const map = mapRef.current.getMap();
-      const mapCanvas = map.getCanvas();
-      const h = mapCanvas.height;
-  
-      const markerLngLat = new mapboxgl.LngLat(report.longitude, report.latitude);
-      const markerPoint = map.project(markerLngLat);
-      const currentCenterPoint = map.project(map.getCenter());
-  
-      let deltaY = 0;
-  
+      const map = mapRef.current.getMap()
+      const mapCanvas = map.getCanvas()
+      const h = mapCanvas.height
+
+      const markerLngLat = new mapboxgl.LngLat(
+        report.longitude,
+        report.latitude,
+      )
+      const markerPoint = map.project(markerLngLat)
+      const currentCenterPoint = map.project(map.getCenter())
+
+      let deltaY = 0
+
       if (markerPoint.y < 500) {
-        deltaY = markerPoint.y - 500;
+        deltaY = markerPoint.y - 500
       }
-  
+
       if (h - markerPoint.y < 50) {
-        deltaY = (h - markerPoint.y) - 50;
+        deltaY = h - markerPoint.y - 50
       }
-  
+
       if (deltaY !== 0) {
-        const newCenterPoint = new mapboxgl.Point(currentCenterPoint.x, currentCenterPoint.y + deltaY);
-        const newCenterLngLat = map.unproject(newCenterPoint);
+        const newCenterPoint = new mapboxgl.Point(
+          currentCenterPoint.x,
+          currentCenterPoint.y + deltaY,
+        )
+        const newCenterLngLat = map.unproject(newCenterPoint)
         map.flyTo({
           center: newCenterLngLat,
-          essential: true
-        });
+          essential: true,
+        })
       }
-  
-      setPopupInfo(report);
+
+      setPopupInfo(report)
     }
   }
 
-  
   const heatmapData = createHeatmapData(reports)
 
   const onClose = useCallback(() => {
@@ -126,7 +131,11 @@ const Map = () => {
         />
         <NavigationControl />
       </ReactMapGl>
-      <MapPanel reports={reports} />
+      <MapPanel
+        reports={reports}
+        isExpanded={isExpanded}
+        onClick={() => setIsExpanded(!isExpanded)}
+      />
     </MapWrapper>
   )
 }

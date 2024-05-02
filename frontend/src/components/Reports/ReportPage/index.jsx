@@ -21,6 +21,7 @@ import { generatePDF } from './Elements/ReportToPDF'
 import DeleteReport from './Elements/DeleteReport'
 import { ReportButtons } from './Elements/styles'
 import { TbFileTypePdf } from 'react-icons/tb'
+import { useSelector } from 'react-redux'
 
 const ReportPage = ({ report }) => {
   const {
@@ -36,6 +37,9 @@ const ReportPage = ({ report }) => {
 
   console.log('the type of this report is : ', incident_type)
   console.log(report)
+
+  const currentUser = useSelector((state) => state.user.user);
+
 
   const date = formatDate(custom_date)
   const [showGallery, setShowGallery] = useState(false)
@@ -84,10 +88,9 @@ const ReportPage = ({ report }) => {
             <SquareButton onClick={handleGeneratePDF}>
               <TbFileTypePdf /> Download PDF
             </SquareButton>
-            <DeleteReport
-              reportId={report.id}
-              onSuccess={handleDeleteSuccess}
-            />
+            {/* {report.author.id === currentUser.id && (
+        <DeleteReport reportId={reportId} onSuccess={handleDeleteSuccess} />
+      )} */}
           </ReportButtons>
         </ReportContent>
       </ReportGridContainer>

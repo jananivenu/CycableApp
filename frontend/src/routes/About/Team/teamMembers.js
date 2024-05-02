@@ -5,7 +5,7 @@ export const teamMembers = [
         lastName: "Boumeshouli",
         role: "Full-Stack",
         previousJob: "Energy Efficiency & HSE Engineer",
-        photoUrl: "../../src/assets/photos/imane.png",
+        photoUrl: "/assets/photos/imane.png",
         fromCountry: "Morocco",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/imane-boumeshouli/"
@@ -16,7 +16,7 @@ export const teamMembers = [
         lastName: "Kumov",
         role: "Techlead / Frontend",
         previousJob: "Leader of the Russian urban cycling advocacy project Let’s bike it!",
-        photoUrl: "../../src/assets/photos/vladimir.png",
+        photoUrl: "/assets/photos/vladimir.png",
         fromCountry: "Russia",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/vkumov/"
@@ -27,7 +27,7 @@ export const teamMembers = [
         lastName: "Pinjuh",
         role: "Frontend",
         previousJob: "CNC mechanic",
-        photoUrl: "../../src/assets/photos/toni.png",
+        photoUrl: "/assets/photos/toni.png",
         fromCountry: "Croatia",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/toni-pinjuh/"
@@ -38,7 +38,7 @@ export const teamMembers = [
         lastName: "Softic",
         role: "Frontend",
         previousJob: "Graphic designer",
-        photoUrl: "../../src/assets/photos/michael.png",
+        photoUrl: "/assets/photos/michael.png",
         fromCountry: "Bosnia and Herzegovina",
         currentCountry: "Switzerland",
         linkedInUrl: "https://www.linkedin.com/in/mihaelsoftic/"
@@ -49,7 +49,7 @@ export const teamMembers = [
         lastName: "Venugopal",
         role: "Full-Stack",
         previousJob: "Software Test Engineer",
-        photoUrl: "../../src/assets/photos/janani.png",
+        photoUrl: "/assets/photos/janani.png",
         fromCountry: "India",
         currentCountry: "Germany",
         linkedInUrl: "https://www.linkedin.com/in/janani-venugopal/"

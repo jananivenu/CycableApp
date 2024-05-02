@@ -4,7 +4,7 @@ function MapReportImg({ images }) {
   return (
     <ReportPreviewImage>
       {images.length > 0 && (
-        <PreviewImage src={images[0].images} alt="Description" />
+        <PreviewImage  style={{ backgroundImage: `url(${images[0].images})` }} alt="Description" />
       )}
     </ReportPreviewImage>
   )

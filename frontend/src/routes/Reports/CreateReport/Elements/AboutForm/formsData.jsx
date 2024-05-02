@@ -26,7 +26,7 @@ const formsData = {
     ),
   },
   nearMiss: {
-    title: 'Dangerous Location',
+    title: 'Near Miss',
     content: (
       <>
         We empathize with the stress of experiencing a near miss or encountering
@@ -34,7 +34,7 @@ const formsData = {
         share your experience and help us address this issue within our
         community. Did you experience a near miss or encounter a hazardous
         location? Don't hesitate to report it! By providing details such as{' '}
-        <strong>the location</strong>, and any
+        <strong>the location</strong>, or any
         <strong> involved parties,</strong> you're contributing to creating
         safer streets for cyclists.
       </>

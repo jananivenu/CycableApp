@@ -23,7 +23,7 @@ import IntroDescription from './IntroDescription.jsx'
 import IntroYesNo from './IntroYesNo.jsx'
 import IntroImages from './IntroImages.jsx'
 
-const TheftReport = () => {
+const TheftReport = ({ onCloseModal }) => {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
@@ -87,6 +87,9 @@ const TheftReport = () => {
   const closeModal = () => {
     resetForm()
     setModalIsOpen(false)
+    if (onCloseModal) {
+      onCloseModal()
+    }
   }
 
   return (

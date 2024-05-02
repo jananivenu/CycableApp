@@ -1,4 +1,5 @@
-import { MapCounterNumbers, MapCounterWrapper } from './styles'
+import { CounterLine, MapCounterNumbers, MapCounterWrapper } from './styles'
+import { GoDotFill } from 'react-icons/go'
 
 function MapCounter({ reports }) {
   const countIncidentsInView = () => {
@@ -16,10 +17,24 @@ function MapCounter({ reports }) {
     <MapCounterWrapper>
       <h4>Number of reports</h4>
       <MapCounterNumbers>
-        <div>Violations: {incidentsInView['violations'] || 0}</div>
-        <div>Bicycle accident: {incidentsInView['bicycle_accident'] || 0}</div>
-        <div>Near miss: {incidentsInView['near_miss'] || 0}</div>
-        <div>Bicycle theft: {incidentsInView['bicycle_theft'] || 0}</div>
+        <CounterLine>
+          <GoDotFill style={{ color: 'var(--accent-red)' }} />
+          Accidents:
+          <strong>{incidentsInView['bicycle_accident'] || 0}</strong>
+        </CounterLine>
+        <CounterLine>
+          <GoDotFill style={{ color: 'var(--accent-orange)' }} />
+          Near miss: <strong>{incidentsInView['near_miss'] || 0}</strong>
+        </CounterLine>
+        <CounterLine>
+          <GoDotFill style={{ color: 'var(--accent-blue)' }} />
+          Thefts:
+          <strong>{incidentsInView['bicycle_theft'] || 0}</strong>
+        </CounterLine>
+        <CounterLine>
+          <GoDotFill style={{ color: 'var(--accent-main)' }} />
+          Ideas: <strong>{incidentsInView['violations'] || 0}</strong>
+        </CounterLine>
       </MapCounterNumbers>
     </MapCounterWrapper>
   )

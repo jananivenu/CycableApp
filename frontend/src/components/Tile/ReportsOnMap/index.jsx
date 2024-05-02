@@ -9,7 +9,7 @@ import MapReportImg from './Elements/MapReportImg'
 function ReportOnMap({ report, onClose }) {
   const { id, address, description, created_at, incident_type, images } = report
 
-  const truncatedComment = truncateText(description, 200)
+  const truncatedComment = truncateText(description, 100)
   const date = formatDate(created_at)
 
   return (

@@ -13,6 +13,7 @@ import MarkersList from '../Markers/MarkersList'
 
 import { MapWrapper } from './styles'
 import MapPanel from './MapPanel'
+import mapboxgl from 'mapbox-gl'
 
 const Map = () => {
   const dispatch = useDispatch()
@@ -51,15 +52,41 @@ const Map = () => {
     }
   }, [viewport, fetchReportsDebounced])
 
+
   const handleMarkerClick = (report) => {
     if (mapRef.current) {
-      mapRef.current.getMap().flyTo({
-        center: [report.longitude, report.latitude],
-        essential: true,
-      })
+      const map = mapRef.current.getMap();
+      const mapCanvas = map.getCanvas();
+      const h = mapCanvas.height;
+  
+      const markerLngLat = new mapboxgl.LngLat(report.longitude, report.latitude);
+      const markerPoint = map.project(markerLngLat);
+      const currentCenterPoint = map.project(map.getCenter());
+  
+      let deltaY = 0;
+  
+      if (markerPoint.y < 500) {
+        deltaY = markerPoint.y - 500;
+      }
+  
+      if (h - markerPoint.y < 50) {
+        deltaY = (h - markerPoint.y) - 50;
+      }
+  
+      if (deltaY !== 0) {
+        const newCenterPoint = new mapboxgl.Point(currentCenterPoint.x, currentCenterPoint.y + deltaY);
+        const newCenterLngLat = map.unproject(newCenterPoint);
+        map.flyTo({
+          center: newCenterLngLat,
+          essential: true
+        });
+      }
+  
+      setPopupInfo(report);
     }
-    setPopupInfo(report)
   }
+
+  
   const heatmapData = createHeatmapData(reports)
 
   const onClose = useCallback(() => {
@@ -79,8 +106,8 @@ const Map = () => {
         // dragPan={false}
         scrollZoom={false}
       >
-        {viewport.zoom <= 8 && <HeatmapLayer data={heatmapData} />}
-        {viewport.zoom >= 8 && (
+        {viewport.zoom <= 11 && <HeatmapLayer data={heatmapData} />}
+        {viewport.zoom >= 11 && (
           <>
             <HeatmapLayer data={heatmapData} />
             <MarkersList

@@ -7,7 +7,7 @@ export const TypeMenuItem = styled.div`
   align-items: center;
   gap: 0.3rem;
 
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 8px;
 
   cursor: pointer;
@@ -24,25 +24,11 @@ export const TypeMenuItem = styled.div`
 export const TypesIcon = styled.img`
   width: 2rem;
   height: 2rem;
-
-  @media (max-width: 768px) {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
 `
 
 export const TypeName = styled.h4`
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 400;
   line-height: 1.2;
   text-align: center;
-
-  @media (max-width: 768px) {
-    font-size: 1rem;
-  }
 `

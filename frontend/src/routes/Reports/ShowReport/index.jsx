@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchReportsAsync } from '../../../store/slices/reportsSlice'
 import { fetchCommentsAsync } from '../../../store/slices/commentsSlice'
@@ -7,9 +7,7 @@ import CommentList from '../../../components/Reports/Comments/'
 import ReportPage from '../../../components/Reports/ReportPage'
 import { MainContainer } from '../../../styles'
 import AnimatedBikeLoading from '../../../components/trivias/Loading'
-import { generatePDF } from '../ReportToPDF'
 import NotFound from '../../NotFound'
-import { AccentButton } from '../../../styles/elements/buttons'
 
 const ShowReport = () => {
   const { reportId } = useParams()
@@ -29,8 +27,6 @@ const ShowReport = () => {
   const commentsStatus = useSelector((state) => state.comments.status)
   const commentsError = useSelector((state) => state.comments.error)
 
-  const handleGeneratePDF = () => generatePDF(report)
-
   if (status === 'loading') {
     return <AnimatedBikeLoading />
   }
@@ -46,9 +42,7 @@ const ShowReport = () => {
   return (
     <MainContainer>
       <ReportPage report={report} />
-      <AccentButton onClick={handleGeneratePDF} disabled={status === 'loading'}>
-        Download as PDF
-      </AccentButton>
+
       <CommentList
         comments={comments}
         status={commentsStatus}

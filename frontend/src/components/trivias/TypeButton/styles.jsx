@@ -22,8 +22,8 @@ export const TypeMenuItem = styled.div`
 `
 
 export const TypesIcon = styled.img`
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
 
   @media (max-width: 768px) {
     width: 2rem;
@@ -37,7 +37,7 @@ export const TypesIcon = styled.img`
 `
 
 export const TypeName = styled.h4`
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.2;
   text-align: center;

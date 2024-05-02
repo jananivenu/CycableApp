@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchReports } from '../../axios/fetchReports';
+import { fetchReports, deleteReport } from '../../axios/fetchReports';
 
 // All
 export const fetchAllReportsAsync = createAsyncThunk(
@@ -27,6 +27,7 @@ export const fetchReportsAsync = createAsyncThunk(
   }
 );
 
+// By user ID
 export const fetchReportsByUserIdAsync = createAsyncThunk(
   'reports/fetchReportsByUserId',
   async (userId, { rejectWithValue }) => {
@@ -38,6 +39,20 @@ export const fetchReportsByUserIdAsync = createAsyncThunk(
     }
   }
 );
+
+// Fetch Reports by Coordinates
+export const fetchReportsByCoordinatesAsync = createAsyncThunk(
+  'reports/fetchReportsByCoordinates',
+  async (coords, { rejectWithValue }) => {
+    try {
+      const data = await fetchReports(null, null, coords);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+  }
+);
+
 
 const initialState = {
   reports: [],
@@ -65,6 +80,7 @@ const reportsSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload ? action.payload.error : null;
       })
+
       // by ID
       .addCase(fetchReportsAsync.pending, (state) => {
         state.status = 'loading';
@@ -77,6 +93,7 @@ const reportsSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload ? action.payload.error : null;
       })
+
       //by user
       .addCase(fetchReportsByUserIdAsync.pending, (state) => {
         state.status = 'loading';
@@ -88,8 +105,37 @@ const reportsSlice = createSlice({
       .addCase(fetchReportsByUserIdAsync.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload ? action.payload.error : null;
+      })
+
+      // by Coordinates
+      .addCase(fetchReportsByCoordinatesAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchReportsByCoordinatesAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.reports = action.payload;
+      })
+      .addCase(fetchReportsByCoordinatesAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload ? action.payload.error : null;
       });
   },
 });
+
+export const deleteReportAsync = createAsyncThunk(
+  'reports/deleteReport',
+  async (reportId, { rejectWithValue }) => {
+    try {
+      // Call your API function to delete the report
+      await deleteReport(reportId);
+      return reportId; // Return the reportId if deletion is successful
+    } catch (error) {
+      // If deletion fails, reject the promise with the error message
+      return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+  }
+);
+
+    
 
 export default reportsSlice.reducer;

@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
+import { TbLogin2 } from 'react-icons/tb'
 
 import {
   LinkLikeAccentButton,
   LinkLikeSimpleButton,
+  LinkLikeSimpleButtonMobile,
   NavButtonsContainer,
 } from '../styles'
-import NavLogout from './DropDownMenu/NavLogout'
 import Avatar from './Avatar'
 
 function NavButtons() {
@@ -17,15 +18,17 @@ function NavButtons() {
       {isLoggedIn ? (
         <>
           <Avatar avatar={avatar} />
-          {/* <NavLogout /> */}
         </>
       ) : (
-        <LinkLikeSimpleButton to="/login">Sign In</LinkLikeSimpleButton>
+        <>
+          <LinkLikeSimpleButton to="/login">Sign In</LinkLikeSimpleButton>
+          <LinkLikeSimpleButtonMobile to="/login">
+            <TbLogin2 />
+          </LinkLikeSimpleButtonMobile>
+        </>
       )}
 
-      <LinkLikeAccentButton to="/new-report">
-        Add Report
-      </LinkLikeAccentButton>
+      <LinkLikeAccentButton to="/new-report">Add Report</LinkLikeAccentButton>
     </NavButtonsContainer>
   )
 }

@@ -16,20 +16,24 @@ import {
 import sendReport from '../../../../axios/sendReport.js'
 import Images from '../Elements/Images/index.jsx'
 import LocationPicker from '../Elements/Location/index.jsx'
-import ThankYouMessage from '../Elements/ThankYouMessage/ThankYouMessage.jsx'
 import formsData from '../Elements/AboutForm/formsData.jsx'
 import AboutForm from '../Elements/AboutForm/index.jsx'
 import YesNoButtonGroup from '../Elements/YesNo/index.jsx'
 import Description from '../Elements/Description/index.jsx'
 import { InLineGroup } from '../styles.jsx'
+import IntroYesNo from './IntroYesNo.jsx'
+import IntroImages from './IntroImages.jsx'
+import IntroDescription from './IntroDescription.jsx'
+import ThankYouModal from '../Elements/ThankYouMessage/ThankYouModal.jsx'
 
-function AccidentReport() {
+function AccidentReport({ onCloseModal }) {
   const dispatch = useDispatch()
 
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
-  const [successMsg, setSuccessMsg] = useState(false)
-  const [errorMsg, setErrorMsg] = useState(null)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [policeCallStatus, setPoliceCallStatus] = useState(null)
+
   const { title, content } = formsData.bicycleAccident
 
   const INVOLVED_PARTIES_CHOICES = [
@@ -44,8 +48,9 @@ function AccidentReport() {
     'Other',
   ]
 
-  const handleWasPoliceCalledChange = (newValue) => {
-    dispatch(setAccidentReport({ was_police_called: newValue }))
+  const handleWasPoliceCalledChange = (status) => {
+    setPoliceCallStatus(status)
+    dispatch(setAccidentReport({ was_police_called: status }))
   }
 
   const handleImagesChange = (imageFiles) => {
@@ -61,20 +66,6 @@ function AccidentReport() {
       dispatch(setAccidentReport({ involved_parties: value }))
     } else {
       dispatch(setCommonFields({ [id]: value }))
-    }
-  }
-
-  const handleBlur = (e) => {
-    const { id } = e.target
-    if (id === 'was_police_called' && !reportData.was_police_called) {
-      setErrorMsg('Please select an option.')
-    } else if (
-      id === 'involved_parties' &&
-      reportData.involved_parties === ''
-    ) {
-      setErrorMsg('Please select an option.')
-    } else {
-      setErrorMsg(null)
     }
   }
 
@@ -94,77 +85,90 @@ function AccidentReport() {
     })
     try {
       await sendReport(formData)
+      setModalIsOpen(true)
     } catch (error) {
       console.log('error sending the report:', error)
+      setModalIsOpen(false)
     }
-    setSuccessMsg(true)
+  }
+
+  const resetForm = () => {
+    dispatch(
+      setCommonFields({
+        description: '',
+        longitude: '',
+        latitude: '',
+        address: '',
+        custom_date: '',
+        incident_type: '',
+      }),
+    )
+    setUploadedImages([])
+  }
+
+  const closeModal = () => {
+    resetForm()
+    setModalIsOpen(false)
+    if (onCloseModal) {
+      onCloseModal()
+    }
   }
 
   return (
     <>
-      {!successMsg && (
-        <GridSectionContainer>
-          <BasicForm>
-            <AboutForm title={title}>{content}</AboutForm>
-            <LocationPicker />
-            <DatePicker />
-            <QuestionGroup>
-              <StyledH3>
-                Was the police called to document the accident?
-              </StyledH3>
-              <InLineGroup>
-                <YesNoButtonGroup
-                  value={reportData.was_police_called === 'True'}
-                  onChange={handleWasPoliceCalledChange}
-                />
-              </InLineGroup>
-            </QuestionGroup>
-            <QuestionGroup onBlur={handleBlur}>
-              <StyledH3>Who was involved in the accident?</StyledH3>
-              <select
-                id="involved_parties"
-                value={reportData.involved_parties}
-                onChange={inputHandler}
-              >
-                <option value="" disabled>
-                  Please Choose
-                </option>
-                {INVOLVED_PARTIES_CHOICES.map((party, index) => (
-                  <option key={index} value={party}>
-                    {party}
-                  </option>
-                ))}
-              </select>
-              {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
-            </QuestionGroup>
-            <QuestionGroup>
-              <p>
-                If possible, please attach photo/s of the scene of the bike
-                accident, including the location where it occurred.
-                Additionally, if available, include a photo of any damages to
-                the bicycle or other vehicles involved.
-              </p>
-              <Images onImagesChange={handleImagesChange} />
-            </QuestionGroup>
-            <QuestionGroup>
-              <StyledH3>Comment</StyledH3>
-              <p>
-                Feel free to provide additional details about the accident to
-                assist fellow cyclists and support our community in promoting
-                safety on the roads.{' '}
-              </p>
-              <Description
-                value={reportData.description}
-                onChange={inputHandler}
+      <GridSectionContainer>
+        <BasicForm onSubmit={handleSubmit}>
+          <AboutForm title={title}>{content}</AboutForm>
+
+          <LocationPicker />
+          <DatePicker />
+
+          <QuestionGroup>
+            <IntroYesNo />
+            <InLineGroup>
+              <YesNoButtonGroup
+                value={policeCallStatus}
+                onChange={handleWasPoliceCalledChange}
               />
-            </QuestionGroup>
-            <div>
-              <AccentButton onClick={handleSubmit}>Send</AccentButton>
-            </div>
-          </BasicForm>
-        </GridSectionContainer>
-      )}
-      {successMsg && <ThankYouMessage />}
+            </InLineGroup>
+          </QuestionGroup>
+
+          <QuestionGroup>
+            <StyledH3>Who was involved in the accident?</StyledH3>
+            <select
+              id="involved_parties"
+              value={reportData.involved_parties}
+              onChange={inputHandler}
+            >
+              <option value="" disabled>
+                Please Choose
+              </option>
+              {INVOLVED_PARTIES_CHOICES.map((party, index) => (
+                <option key={index} value={party}>
+                  {party}
+                </option>
+              ))}
+            </select>
+          </QuestionGroup>
+
+          <QuestionGroup>
+            <IntroImages />
+            <Images onImagesChange={handleImagesChange} />
+          </QuestionGroup>
+
+          <QuestionGroup>
+            <IntroDescription />
+            <Description
+              value={reportData.description}
+              onChange={inputHandler}
+            />
+          </QuestionGroup>
+          <div>
+            <AccentButton onClick={handleSubmit}>Send</AccentButton>
+          </div>
+        </BasicForm>
+      </GridSectionContainer>
+      <ThankYouModal isOpen={modalIsOpen} onClose={closeModal} />
     </>
   )
 }

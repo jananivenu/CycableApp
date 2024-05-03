@@ -27,3 +27,11 @@ export const AuthorAvatar = styled.img`
   height: 1.5rem;
   border-radius: 50%;
 `
+
+export const ReportButtons = styled.div`
+width: 100%;
+  margin-top: 3rem;
+
+  display: flex;
+  gap: 1rem;
+`

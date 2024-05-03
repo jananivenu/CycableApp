@@ -1,7 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import { MainContainer, NarrowSectionContainer } from '../../../../styles'
+import {
+  MainContainer,
+  NarrowSectionContainer,
+  SectionContainer,
+} from '../../../../styles'
 import { AccentButton } from '../../../../styles/elements/buttons'
-import { LeadParagraph, StyledH2 } from '../../../../styles/elements/typography'
+import { StyledH3 } from '../../../../styles/elements/typography'
 
 const RegistrationMessage = () => {
   const navigate = useNavigate()
@@ -13,8 +17,13 @@ const RegistrationMessage = () => {
   return (
     <MainContainer>
       <NarrowSectionContainer>
-        <StyledH2>Registration Successful!</StyledH2>
-        <AccentButton onClick={handleRedirect}>Login</AccentButton>
+        <SectionContainer>
+          <StyledH3>
+            Welcome to the community, You've successfully registered!
+          </StyledH3>
+
+          <AccentButton onClick={handleRedirect}>Go to Login Page</AccentButton>
+        </SectionContainer>
       </NarrowSectionContainer>
     </MainContainer>
   )

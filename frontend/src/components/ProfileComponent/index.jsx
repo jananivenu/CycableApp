@@ -7,8 +7,8 @@ import {
   ProfilePictureWrapper,
 } from './styles'
 
-import coverBg from '../../assets/photos/ballet.png'
-import avatar from '../../assets/photos/pavlova.png'
+import coverBg from '../../assets/photos/default.png'
+import avatar from '../../assets/icons/user-cl.png'
 import {
   LeadParagraph,
   StyledH2,
@@ -65,7 +65,6 @@ const UserProfile = () => {
           <p>Member since {formatDate(userData.joined_date)} </p>
         </ProfileAbout>
       </ProfileGridContainer>
-
       <SectionContainer>
         <StyledH3>Reports</StyledH3>
         <UserReportList userId={userData.id} />

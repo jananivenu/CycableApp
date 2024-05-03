@@ -63,6 +63,19 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  .mapboxgl-popup {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  .mapboxgl-popup-content {
+    padding: 0;
+    background: none;
+    border-radius: 10px;
+
+  }
 `
 
 export const MainContainer = styled.main`
@@ -99,7 +112,6 @@ export const NarrowSectionContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* gap: 1rem; */
 
   max-width: 612px;
   min-height: 90%;
@@ -134,6 +146,25 @@ export const GridSectionContainer = styled.section`
 
   @media (max-width: 480px) {
     padding: 1rem 1rem;
+  }
+`
+
+export const GridTwoColumns= styled.div`
+  width: 100%;
+
+  padding: 2rem 0;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 0;
   }
 `
 

@@ -57,6 +57,23 @@ const StackedBarChart = () => {
                 labels: labels,
                 datasets: datasets
             };
+            const options = {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value) { if (value % 1 === 0) { return value; } }
+                }
+            }]
+        }
+    };
 
             setChartData(data);
         } catch (error) {
@@ -67,7 +84,7 @@ const StackedBarChart = () => {
     return (
         <div>
             <h2>Stacked Bar Chart Example</h2>
-            <Bar data={chartData} />
+            <Bar data={chartData} options={options}/>
         </div>
     );
 };

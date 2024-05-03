@@ -1,6 +1,6 @@
 import type {HeatmapLayer} from 'react-map-gl';
 
-const MAX_ZOOM_LEVEL = 9;
+const MAX_ZOOM_LEVEL = 12; 
 
 export const heatmapLayer: HeatmapLayer = {
   id: 'heatmap',
@@ -9,12 +9,9 @@ export const heatmapLayer: HeatmapLayer = {
   paint: {
     // Increase the heatmap weight based on frequency and property magnitude
     'heatmap-weight': ['interpolate', ['linear'], ['get', 'mag'], 0, 0, 6, 1],
-    // Increase the heatmap color weight weight by zoom level
-    // heatmap-intensity is a multiplier on top of heatmap-weight
+    // Increase the heatmap color weight by zoom level
     'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, MAX_ZOOM_LEVEL, 3],
-    // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-    // Begin color ramp at 0-stop with a 0-transparancy color
-    // to create a blur-like effect.
+    // Color ramp for heatmap. Domain is 0 (low) to 1 (high).
     'heatmap-color': [
       'interpolate',
       ['linear'],
@@ -35,6 +32,6 @@ export const heatmapLayer: HeatmapLayer = {
     // Adjust the heatmap radius by zoom level
     'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, MAX_ZOOM_LEVEL, 20],
     // Transition from heatmap to circle layer by zoom level
-    'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0]
+    'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 8, 1, 12, 0]
   }
 };

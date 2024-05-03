@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GridSectionContainer } from '../../../../styles'
 import {
@@ -21,12 +21,13 @@ import {
 import sendReport from '../../../../axios/sendReport'
 import ThankYouModal from '../Elements/ThankYouMessage/ThankYouModal'
 
-const NearMiss = () => {
+const NearMiss = ({ onCloseModal }) => {
   const dispatch = useDispatch()
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [errorMsg, setErrorMsg] = useState(null)
+
   const { title, content } = formsData.nearMiss
 
   const INVOLVED_PARTIES_CHOICES = [
@@ -72,6 +73,7 @@ const NearMiss = () => {
     formData.append('address', reportData.address)
     formData.append('custom_date', reportData.custom_date)
     formData.append('involved_parties', reportData.involved_parties)
+    formData.append('incident_type', 'near_miss')
     uploadedImages.forEach((image) => {
       formData.append('images', image.file)
     })
@@ -102,6 +104,9 @@ const NearMiss = () => {
   const closeModal = () => {
     resetForm()
     setModalIsOpen(false)
+    if (onCloseModal) {
+      onCloseModal()
+    }
   }
 
   return (
@@ -119,7 +124,8 @@ const NearMiss = () => {
             <Images onImagesChange={handleImagesChange} />
           </QuestionGroup>
           <QuestionGroup onBlur={handleBlur}>
-            <StyledH3>Who was involved in the accident?</StyledH3>
+            <StyledH3>Was anyone involved ?</StyledH3>
+            <p>if not, please select "others"</p>
             <select
               id="involved_parties"
               value={reportData.involved_parties || ''}
@@ -137,13 +143,20 @@ const NearMiss = () => {
             {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
           </QuestionGroup>
           <QuestionGroup>
-            <StyledH3>Comment</StyledH3>
+            <StyledH3>Tell us what happened</StyledH3>
+            <p>
+              Feel free to provide more details about the near miss or hazardous
+              location. Your input is crucial in creating safer streets for
+              cyclists.
+            </p>
             <Description
               value={reportData.description}
               onChange={inputHandler}
             />
           </QuestionGroup>
-          <AccentButton type="submit">Send</AccentButton>
+          <div>
+            <AccentButton type="submit">Send</AccentButton>
+          </div>
         </BasicForm>
       </GridSectionContainer>
 

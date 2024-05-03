@@ -17,12 +17,12 @@ import Description from '../Elements/Description'
 import LocationPicker from '../Elements/Location'
 import Images from '../Elements/Images'
 
-function LegalReport() {
+function LegalReport({ onCloseModal }) {
   const dispatch = useDispatch()
   const reportData = useSelector((state) => state.report)
   const [uploadedImages, setUploadedImages] = useState([])
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const { title, content } = formsData.bicycleAccident
+  const { title, content } = formsData.violations
 
   const inputHandler = (e) => {
     const { id, value } = e.target
@@ -72,6 +72,9 @@ function LegalReport() {
   const closeModal = () => {
     resetForm()
     setModalIsOpen(false)
+    if (onCloseModal) {
+      onCloseModal()
+    }
   }
 
   return (
@@ -91,7 +94,7 @@ function LegalReport() {
           </QuestionGroup>
 
           <QuestionGroup>
-            <StyledH3>Comment</StyledH3>
+            <StyledH3>What improvements do you suggest?</StyledH3>
             <p>
               Feel free to provide details regarding needed improvements for
               cyclists below. Your input helps identify potential risks and

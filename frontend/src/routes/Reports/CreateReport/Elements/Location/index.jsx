@@ -23,7 +23,6 @@ function LocationPicker() {
     if (newLocation) {
       setAddress(newLocation.address)
       // Dispatch action to update Redux store
-      console.log(newLocation)
       dispatch(
         setCommonFields({
           latitude: newLocation.latitude,

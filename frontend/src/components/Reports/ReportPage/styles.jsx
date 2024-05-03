@@ -49,7 +49,8 @@ export const ReportGridContainer = styled(SectionContainer)`
 
 export const ReportPicture = styled.div`
   width: 100%;
-
+  max-width: 100%;
+  
   position: relative;
   border-radius: 10px;
   background-position: bottom;
@@ -62,6 +63,16 @@ export const ReportPicture = styled.div`
   box-shadow: rgba(0, 0, 0, 0.15) 1.5px 1.5px 2px;
 
   grid-area: photo;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      '.'
+      'info'
+      'content'
+      'photo'
+      'btns';
+  }
 
 `
 export const ImageCountLabel = styled.span`

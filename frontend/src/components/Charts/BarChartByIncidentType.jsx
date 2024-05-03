@@ -91,6 +91,23 @@ const StackedBarChartByHour = () => {
         ],
       }
 
+      const options = {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value) { if (value % 1 === 0) { return value; } }
+                }
+            }]
+        }
+    };
       setChartData(data)
     } catch (error) {
       console.error('Error fetching data:', error)

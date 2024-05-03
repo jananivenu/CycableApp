@@ -17,7 +17,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-#setting FILE_UPLOAD_LIMIT:
+# setting FILE_UPLOAD_LIMIT:
 FILE_UPLOAD_MAX_MEMORY_SIZE = 20428800  # 50 MB in bytes
 DATA_UPLOAD_MAX_MEMORY_SIZE = 20428800
 # Quick-start development settings - unsuitable for production
@@ -35,7 +35,6 @@ if DEBUG is True:
 
     # delete this when deploying also th * in allowed host
 CORS_ALLOW_ALL_ORIGINS = True
-
 
 if DEBUG is True:
     CORS_ALLOW_ALL_ORIGINS = True

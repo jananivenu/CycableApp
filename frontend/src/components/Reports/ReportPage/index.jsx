@@ -79,6 +79,8 @@ const ReportPage = ({ report }) => {
           <LeadParagraph>
             {description} <ReportAuthor author={author} />
           </LeadParagraph>
+          </ReportContent>
+
           <ReportButtons>
             <SquareButton onClick={handleGeneratePDF}>
               <TbFileTypePdf /> Download PDF
@@ -93,7 +95,6 @@ const ReportPage = ({ report }) => {
                 />
               )}
           </ReportButtons>
-        </ReportContent>
       </ReportGridContainer>
     </>
   )

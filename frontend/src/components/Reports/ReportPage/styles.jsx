@@ -103,6 +103,6 @@ export const ReportContent = styled.div`
   grid-area: content;
 `
 
-export const ReportNav = styled.div`
-  grid-area: btns;
-`
+// export const ReportNav = styled.div`
+//   grid-area: btns;
+// `

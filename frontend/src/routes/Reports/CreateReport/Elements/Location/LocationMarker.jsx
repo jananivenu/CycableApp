@@ -28,8 +28,8 @@ function LocationMarker({ setLocation, setAddress }) {
   });
 
   const customIcon = new L.Icon({
-    iconUrl: '/pin.png', 
-    iconSize: [25, 41], 
+    iconUrl: '/gps.png', 
+    iconSize: [41, 41], 
     iconAnchor: [12, 41], 
     popupAnchor: [1, -34] 
   });

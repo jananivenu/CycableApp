@@ -20,7 +20,7 @@ import Gallery from './Gallery'
 import { useState } from 'react'
 import { generatePDF } from './Elements/ReportToPDF'
 import DeleteReport from './Elements/DeleteReport'
-import { ReportButtons } from './Elements/styles'
+import { ReportButtonWrapper, ReportButtons } from './Elements/styles'
 import { TbFileTypePdf } from 'react-icons/tb'
 
 const ReportPage = ({ report }) => {
@@ -79,13 +79,15 @@ const ReportPage = ({ report }) => {
           <LeadParagraph>
             {description} <ReportAuthor author={author} />
           </LeadParagraph>
-          </ReportContent>
+        </ReportContent>
 
-          <ReportButtons>
+        <ReportButtons>
+          <ReportButtonWrapper>
             <SquareButton onClick={handleGeneratePDF}>
               <TbFileTypePdf /> Download PDF
             </SquareButton>
-
+          </ReportButtonWrapper>
+          <ReportButtonWrapper>
             {report?.author?.id &&
               currentUser?.id &&
               report.author.id === currentUser.id && (
@@ -94,7 +96,8 @@ const ReportPage = ({ report }) => {
                   onSuccess={handleDeleteSuccess}
                 />
               )}
-          </ReportButtons>
+          </ReportButtonWrapper>
+        </ReportButtons>
       </ReportGridContainer>
     </>
   )

@@ -29,9 +29,27 @@ export const AuthorAvatar = styled.img`
 `
 
 export const ReportButtons = styled.div`
-width: 100%;
+  width: 100%;
   margin-top: 3rem;
 
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 0.5rem;
+
+  grid-area: btns;
+
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+`
+
+export const ReportButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
 `

@@ -17,7 +17,9 @@ from rest_framework.permissions import IsAuthenticated
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+#setting FILE_UPLOAD_LIMIT:
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20428800  # 50 MB in bytes
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20428800
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 

@@ -64,16 +64,6 @@ export const ReportPicture = styled.div`
 
   grid-area: photo;
 
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      '.'
-      'info'
-      'content'
-      'photo'
-      'btns';
-  }
-
 `
 export const ImageCountLabel = styled.span`
   position: absolute;

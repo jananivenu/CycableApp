@@ -1,93 +1,47 @@
-# cycleapp
+This is my final project done as part the Full stack Development Bootcamp
+Cycable App
+Students: Toni Pinjuh, Imane Boumeshouli, Michael Softic, Janani Venugopal and Vladimir Kumov
+Cycable maps
+
+This project was developed by the 27th Batch of the Full-Stack Coding Bootcamp at Constructor Academy, featuring a diverse and skilled team. Vladimir Kumov, originally from Russia and now working in Germany, serves as the Tech Lead with a specialization in frontend development and a notable role in the urban cycling advocacy project, Let’s Bike It. Imane Boumeshouli, a Full-Stack Developer from Morocco also based in Germany, brings a unique blend of programming prowess and experience as an Energy Efficiency & HSE Engineer. Janani Venugopal, another team member from India now in Germany, excels as a Full-Stack Developer with a robust background in software testing. From Bosnia and Herzegovina, now in Switzerland, Toni Pinjuh contributes as a front-end developer with a history as a CNC mechanic. Lastly, Michael Softic, a Frontend Developer from Croatia now in Germany, incorporates his expertise as a Graphic Designer into the project.
+Problem 
+Over the past 10-20 years, bicycles have become a prominent topic. Cities, countries, and larger institutions like the European Union are striving to integrate bicycle trips into urban settings. Some cities are more successful at this than others, which are struggling. A major issue is the lack of data on the challenges faced by urban cyclists. Typically, only data on fatal and injury-related accidents are reported. In areas where safety is compromised, issues like bicycle thefts and non-injury accidents often go unnoticed, yet these are frequently the very problems that deter people from cycling daily.
+
+Solution
+This project aims to create a platform for gathering detailed information on cycling incidents that often go unnoticed by official statistics. Its primary goal is to provide researchers and urban planners with actionable data that can enhance urban cycling safety. The initiative seeks to document not only accidents involving cyclists but also locations prone to bicycle thefts, near-miss incidents, and areas where modest improvements could significantly increase safety and convenience for cyclists. Through this endeavor, the project aspires to contribute to the broader mission of making cities more accommodating and safer for cyclists, thereby promoting a healthier, more sustainable mode of urban transport.
+
+Stats
+Technical features
+User Registration and Authentication: Provides secure sign-up and login to ensure that community members can contribute in a secure environment.
+Contribution and Reporting: Allows users to report incidents, suggest infrastructure improvements, and propose legal adjustments. This includes:
+Geolocation Tagging: Marks the exact location of an event, enabling precise mapping.
+Date and Time Specification: Records the time and date of the observation, providing temporal context.
+Detailed Categorization: Classifies each report into predefined categories, such as accidents, near misses, thefts, and legal suggestions for improving cycling safety and convenience.
+Photo Uploads: Permits the attachment of photographs to document the situation visually, enhancing the clarity of the report.
+Description: Offers an option for additional narrative, allowing contributors to describe situations in detail.
+Database Integration: Features a robust backend infrastructure that efficiently stores, manages, and retrieves all user contributions, ensuring a responsive and reliable platform.
+Interactive Map: Displays reports on an interactive map that categorizes contributions by type (e.g., accidents, thefts, infrastructure suggestions), facilitating user engagement and data exploration.
+User Interaction on Reports: Encourages users to comment on reports by others, fostering a community-driven discussion about cycling safety and infrastructure improvements.
+Mobile Responsive Design: Guarantees the platform's accessibility on various devices, enhancing user engagement.
+Analytics Dashboard: Enables users, administrators, and partner organizations to view statistics and trends related to cycling incidents and infrastructure issues.
+Research and Data Export Tools: Provides tools designed for city administrations, public organizations, and academic researchers to analyze and export data. Users can download individual reports in PDF format or export all data in GeoJSON format, supporting further study and policy formulation.
+Contribution and Reporting: Users can contribute by reporting a variety of situations, not limited to incidents but also including suggestions for infrastructure improvements and legal adjustments. For each submission, users can provide:
+Geolocation Tagging: Mark the exact location for the report, enabling precise identification and mapping.
+Date and Time Specification: Record when the event occurred or when the observation was made to provide temporal context.
+Detailed Categorization: Classify the report using predefined categories, such as accidents, near misses, theft, and suggestions for legalizing certain actions to improve cycling safety and convenience.
+Photo Uploads: Allow for the attachment of photographs to visually document the situation, enhancing the report's clarity and usefulness.
+Description: Offer an option for additional narrative, enabling contributors to describe the situation in detail.
+Database Integration: A robust backend infrastructure to efficiently store, manage, and retrieve all user contributions. This system is key to maintaining a responsive and reliable platform.
+Interactive Map: A dynamic frontend feature that visualizes the reports on an interactive map. This visualization not only categorizes the contributions by type (e.g., accidents, thefts, infrastructure suggestions) but also provides an intuitive and accessible way for users to explore the data.
+User Interaction on Reports: Ability to comment on reports by others, fostering a community-driven discussion on cycling safety and infrastructure improvements.
+Mobile Responsive Design: Ensuring the website is easily accessible on various devices, enhancing user engagement. 
+Analytics Dashboard: For users, administrators, and partner organizations to view statistics and trends related to cycling incidents and infrastructure issues.
+Research and Data Export Tools: Our platform includes tools designed for city administrations, public organizations, and academic researchers to analyze and export data. Users can download individual reports in PDF format or export all data in GeoJSON format, facilitating further study and policy formulation.
+
+Accident report
+Technology stack
+This website was designed with React and JavaScript for a dynamic frontend, combined with Django and Python in the backend for robust data processing. User interactions are managed securely with JWT, while PostgreSQL and ponyORM handle database operations efficiently. The site is designed with Styled Components, with interactive features powered by Charts.js and Mapbox. Everything is hosted on DigitalOcean for reliable performance, and GitLab is used for efficient version control management. This technology stack ensures that the website is not only interactive and visually appealing, but also secure and easy to manage.
 
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.propulsion-home.ch/full-stack/batch-27-feb-2024/final-projects/cycleapp.git
-git branch -M master
-git push -uf origin master
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.propulsion-home.ch/full-stack/batch-27-feb-2024/final-projects/cycleapp/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+The information can also be found in the below link.
+https://academy.constructor.org/blog/full-stack-capstone-projects-full-time-batch-27
